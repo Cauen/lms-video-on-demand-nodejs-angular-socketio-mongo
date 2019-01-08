@@ -1,0 +1,90 @@
+<mat-card class="example-card">
+  <mat-card-header>
+    <mat-card-title>Create Course</mat-card-title>
+  </mat-card-header>
+  <mat-card-content>
+    <form (keydown)="keyDownFunction($event)" class="example-form">
+      <table class="example-full-width" cellspacing="0">
+        <tr>
+          <td>
+            <mat-form-field class="example-full-width">
+            <input matInput placeholder="Name" [(ngModel)]="name" name="name" required>
+            </mat-form-field>
+          </td>
+        </tr>
+        <tr>
+        <td><mat-form-field class="example-full-width">
+            <textarea matInput [(ngModel)]="description" name="description" placeholder="Description"></textarea>
+        </mat-form-field></td>
+      </tr>
+      <tr><td>
+          <mat-form-field class="example-chip-list">
+            <mat-chip-list #chipList>
+              <mat-chip *ngFor="let tagCourse of tagCourses" [selectable]="selectable"
+                        [removable]="removable" (removed)="remove(tagCourse)">
+                {{tagCourse.name}}
+                <mat-icon matChipRemove *ngIf="removable">cancel</mat-icon>
+              </mat-chip>
+              <input placeholder="Tags..."
+                      [matChipInputFor]="chipList"
+                      [matChipInputSeparatorKeyCodes]="separatorKeysCodes"
+                      [matChipInputAddOnBlur]="addOnBlur"
+                      (matChipInputTokenEnd)="add($event)">
+            </mat-chip-list>
+      </mat-form-field></td></tr>
+      <tr><td>
+        <mat-grid-list cols="2" rowHeight="45px">
+            <mat-grid-tile><h3>Modules</h3></mat-grid-tile>
+            <mat-grid-tile>
+                <button mat-raised-button color="accent">Add</button></mat-grid-tile>
+          </mat-grid-list>
+        
+        <mat-table #table [dataSource]="dataSource">
+
+          <!--- Note that these columns can be defined in any order.
+                The actual rendered columns are set as a property on the row definition" -->
+      
+          <!-- Position Column -->
+          <ng-container matColumnDef="position">
+            <mat-header-cell *matHeaderCellDef> No. </mat-header-cell>
+            <mat-cell *matCellDef="let element"> {{element.position}} </mat-cell>
+          </ng-container>
+      
+          <!-- Name Column -->
+          <ng-container matColumnDef="name">
+            <mat-header-cell *matHeaderCellDef> Name </mat-header-cell>
+            <mat-cell *matCellDef="let element"> {{element.name}} </mat-cell>
+          </ng-container>
+      
+          <!-- Weight Column -->
+          <ng-container matColumnDef="weight">
+            <mat-header-cell *matHeaderCellDef> Weight </mat-header-cell>
+            <mat-cell *matCellDef="let element"> {{element.weight + 2}} </mat-cell>
+          </ng-container>
+      
+          <!-- Expanded Content Column - The detail row is made up of this one column -->
+          <ng-container matColumnDef="expandedDetail">
+            <mat-cell  *matCellDef="let detail"> 
+              <tr *ngFor="let item of videos; let i = index" >The symbol for  asdas asdas asd asd{{item}} is {{detail.element.symbol}}</tr>
+            </mat-cell>
+          </ng-container>
+      
+          <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+          <mat-row *matRowDef="let row; columns: displayedColumns;"
+                  matRipple 
+                  class="element-row" 
+                  [class.expanded]="expandedElement == row"
+                  (click)="expandedElement === row? expandedElement = null : expandedElement = row"></mat-row>
+          <mat-row *matRowDef="let row; columns: ['expandedDetail']; when: isExpansionDetailRow"
+                  [@detailExpand]="row.element == expandedElement ? 'expanded' : 'collapsed'"
+                  style="overflow: hidden"> 
+          </mat-row>
+        </mat-table>
+      </td></tr></table>
+    </form>
+    <mat-spinner [style.display]="showSpinner ? 'block' : 'none'"></mat-spinner>
+  </mat-card-content>
+  <mat-card-actions>
+    <button id="createCourse" mat-raised-button type="button" (click)="create_course()" color="primary">Create Course</button>
+  </mat-card-actions>
+</mat-card>

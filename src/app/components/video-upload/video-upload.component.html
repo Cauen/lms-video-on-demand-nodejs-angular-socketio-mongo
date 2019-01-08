@@ -1,0 +1,72 @@
+<mat-card class="example-card">
+    <mat-card-header>
+      <mat-card-title>Upload</mat-card-title>
+    </mat-card-header>
+    <mat-card-content>
+      <form (keydown)="keyDownFunction($event)" class="example-form">
+        <table class="example-full-width" cellspacing="0">
+          <tr>
+            <td>
+              <mat-form-field class="example-full-width">
+              <input matInput placeholder="Name" [(ngModel)]="name" name="name" required>
+              </mat-form-field>
+            </td>
+          </tr>
+          <tr>
+          <td><mat-form-field class="example-full-width">
+              <textarea matInput [(ngModel)]="description" name="description" placeholder="Description"></textarea>
+          </mat-form-field></td>
+        </tr>
+      <tr><td>
+              <mat-form-field class="example-chip-list">
+                <mat-chip-list #chipList>
+                  <mat-chip *ngFor="let tagVideo of tagVideos" [selectable]="selectable"
+                            [removable]="removable" (removed)="remove(tagVideo)">
+                    {{tagVideo.name}}
+                    <mat-icon matChipRemove *ngIf="removable">cancel</mat-icon>
+                  </mat-chip>
+                  <input placeholder="Tags..."
+                          [matChipInputFor]="chipList"
+                          [matChipInputSeparatorKeyCodes]="separatorKeysCodes"
+                          [matChipInputAddOnBlur]="addOnBlur"
+                          (matChipInputTokenEnd)="add($event)">
+                </mat-chip-list>
+          </mat-form-field>
+      </td></tr>
+      
+      <tr><td>
+        <mat-form-field>
+          <mat-select [(ngModel)]="course" name="course" placeholder="Course">
+            <mat-option *ngFor="let course of courses" [value]="course.id">
+              {{course.name}}
+            </mat-option>
+          </mat-select>
+        </mat-form-field>
+      </td></tr>
+      <tr><td>
+          <h3>Video</h3>
+          <div ng-app="MyApp" ng-controller="AppCtrl" layout-margin layout-padding>
+              <input (change)="onFileChange($event)"  type="file" name="file"><br>
+          <label for="input-file-id" class="md-button md-raised md-primary">Choose Files</label>
+            
+          </div>
+
+        </td></tr>
+
+        <tr><td>
+            <h3>Thumbnail</h3>
+            <div ng-app="MyApp" ng-controller="AppCtrl" layout-margin layout-padding>
+                <input (change)="onFileChangeThumb($event)"  type="file" name="thumb"><br>
+            <label for="input-file-id" class="md-button md-raised md-primary">Choose Files</label>
+              
+            </div>
+  
+          </td></tr>
+      </table>
+      </form>
+      <mat-spinner [style.display]="showSpinner ? 'block' : 'none'"></mat-spinner>
+    </mat-card-content>
+    <mat-card-actions>
+      <button  id="uploadVideo" mat-raised-button type="button" (click)="upload_video()" color="primary">Upload</button>
+    </mat-card-actions>
+  </mat-card>

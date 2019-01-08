@@ -1,0 +1,33 @@
+const mongoose = require('mongoose');
+const Schema = mongoose.Schema;
+
+// Define collection and schema for Video
+let Video = new Schema({
+  name: {
+    type: String,
+    required: true
+  },
+  description: {
+    type: String,
+    required: true
+  },
+  tags: [String],
+  course: { type : Schema.Types.ObjectId, ref: 'Course' },
+  module: { type : Schema.Types.ObjectId, ref: 'Module' },
+  fileThumbDirURL: String,
+  fileDirURL: String,
+  thumbnailDirURL: String,
+  originalFileName: String,
+  fileType: String, 
+  fileSize: Number,
+  comments: [{
+    user: { type: String },
+    content: {type: String }
+  }],
+  
+  uploaded: { type: Date, default: Date.now },
+},{
+    collection: 'video'
+});
+
+module.exports = mongoose.model('Video', Video);

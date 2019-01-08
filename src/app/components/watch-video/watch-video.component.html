@@ -1,0 +1,31 @@
+
+<div id="wrapper">
+<p>
+  watch-video works! ID = {{id}}
+</p>
+
+<video width="400" [style.background-image]="getThumbURL()" preload="metadata" id="videoPlayer" poster="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7"  controls>
+  <source src="{{videoURL}}"  type="video/mp4">
+</video>
+
+<mat-list>
+    <mat-list-item *ngFor="let item of comments; let i = index">{{item.user}} comentou: {{item.content}}</mat-list-item>
+</mat-list>
+<form (keydown)="keyDownFunction($event)" class="example-form">
+  <table class="example-full-width" cellspacing="0">
+    <tr>
+      <td>
+        <mat-form-field class="example-full-width">
+        <input matInput placeholder="Name" [(ngModel)]="name" name="name" required>
+        </mat-form-field>
+      </td>
+    </tr>
+    <tr>
+    <td><mat-form-field class="example-full-width">
+        <textarea matInput [(ngModel)]="comment" name="comment" placeholder="Description"></textarea>
+    </mat-form-field></td>
+  </tr>
+  </table>
+  <button id="comment" mat-raised-button type="button" (click)="create_comment()" color="primary">Comment</button>
+</form>
+</div>
