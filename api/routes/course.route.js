@@ -36,6 +36,7 @@ courseRoutes.route('/').get(function (req, res) {
   });
 });
 
+/*
 // Defined get data(index or listing) route
 courseRoutes.route('/getall').get(async function (req, res) {
   await Course.find(async function (err, courses){
@@ -51,7 +52,7 @@ courseRoutes.route('/getall').get(async function (req, res) {
       const myVideos = await Video.find({course: o_id}, function(err, videos) {
         if (videos) {
             courses[key].videos = videos;
-            console.log(JSON.stringify(videos._id))
+            console.log("Video: " + JSON.stringify(videos._id))
           
         } else {
           courses[key].videos = [];
@@ -60,8 +61,20 @@ courseRoutes.route('/getall').get(async function (req, res) {
     }
 
     console.log('Returning');
+    console.log(courses);
     res.json(courses);
     
+  });
+}); */
+
+// Defined get data(index or listing) route
+courseRoutes.route('/getall').get(async function (req, res) {
+  await Course.find().populate('videos').exec(function (err, courses) {
+    if (err) {
+      console.log('Error')
+      return false;
+    }
+    res.json(courses);
   });
 });
 

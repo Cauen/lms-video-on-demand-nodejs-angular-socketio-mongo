@@ -22,7 +22,8 @@ let Video = new Schema({
   fileSize: Number,
   comments: [{
     user: { type: String },
-    content: {type: String }
+    content: {type: String },
+    commentedAt: { type: Date, default: Date.now }
   }],
   
   uploaded: { type: Date, default: Date.now },

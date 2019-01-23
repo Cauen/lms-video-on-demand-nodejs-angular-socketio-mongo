@@ -17,6 +17,8 @@ import { WatchVideoComponent } from './components/watch-video/watch-video.compon
 
 
 import { HttpClientModule } from '@angular/common/http';
+import { UserRegisterComponent } from './components/user-register/user-register.component';
+import { ProfileComponent } from './components/profile/profile.component';
 
 
 @NgModule({
@@ -26,7 +28,9 @@ import { HttpClientModule } from '@angular/common/http';
     UserLoginComponent,
     VideoUploadComponent,
     CreateCourseComponent,
-    WatchVideoComponent
+    WatchVideoComponent,
+    UserRegisterComponent,
+    ProfileComponent
   ],
   imports: [
     BrowserModule,

@@ -20,16 +20,34 @@ const fs = require('fs');
 
 // Require Video model in our routes module
 let Video = require('../models/Video');
+let Course = require('../models/Course');
 
 // Defined store route
 videoRoutes.route('/add').post(function (req, res) {
   let video = new Video(req.body);
   video.save()
     .then(video => {
+      Course.findById(req.params.id, function(err, course) {
+        if (!course) {
+          console.log("Course not loaded")
+          return false;
+        } else {
+            course.videos.push(video.id);
+    
+            course.save().then(course => {
+              res.json('Update complete on course videos list');
+          })
+          .catch(err => {
+                res.status(400).send("unable to update the course database");
+          });
+        }
+      });
+
+
       res.status(200).json({'video': 'video in added successfully'});
     })
     .catch(err => {
-    res.status(400).send(err);
+      res.status(400).send(err);
     });
 });
 
@@ -173,7 +191,27 @@ videoRoutes.route('/upload').post(upload.fields([{
     });
   video.save()
     .then(video => {
-      res.status(200).json({'video': 'Video in added successfully ' + req.files.file[0].filename});
+      console.log(req.body.course)
+      Course.findById(req.body.course, function(err, course) {
+        if (!course) {
+          console.log("Course not loaded")
+          return false;
+        } else {
+            course.videos.push(video.id);
+            console.log('Video pushed in course');
+            course.save().then(course => {
+              console.log('Update complete on course videos list');
+              res.status(200).send('Update complete on course videos list');
+          })
+          .catch(err => {
+              console.log("unable to update the course database");
+              res.status(400).send(err);
+          });
+        }
+      });
+
+      console.log('Video pushed in Videos');
+      //res.status(200).json({'video': 'Video in added successfully ' + req.files.file[0].filename});
     })
     .catch(err => {
       res.status(400).send(err);
@@ -220,6 +258,18 @@ videoRoutes.route('/comments/:id').get(function (req, res) {
       return res.status(400).send("No video found!");
     else {
         res.status(200).send(video.comments);
+    }
+  });
+});
+
+
+//  Defined update route
+videoRoutes.route('/data/:id').get(function (req, res) {
+  Video.findById(req.params.id, function(err, video) {
+    if (!video)
+      return res.status(400).send("No video found!");
+    else {
+        res.status(200).send(video);
     }
   });
 });

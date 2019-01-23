@@ -1,7 +1,7 @@
 
 <div id="wrapper">
 <p>
-  watch-video works! ID = {{id}}
+  {{videoName}}
 </p>
 
 <video width="400" [style.background-image]="getThumbURL()" preload="metadata" id="videoPlayer" poster="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7"  controls>
@@ -16,7 +16,7 @@
     <tr>
       <td>
         <mat-form-field class="example-full-width">
-        <input matInput placeholder="Name" [(ngModel)]="name" name="name" required>
+        <input matInput placeholder="Name" [(ngModel)]="userDetails.name" name="name" disabled required>
         </mat-form-field>
       </td>
     </tr>

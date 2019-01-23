@@ -77,9 +77,11 @@ export class ClassesListComponent implements OnInit {
     this.route.params.subscribe(params => {
       this.cs.getCoursesAndData().subscribe(res => {
         Array.prototype.push.apply(this.coursesAndData, res);
+        console.log("All courses");
         console.log(this.coursesAndData);
         this.coursesAndDataWithVideos = this.coursesAndData.filter(this.filterByID);
-        console.log(this.coursesAndDataWithVideos.length)
+        console.log("Only with videos")
+        console.log(this.coursesAndDataWithVideos);
       });
     });
   }
@@ -92,16 +94,19 @@ export class ClassesListComponent implements OnInit {
     }
   }
 
-  public getThumbURL (couseKey, videoKey)  : string{
-    return 'url('+this.vs.uri+'/thumb/'+this.coursesAndData[couseKey].videos[videoKey]._id+')';
+  public getThumbURL (courseKey, videoKey)  : string{
+    if (this.coursesAndDataWithVideos[courseKey].videos[videoKey])
+    return 'url('+this.vs.uri+'/thumb/'+this.coursesAndDataWithVideos[courseKey].videos[videoKey]._id+')';
   }
 
-  public getVideoURL (couseKey, videoKey)  : string{
-    return ''+this.vs.uri+'/watch/'+this.coursesAndData[couseKey].videos[videoKey]._id+'';
+  public getVideoURL (courseKey, videoKey)  : string{
+    if (this.coursesAndDataWithVideos[courseKey].videos[videoKey])
+    return ''+this.vs.uri+'/watch/'+this.coursesAndDataWithVideos[courseKey].videos[videoKey]._id+'';
   }
 
   public getVideoID (courseKey, videoKey) : string {
-    return this.coursesAndData[courseKey].videos[videoKey]._id;
+    if (this.coursesAndDataWithVideos[courseKey].videos[videoKey])
+      return this.coursesAndDataWithVideos[courseKey].videos[videoKey]._id;
   }
 
   public carouselTileLoad(j) {

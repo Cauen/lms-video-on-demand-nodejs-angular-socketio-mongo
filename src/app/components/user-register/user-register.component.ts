@@ -2,29 +2,32 @@ import { Component, OnInit } from '@angular/core';
 
 import {Router} from '@angular/router';
 
-import { MaterialModule } from '../../material.modules';
+import { AuthService, TokenPayload } from '../../services/auth.service';
 
 import {MatSnackBar} from '@angular/material';
 
-import { AuthService, TokenPayload } from '../../services/auth.service';
-
 @Component({
-  selector: 'app-user-login',
-  templateUrl: './user-login.component.html',
-  styleUrls: ['./user-login.component.css']
+  selector: 'app-user-register',
+  templateUrl: './user-register.component.html',
+  styleUrls: ['./user-register.component.css']
 })
-
-export class UserLoginComponent implements OnInit {
+export class UserRegisterComponent implements OnInit {
   constructor(private router: Router,public snackBar: MatSnackBar, private as: AuthService) { }
+  name: string;
+  email: string;
+  password: string;
+  username: string;
   credentials: TokenPayload = {
     email: '',
-    password: ''
+    name: '',
+    password: '',
+    username: ''
   };
   ngOnInit() {
   }
   keyDownFunction(event) {
     if(event.keyCode == 13) {
-      this.login();
+      this.register();
     }
   }
   openSnackBar(message: string, action: string) {
@@ -32,9 +35,8 @@ export class UserLoginComponent implements OnInit {
       duration: 2000,
     });
   }
-  login() : void {    
-    this.as.login(this.credentials).subscribe(() => {
-      this.openSnackBar('Success', 'close');
+  register() {
+    this.as.register(this.credentials).subscribe(() => {
       this.router.navigateByUrl('/');
     }, (err) => {
       this.openSnackBar(err, 'close');

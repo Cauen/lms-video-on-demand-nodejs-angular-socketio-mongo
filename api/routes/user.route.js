@@ -18,7 +18,7 @@ userRoutes.route('/add').post(function (req, res) {
     });
 });
 
-// Defined get data(index or listing) route
+// Defined get data(index or listing) routez
 userRoutes.route('/').get(function (req, res) {
     User.find(function (err, useres){
     if(err){

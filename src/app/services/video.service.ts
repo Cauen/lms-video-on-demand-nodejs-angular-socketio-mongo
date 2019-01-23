@@ -3,6 +3,8 @@ import { HttpClient } from '@angular/common/http';
 import { Observable, Subscription } from 'rxjs';
 import { AngularWaitBarrier } from 'blocking-proxy/built/lib/angular_wait_barrier';
 
+import { AuthService, TokenPayload } from '../services/auth.service';
+
 @Injectable({
   providedIn: 'root'
 })
@@ -10,7 +12,8 @@ export class VideoService {
 
   uri = 'http://localhost:4000/video';
 
-  constructor(private http: HttpClient) { }
+  token = { headers: { Authorization: `Bearer ${this.as.getToken()}` }};
+  constructor(private http: HttpClient, private as: AuthService) { }
   /*
   addVideo(name, description, tags, file) {
     const obj = {
@@ -56,6 +59,14 @@ addComment(user, content, id) {
 
 getComments(id) : any {
   return this.http.get(`${this.uri}/comments/`+id);
+}
+
+getData(id) : any {
+  return this.http.get(`${this.uri}/data/`+id);
+}
+
+getThumb(id) : any {
+  return this.http.get(`${this.uri}/thumb/`+id);
 }
 
 
