@@ -2,9 +2,9 @@ const express = require('express');
 const app = express();
 const videoRoutes = express.Router();
 
-const multer = require("multer");
 var ObjectId = require('mongodb').ObjectID;
 
+const multer = require("multer");
 const myFileFilter = function (req, file, cb) {
   // accept image only
   if (!file.originalname.match(/\.(jpg|jpeg|png|gif|mp4)$/)) {
@@ -23,7 +23,7 @@ let Video = require('../models/Video');
 let Course = require('../models/Course');
 
 // Defined store route
-videoRoutes.route('/add').post(function (req, res) {
+module.exports.add = (function (req, res) {
   let video = new Video(req.body);
   video.save()
     .then(video => {
@@ -52,7 +52,7 @@ videoRoutes.route('/add').post(function (req, res) {
 });
 
 // Defined get data(index or listing) route
-videoRoutes.route('/').get(function (req, res) {
+module.exports.default = (function (req, res) {
     Video.find(function (err, videoes){
     if(err){
       console.log(err);
@@ -64,7 +64,7 @@ videoRoutes.route('/').get(function (req, res) {
 });
 
 // Defined delete | remove | destroy route
-videoRoutes.route('/delete/:id').get(function (req, res) {
+module.exports.deleteID = (function (req, res) {
   Video.findByIdAndRemove({_id: req.params.id}, function(err, video){
       if(err) res.json(err);
       else res.json('Successfully removed');
@@ -82,7 +82,7 @@ var mime = {
   js: 'application/javascript'
 };
 
-videoRoutes.route('/thumb/:id').get(function (req, res) {
+module.exports.thumbID = (function (req, res) {
   let id = req.params.id;
   var videoURL;
   Video.findById(id, function (err, video){
@@ -106,7 +106,7 @@ videoRoutes.route('/thumb/:id').get(function (req, res) {
 });
 
 // Defined delete | remove | destroy route
-videoRoutes.route('/watch/:id').get(function (req, res) {
+module.exports.watchID = (function (req, res) {
   let id = req.params.id;
   var videoURL;
   Video.findById(id, function (err, video){
@@ -118,22 +118,28 @@ videoRoutes.route('/watch/:id').get(function (req, res) {
 
       const path = 'videos/'+videoURL
       const stat = fs.statSync(path);
+      console.log(JSON.stringify(stat))
       const fileSize = stat.size
       const range = req.headers.range
       console.log('Range: ' + range)
       if (range) {
-        const parts = range.replace(/bytes=/, "").split("-")
-        const start = parseInt(parts[0], 10)
+        const parts = range.replace(/bytes=/, "").split("-");
+        console.log(parts);
+        const start = parseInt(parts[0], 10);
+        //var start = 225050624;
         const end = parts[1] 
           ? parseInt(parts[1], 10)
-          : fileSize-1
+          : fileSize-1;
+          
         const chunksize = (end-start)+1
         const file = fs.createReadStream(path, {start, end})
         
+        console.log('SIZE: ' + fileSize)
+        console.log('START: ' + start + ": " + start/fileSize);
+        console.log('END: ' + end + ": " + end/fileSize);
         file.on('data', data => {
           //console.log('OnData' );
           //console.log(Date.now());
-          //file.destroy();
         });
         file.on('close', () => {
           
@@ -147,8 +153,7 @@ videoRoutes.route('/watch/:id').get(function (req, res) {
           'Content-Length': chunksize,
           'Content-Type': 'video/mp4',
         }
-        console.log('START: ' + start);
-        console.log('END: ' + end);
+        
         res.writeHead(206, head);
         file.pipe(res);
       } else {
@@ -164,19 +169,20 @@ videoRoutes.route('/watch/:id').get(function (req, res) {
   
 });
 
-videoRoutes.route('/upload').post(upload.fields([{
-  name: 'file', maxCount: 1
-}, {
-  name: 'filethumb', maxCount: 1
-}]), function(req, res){
+module.exports.upload = function(req, res){
   var name = req.body.name;
   var description = req.body.description;
+  var duration = req.body.duration;
   var tags = req.body.tags;
   var course = req.body.course;
+  console.log('Tentando upload');
 
-  if (!req.files.file || !req.files.filethumb) 
+  console.log(JSON.stringify(req.file));
+
+  if (!req.files || !req.files.file || !req.files.filethumb) 
     return res.status(400).send('Image or video needed');
   
+  console.log(req.files);
   let video = new Video( 
     {
       name: name, 
@@ -187,6 +193,7 @@ videoRoutes.route('/upload').post(upload.fields([{
       originalFileName: req.files.file[0].originalname,
       fileType: req.files.file[0].mimetype,
       fileSize: req.files.file[0].size,
+      videoDuration:duration,
       course: course
     });
   video.save()
@@ -194,7 +201,7 @@ videoRoutes.route('/upload').post(upload.fields([{
       console.log(req.body.course)
       Course.findById(req.body.course, function(err, course) {
         if (!course) {
-          console.log("Course not loaded")
+          res.status(404).send('Course not loaded');
           return false;
         } else {
             course.videos.push(video.id);
@@ -214,14 +221,14 @@ videoRoutes.route('/upload').post(upload.fields([{
       //res.status(200).json({'video': 'Video in added successfully ' + req.files.file[0].filename});
     })
     .catch(err => {
-      res.status(400).send(err);
+      res.status(400).send('Error at uploading');
     });
 
-})
+}
 
 /*
 // Defined store route
-videoRoutes.route('/comment').post(function (req, res) {
+module.exports.('/comment') = (function (req, res) {
   let video = new Video(req.body);
   video.save()
     .then(video => {
@@ -234,7 +241,7 @@ videoRoutes.route('/comment').post(function (req, res) {
 */
 
 //  Defined update route
-videoRoutes.route('/comment/:id').post(function (req, res) {
+module.exports.commentId = (function (req, res) {
   Video.findById(req.params.id, function(err, video) {
   if (!video)
     return next(new Error('Could not load Document'));
@@ -252,7 +259,7 @@ videoRoutes.route('/comment/:id').post(function (req, res) {
 });
 
 //  Defined update route
-videoRoutes.route('/comments/:id').get(function (req, res) {
+module.exports.commentsId = (function (req, res) {
   Video.findById(req.params.id, function(err, video) {
     if (!video)
       return res.status(400).send("No video found!");
@@ -264,7 +271,7 @@ videoRoutes.route('/comments/:id').get(function (req, res) {
 
 
 //  Defined update route
-videoRoutes.route('/data/:id').get(function (req, res) {
+module.exports.dataId = (function (req, res) {
   Video.findById(req.params.id, function(err, video) {
     if (!video)
       return res.status(400).send("No video found!");
@@ -277,7 +284,7 @@ videoRoutes.route('/data/:id').get(function (req, res) {
 //getVideos
 
 //  Defined update route
-videoRoutes.route('/ofcourse/:courseid').get(function (req, res) {
+module.exports.ofCourseId = (function (req, res) {
   var id = req.params.courseid;       
   var o_id = new ObjectId(id);
   Video.find({course: o_id}, function(err, video) {
@@ -289,5 +296,3 @@ videoRoutes.route('/ofcourse/:courseid').get(function (req, res) {
   });
 
 });
-
-module.exports = videoRoutes;

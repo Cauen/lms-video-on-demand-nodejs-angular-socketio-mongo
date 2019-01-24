@@ -41,13 +41,14 @@ export class AuthService {
   public getToken(): string {
     if (!this.token) {
       this.token = localStorage.getItem('mean-token');
-      console.log(this.token);
+      //console.log(this.token);
     }
     return this.token;
   }
 
   public getUserDetails(): UserDetails {
     const token = this.getToken();
+    //console.log("Token do getUserDetails: " + token);
     let payload;
     if (token) {
       payload = token.split('.')[1];

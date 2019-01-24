@@ -4,6 +4,7 @@ import { Observable, Subscription } from 'rxjs';
 import { AngularWaitBarrier } from 'blocking-proxy/built/lib/angular_wait_barrier';
 
 import { AuthService, TokenPayload } from '../services/auth.service';
+import { UserService } from '../services/user.service'; 
 
 @Injectable({
   providedIn: 'root'
@@ -33,7 +34,7 @@ export class VideoService {
     return resultado;
   }
   */
-  addVideo(name, description, tags, fileToUpload: File, fileThumbToUpload: File, course){
+  addVideo(name, description, tags, fileToUpload: File, fileThumbToUpload: File, course, duration){
     console.log({name, description, tags, fileToUpload});
     const formData: FormData = new FormData();
     formData.append('file', fileToUpload, fileToUpload.name);
@@ -42,6 +43,7 @@ export class VideoService {
     formData.append('description', description);
     formData.append('tags', tags);
     formData.append('course', course);
+    formData.append('duration', duration);
 
     var config = {headers: {}, transformRequest: 'Angular'};
     config.headers['Content-Type'] = undefined;

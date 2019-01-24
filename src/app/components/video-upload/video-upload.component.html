@@ -50,7 +50,9 @@
           <label for="input-file-id" class="md-button md-raised md-primary">Choose Files</label>
             
           </div>
-
+          <!-- To get video duration -->
+          <video #video style="display: none;" *ngIf="videoUrl" width="320" height="240" controls [attr.src]="videoUrl" (loadedmetadata)="getDuration($event)">
+          </video>
         </td></tr>
 
         <tr><td>

@@ -33,7 +33,17 @@ let User = new Schema({
   salt: String,
   preferences: [{ type : Schema.Types.ObjectId, ref: 'Course' }],
   watching: [{
-    video: { type : Schema.Types.ObjectId, ref: 'Video' }, percentage: {type: Number}
+    video: { 
+      type : Schema.Types.ObjectId, 
+      ref: 'Video', unique: true,
+    }, 
+    secondswatched: {
+      type: Number,
+      required: true,
+    },
+    percent: {
+      type: Number
+    }
   }],
   updated: { type: Date, default: Date.now },
 },{

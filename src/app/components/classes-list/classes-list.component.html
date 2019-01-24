@@ -15,7 +15,26 @@
       <source [src]="getVideoURL(c, i)"  type="video/mp4">
     </video> 
     <img mat-card-image src="https://material.angular.io/assets/img/examples/shiba2.jpg" alt="Photo of a Shiba Inu">-->
-    <div class="video-image" width="400" [style.background-image]="getThumbURL(c, i)"></div>
+    <div class="video-image" width="400" [style.margin-bottom]="0" [style.background-image]="getThumbURL(c, i)">
+      <div class="duration" style="
+        vertical-align: bottom;
+        display: table;
+        margin: auto 0 0 auto;
+        padding: 4px;
+        background: #00000061;
+        color: white;
+        font-weight: bold;
+        "><span>{{getVideoDuration(c, i)}}</span>
+        </div>
+    </div>
+    <div class="progress " style="
+        height: 2px;
+        margin: 0 -16px 16px -16px;
+    "><span class="progress-bar" style="
+        height: 2px;
+        display: block;
+    "><span role="presentation" class="progress-completed" [style.width]="getWatchingPercent(c, i)+'%'" style="height: 2px;display: block;background: red;"></span></span>
+    </div>
     <mat-card-content>
       <p>{{item.description}}
       </p>

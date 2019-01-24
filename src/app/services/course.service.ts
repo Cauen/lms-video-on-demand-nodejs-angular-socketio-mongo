@@ -22,17 +22,17 @@ export class CourseService {
       modules: modules
     };
     console.log(obj);
-    this.http.post(`${this.uri}/add`, obj, this.token)
+    this.http.post(`${this.uri}/add`, obj)
         .subscribe(res => console.log(res));
   }
 
 
   getCourses() {
-    return this.http.get(`${this.uri}/`, this.token);
+    return this.http.get(`${this.uri}/`);
   }
 
   getCoursesAndData() {
-    return this.http.get(`${this.uri}/getall`, this.token);
+    return this.http.get(`${this.uri}/getall`);
   }
 
   getVideosFromCourses(id) {

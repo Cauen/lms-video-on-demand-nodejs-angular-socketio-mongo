@@ -20,6 +20,7 @@ let Video = new Schema({
   originalFileName: String,
   fileType: String, 
   fileSize: Number,
+  videoDuration: Number,
   comments: [{
     user: { type: String },
     content: {type: String },

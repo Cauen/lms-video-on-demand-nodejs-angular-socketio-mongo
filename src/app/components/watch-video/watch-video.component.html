@@ -4,19 +4,18 @@
   {{videoName}}
 </p>
 
-<video width="400" [style.background-image]="getThumbURL()" preload="metadata" id="videoPlayer" poster="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7"  controls>
-  <source src="{{videoURL}}"  type="video/mp4">
+<video [attr.src]="videoURL" (timeupdate)="onTimeUpdate($event)" (loadedmetadata)="videoLoaded($event)" width="400" [style.background-image]="getThumbURL()" preload="metadata" id="videoPlayer" poster="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7"  controls autoplay >
 </video>
 
-<mat-list>
-    <mat-list-item *ngFor="let item of comments; let i = index">{{item.user}} comentou: {{item.content}}</mat-list-item>
+<mat-list *ngIf="comments.length">
+    <mat-list-item *ngFor="let item of comments; let i = index">{{item?.user}} comentou: {{item?.content}}</mat-list-item>
 </mat-list>
 <form (keydown)="keyDownFunction($event)" class="example-form">
   <table class="example-full-width" cellspacing="0">
     <tr>
       <td>
         <mat-form-field class="example-full-width">
-        <input matInput placeholder="Name" [(ngModel)]="userDetails.name" name="name" disabled required>
+        <input matInput placeholder="Name" [(ngModel)]="username" name="name" disabled required>
         </mat-form-field>
       </td>
     </tr>

@@ -35,7 +35,7 @@ export class UserLoginComponent implements OnInit {
   login() : void {    
     this.as.login(this.credentials).subscribe(() => {
       this.openSnackBar('Success', 'close');
-      this.router.navigateByUrl('/');
+      this.router.navigateByUrl('/courses');
     }, (err) => {
       this.openSnackBar(err, 'close');
       console.error(err);

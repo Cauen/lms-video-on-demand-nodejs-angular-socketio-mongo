@@ -6,6 +6,8 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { VideoService } from '../../services/video.service';
 import { CourseService } from '../../services/course.service';
 
+import { DomSanitizer } from '@angular/platform-browser';
+
 export interface TagVideo {
   name: string;
 }
@@ -16,12 +18,15 @@ export interface TagVideo {
   styleUrls: ['./video-upload.component.css']
 })
 export class VideoUploadComponent implements OnInit {
+  
+  videoUrl;
   name : string;
   description : string;
   tags : [string];
   file: File = null;
   fileThumb: File = null;
   course: string;
+  duration: Number;
 
   courses = [];
 
@@ -33,6 +38,8 @@ export class VideoUploadComponent implements OnInit {
   readonly separatorKeysCodes: number[] = [ENTER, COMMA];
   tagVideos: TagVideo[] = [
   ];
+
+  
 
   add(event: MatChipInputEvent): void {
     const input = event.input;
@@ -60,7 +67,8 @@ export class VideoUploadComponent implements OnInit {
   constructor(private vs:VideoService, 
     private route: ActivatedRoute,
     private router: Router,
-    private cs: CourseService) { }
+    private cs: CourseService,
+    private sanitizer: DomSanitizer) { }
 
   ngOnInit() {
     this.getCourses()
@@ -84,7 +92,7 @@ export class VideoUploadComponent implements OnInit {
     }
     //this.vs.addVideo(this.name, this.description, tags, this.file[0]);
 
-    this.vs.addVideo(this.name, this.description, tags, this.file, this.fileThumb, this.course);
+    this.vs.addVideo(this.name, this.description, tags, this.file, this.fileThumb, this.course, this.duration);
 
     
   }
@@ -97,8 +105,18 @@ export class VideoUploadComponent implements OnInit {
   
   onFileChange(event){
     this.file = event.target.files[0];
+    const files = event.target.files;
+    if (files && files[0]) {
+      this.videoUrl = this.sanitizer.bypassSecurityTrustUrl(URL.createObjectURL(files[0]));
+    }
     console.log(event);
   } 
+
+  getDuration(e) {
+    const durationz = e.target.duration;
+    this.duration = durationz;
+  }
+
   onFileChangeThumb(event){
     this.fileThumb = event.target.files[0];
     console.log(event);

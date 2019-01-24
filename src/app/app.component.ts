@@ -12,6 +12,6 @@ export class AppComponent  implements OnInit {
   public ngOnInit() {
     this.username = this.auth.getUserDetails();
   }
-  username;
-  title = 'Multi';
+  username = {name: "User"} as UserDetails;
+  title = 'NeadTV';
 }

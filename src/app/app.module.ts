@@ -16,9 +16,10 @@ import { CreateCourseComponent } from './components/create-course/create-course.
 import { WatchVideoComponent } from './components/watch-video/watch-video.component';
 
 
-import { HttpClientModule } from '@angular/common/http';
+import { HttpClientModule, HTTP_INTERCEPTORS} from '@angular/common/http';
 import { UserRegisterComponent } from './components/user-register/user-register.component';
 import { ProfileComponent } from './components/profile/profile.component';
+import { JwtInterceptor } from './helpers';
 
 
 @NgModule({
@@ -42,7 +43,9 @@ import { ProfileComponent } from './components/profile/profile.component';
     NguCarouselModule,
     HttpClientModule,
   ],
-  providers: [],
+  providers: [
+    { provide: HTTP_INTERCEPTORS, useClass: JwtInterceptor, multi: true },
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

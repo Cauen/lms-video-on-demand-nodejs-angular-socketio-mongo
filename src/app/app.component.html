@@ -5,9 +5,10 @@
         <span class="example-fill-remaining-space"></span>
         <span class="align-center"></span>
         <span class="example-spacer"></span>
-        <a *ngIf="auth.isLoggedIn()" [routerLink]="['/profile']"><button mat-button>Welcome, {{username.name}}</button></a>
-        <a [routerLink]="['/courses']"><button mat-button>Classes</button></a>
+        <a *ngIf="auth.isLoggedIn()" [routerLink]="['/profile']"><button mat-button>Welcome, {{auth.getUserDetails().name}}</button></a>
+        <a *ngIf="auth.isLoggedIn()" [routerLink]="['/courses']"><button mat-button>Classes</button></a>
         <a *ngIf="!auth.isLoggedIn()" [routerLink]="['/login']"><button mat-button>Login</button></a>
+        <a *ngIf="!auth.isLoggedIn()" [routerLink]="['/register']"><button mat-button>Register</button></a>
         <button mat-icon-button [matMenuTriggerFor]="menu">
       <mat-icon>more_vert</mat-icon>
     </button>
@@ -16,13 +17,9 @@
         <mat-icon>dialpad</mat-icon>
         <span>Upload Video</span>
       </button></a>
-      <a [routerLink]="['/course/create']"><button mat-menu-item disabled>
+      <a [routerLink]="['/course/create']"><button mat-menu-item>
         <mat-icon>voicemail</mat-icon>
         <span>Create Course</span>
-      </button></a>
-      <a [routerLink]="['/video/upload']"><button mat-menu-item>
-        <mat-icon>notifications_off</mat-icon>
-        <span>Create Module</span>
       </button></a>
       <a *ngIf="auth.isLoggedIn()" (click)="auth.logout()"><button mat-menu-item>
         <mat-icon>notifications_off</mat-icon>

@@ -1,6 +1,7 @@
 const express = require('express');
 const app = express();
 const userRoutes = express.Router();
+var ObjectId = require('mongodb').ObjectID;
 
 // Require User model in our routes module
 let User = require('../models/User');
@@ -54,6 +55,78 @@ userRoutes.route('/update/:id').post(function (req, res) {
       .catch(err => {
             res.status(400).send("unable to update the database");
       });
+    }
+  });
+});
+
+//  Defined update route
+userRoutes.route('/setvideotiming').post(function (req, res) {
+  var userid = req.body.userid;
+  User.findById(userid, function(err, user) {
+    if (!user)
+      return next(new Error('User dont exist'));
+    else {
+        var videoid = req.body.videoid;
+        var timing = req.body.timing;
+        var videoduration = req.body.duration;
+        var v_id = new ObjectId(videoid);
+        console.log('Trying to save timing ' + videoid + " -> " + timing);
+        
+        var foundVideo = false;
+        //Set watching
+        for (var i = 0; i < user.watching.length; i++) {
+            if (user.watching[i].video == videoid) {
+              user.watching[i].secondswatched = timing;
+              user.watching[i].percent = timing/videoduration * 100;
+              foundVideo = true;
+            }
+        }
+        if (!foundVideo)
+          user.watching.push({video: v_id, secondswatched: timing});
+        //user.watching= [{video: v_id, secondswatched: timing}];
+        user.save().then(user => {
+          res.json('Update complete user video timing');
+      })
+      .catch(err => {
+        res.status(400).send(err);
+      });
+    }
+  });
+});
+
+//  Defined update route
+userRoutes.route('/getvideotimings').post(function (req, res) {
+  var userid = req.body.userid;
+  var videoid = req.body.videoid;
+  User.findById(userid, function(err, user) {
+    if (!user)
+      return next(new Error('User dont exist'));
+    else {
+      for (var i = 0; i < user.watching.length; i++) {
+        if (user.watching[i].video == videoid) {
+          return res.json(user.watching[i].secondswatched);
+        }
+      }
+      return res.json(false);
+    }
+  });
+});
+
+//  Defined update route
+userRoutes.route('/getvideostimings').post(function (req, res) {
+  var userid = req.body.userid;
+  User.findById(userid, function(err, user) {
+    if (!user)
+    return next(new Error('User dont exist'));
+    else {
+      var videosPercents = [];
+      //return res.json(user.watching)
+      for (var i = 0; i < user.watching.length; i++) {
+          console.log("pushing " + user.watching[i].secondswatched + " at pos " + user.watching[i].video)
+          //videosPercents[user.watching[i].video] = user.watching[i].secondswatched;
+          videosPercents.push({videoid: user.watching[i].video, percent: user.watching[i].percent})
+      }
+      return res.json(videosPercents);
     }
   });
 });
