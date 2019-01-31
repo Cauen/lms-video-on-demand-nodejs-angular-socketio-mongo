@@ -4,7 +4,8 @@
   {{videoName}}
 </p>
 
-<video [attr.src]="videoURL" (timeupdate)="onTimeUpdate($event)" (loadedmetadata)="videoLoaded($event)" width="400" [style.background-image]="getThumbURL()" preload="metadata" id="videoPlayer" poster="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7"  controls autoplay >
+<video data-setup='{ "aspectRatio":"16:9", "playbackRates": [0.5, 1, 1.5, 2]}' #myvid class="video-js vjs-big-play-centered mini-play" [attr.src]="videoURL" (timeupdate)="onTimeUpdate($event)" (loadedmetadata)="videoLoaded($event)" [style.background-image]="getThumbURL()" preload="metadata" id="videoPlayer" >
+  <source src="//d2zihajmogu5jn.cloudfront.net/elephantsdream/ed_hd.mp4" type="video/mp4">
 </video>
 
 <mat-list *ngIf="comments.length">

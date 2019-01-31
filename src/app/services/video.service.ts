@@ -6,12 +6,16 @@ import { AngularWaitBarrier } from 'blocking-proxy/built/lib/angular_wait_barrie
 import { AuthService, TokenPayload } from '../services/auth.service';
 import { UserService } from '../services/user.service'; 
 
+const ipconfig = require('./config');
+var appip = ipconfig.ip;
+var appport = ipconfig.port;
+
 @Injectable({
   providedIn: 'root'
 })
 export class VideoService {
 
-  uri = 'http://localhost:4000/video';
+  uri = 'http://'+appip+':'+appport+'/video';
 
   token = { headers: { Authorization: `Bearer ${this.as.getToken()}` }};
   constructor(private http: HttpClient, private as: AuthService) { }

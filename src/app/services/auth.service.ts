@@ -23,12 +23,16 @@ export interface TokenPayload {
   username?: string;
 }
 
+const ipconfig = require('./config');
+var appip = ipconfig.ip;
+var appport = ipconfig.port;
+
 @Injectable({
   providedIn: 'root'
 })
 export class AuthService {
   
-  uri = 'http://localhost:4000/auth';
+  uri = 'http://'+appip+':'+appport+'/auth';
   private token: string;
 
   constructor(private http: HttpClient, private router: Router) {}

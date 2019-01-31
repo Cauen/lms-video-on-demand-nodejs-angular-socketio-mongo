@@ -3,12 +3,16 @@ import { HttpClient } from '@angular/common/http';
 
 import { AuthService, TokenPayload } from '../services/auth.service';
 
+const ipconfig = require('./config');
+var appip = ipconfig.ip;
+var appport = ipconfig.port;
+
 @Injectable({
   providedIn: 'root'
 })
 export class UserService {
 
-  uri = 'http://localhost:4000/user';
+  uri = 'http://'+appip+':'+appport+'/user';
   token = { headers: { Authorization: `Bearer ${this.as.getToken()}` }};
 
   constructor(private http: HttpClient, private as: AuthService) { }

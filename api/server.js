@@ -89,10 +89,9 @@ app.get('/video/watch/:id', videoRoute.watchID);
 app.get('/video/thumb/:id', videoRoute.thumbID);
 app.get('/video/data/:id', videoRoute.dataId);
 app.get('/video/comments/:id', videoRoute.commentsId);
+app.post('/video/comment/:id', videoRoute.commentId);
 app.post('/video/upload/', auth, videoUploadOptions, videoRoute.upload);
 
 const port = process.env.PORT || 4000;
 
-const server = app.listen(port, function(){
-  console.log('Listening on port ' + port);
-});
+const server = app.listen(port, '192.168.1.9');

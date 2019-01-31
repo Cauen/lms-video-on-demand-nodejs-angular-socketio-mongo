@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, AfterViewInit, ViewChild, ElementRef } from '@angular/core';
 
 import { ActivatedRoute, Router } from '@angular/router';
 
@@ -6,24 +6,32 @@ import { VideoService } from '../../services/video.service';
 import { UserService } from '../../services/user.service';
 import {UserDetails, AuthService} from '../../services/auth.service';
 
+const ipconfig = require('../../services/config');
+var appip = ipconfig.ip;
+var appport = ipconfig.port;
+
+// Declare lib video.js as external of angular
+declare let videojs: any;
+
 @Component({
   selector: 'app-watch-video',
   templateUrl: './watch-video.component.html',
   styleUrls: ['./watch-video.component.css']
 })
-export class WatchVideoComponent implements OnInit {
+export class WatchVideoComponent implements OnInit, AfterViewInit {
   public comments: [{
     user: String,
     content: String
   }] = [{user: 'Teste', content: "Teste"}];
 
+  
+  id: String;
   videoName: String;
   comment:String;
   
-  videoURL : string;
   videoThumb : string;
   
-  id: Number = 0;
+  videoURL : string = 'http://'+appip+':'+appport+'/video/watch/'+this.id;
   userDetails: UserDetails;
   username: String;
   whereVideoStart: Number = 3;
@@ -34,6 +42,8 @@ export class WatchVideoComponent implements OnInit {
   lastTimeUpdate: Date;
   startfrom: any = {};
 
+  vidObj: any;
+
   constructor(
     private route: ActivatedRoute,
     private router: Router,
@@ -42,23 +52,44 @@ export class WatchVideoComponent implements OnInit {
     private us: UserService,
   ) { }
 
+  @ViewChild('myvid') vid: ElementRef;
+  ngAfterViewInit() {
+    const options = {
+      controls: true,
+      autoplay: true,
+      preload: 'auto',
+      techOrder: ['html5']
+    };
+
+    this.route.params.subscribe(params => {
+      this.id = (params['id']);
+
+      this.vidObj = new videojs(this.vid.nativeElement, options, function onPlayerReady() {
+        videojs.log('Your player is ready!');
+      });
+    });
+    
+
+    
+  }
   ngOnInit() {
     
     this.route.params.subscribe(params => {
-    this.id = (params['id']);
+      this.id = (params['id']);
 
-    this.lastTimeUpdate = new Date();
-    this.videoThumb = 'http://127.0.0.1:4000/video/thumb/'+this.id;
-    
-    console.log(this.videoURL);
-    this.setComments();
-    this.setData();
-    
-    this.userDetails = this.as.getUserDetails();
-    this.username = this.userDetails ? this.userDetails.name : 'Anonymous';
-    this.setVideoInitialTime();
+      this.lastTimeUpdate = new Date();
+      this.videoThumb = 'http://'+appip+':'+appport+'/video/thumb/'+this.id;
+      
+      console.log(this.videoURL);
+      this.setComments();
+      this.setData();
+      
+      this.userDetails = this.as.getUserDetails();
+      this.username = this.userDetails ? this.userDetails.name : 'Anonymous';
+      this.setVideoInitialTime();
 
-  });
+    });
+    
 
     
   }
@@ -92,13 +123,18 @@ onTimeUpdate(event) {
 
 setVideoInitialTime() {
   this.route.params.subscribe(params => {
+    if (!this.userDetails){
+      this.router.navigate(['/login']);
+      return;
+    }
+
     this.us.getUserTiming(this.userDetails._id, this.id).subscribe(res => {
       var startfrom = 0;
       if (res) {
         console.log("Começando video em" + res);
         this.startfrom = res;
       }
-      this.videoURL = 'http://127.0.0.1:4000/video/watch/'+this.id+'#t='+this.startfrom;
+      this.videoURL = 'http://'+appip+':'+appport+'/video/watch/'+this.id+'#t='+this.startfrom;
     });
   });
 }
@@ -108,7 +144,7 @@ setData() {
     this.vs.getData(params['id']).subscribe(res => {
       this.videoName = res.name;
       this.whereVideoStart = res.videoDuration/2;
-      //this.videoURL = 'http://127.0.0.1:4000/video/watch/'+this.id+'#t='+this.whereVideoStart;
+      this.videoURL = 'http://127.0.0.1:4000/video/watch/'+this.id+'#t='+0;
     });
   });
 }
@@ -128,6 +164,7 @@ keyDownFunction(event) {
 }
 
   public getThumbURL ()  : string{
-    return 'url('+this.videoThumb+')';
+    return 'url(data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7)';
+    //return 'url('+this.videoThumb+')';
   }
 }
