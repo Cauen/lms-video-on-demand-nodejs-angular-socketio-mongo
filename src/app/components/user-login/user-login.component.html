@@ -1,15 +1,24 @@
-<mat-card class="example-card">
-    <mat-card-header>
-      <mat-card-title>Login</mat-card-title>
-    </mat-card-header>
+<div id="global-image">
+<mat-card style="background: #fafafa;
+max-width: 400px;
+margin: calc(50vh - 160px) auto;
+border-radius: 10px;" class="example-card">
+      <img src="https://secure.gravatar.com/avatar/a6b6084980eb30b519d281af493c4584?default=https%3A%2F%2Fcloud.digitalocean.com%2Favatars%2Fdefault23.png&amp;secure=true" alt="avatar" class="avatar" style="
+          height: 90px;
+          border-radius: 100%;
+          margin: -50px auto;
+          border: 7px white solid;
+          display: block;
+      ">
+
     <mat-card-content>
-      <form (keydown)="keyDownFunction($event)" class="example-form">
+      <form style="padding-bottom: 0px" (keydown)="keyDownFunction($event)" class="example-form">
         <table class="example-full-width" cellspacing="0">
           <tr>
             <td>
               <mat-form-field class="example-full-width">
               <input matInput placeholder="Email" [(ngModel)]="credentials.email" name="email" required>
-              </mat-form-field>
+            </mat-form-field>
             </td>
           </tr>
           <tr>
@@ -17,10 +26,34 @@
             <input matInput placeholder="Password" [(ngModel)]="credentials.password"type="password" name="password" required>
           </mat-form-field></td>
         </tr></table>
+        <span style="text-align: center;
+          display: block;
+          color: #545454;
+          padding-bottom: 5px;
+          padding-top: 20px;">Not yet registred?</span>
+        <a style="    margin: auto;
+        display: block;
+        text-align: center;
+        text-decoration: none;
+        color: #56b5fc;
+        font-weight: 600;
+        font-size: 17px;" [routerLink]="['/register']">Create an account</a>
       </form>
       <mat-spinner [style.display]="showSpinner ? 'block' : 'none'"></mat-spinner>
     </mat-card-content>
     <mat-card-actions>
-      <button mat-raised-button type="button" (click)="login()" color="primary">Login</button>
+      <mat-icon (click)="login()" class="mat-icon material-icons mat-icon-no-color" role="img" aria-hidden="true" style="
+        box-shadow: 0 6px 16px -1px rgba(0,0,0,.2), 0 1px 53px 0px rgba(0,0,0,.14), 0 1px 3px 0 rgba(0,0,0,.12);
+        padding: 20px;
+        border-radius: 100%;
+        margin: auto;
+        display: table;
+        color: dimgrey;
+        margin-bottom: -60px;
+        background: white;
+        font-size: 35px;
+        cursor: pointer;
+    ">done_all</mat-icon>
     </mat-card-actions>
   </mat-card>
+</div>

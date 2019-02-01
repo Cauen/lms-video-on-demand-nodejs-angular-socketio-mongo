@@ -1,31 +1,41 @@
-
+<mat-toolbar color="primary">
+  <mat-toolbar-row class="docs-primary-header component-page-header">
+    <mat-icon (click)="this._location.back()" class="backhistory-icon">keyboard_backspace</mat-icon>
+    <span>{{videoName}}</span>
+    <span class="example-spacer"></span>
+    <mat-icon class="example-icon">verified_user</mat-icon>
+  </mat-toolbar-row>
+</mat-toolbar>
 <div id="wrapper">
-<p>
-  {{videoName}}
-</p>
 
-<video data-setup='{ "aspectRatio":"16:9", "playbackRates": [0.5, 1, 1.5, 2]}' #myvid class="video-js vjs-big-play-centered mini-play" [attr.src]="videoURL" (timeupdate)="onTimeUpdate($event)" (loadedmetadata)="videoLoaded($event)" [style.background-image]="getThumbURL()" preload="metadata" id="videoPlayer" >
-  <source src="//d2zihajmogu5jn.cloudfront.net/elephantsdream/ed_hd.mp4" type="video/mp4">
-</video>
+  <div class="video-container">
+    <video data-setup='{ "aspectRatio":"16:9", "playbackRates": [0.5, 1, 1.5, 2]}' #myvid class="video-js vjs-big-play-centered mini-play"
+      [attr.src]="videoURL" (timeupdate)="onTimeUpdate($event)" (loadedmetadata)="videoLoaded($event)"
+      [style.background-image]="getThumbURL()" preload="metadata" id="videoPlayer">
+      <source src="data:video/webm;base64," type="video/mp4">
+    </video>
+  </div>
 
-<mat-list *ngIf="comments.length">
+  <mat-list *ngIf="comments.length">
     <mat-list-item *ngFor="let item of comments; let i = index">{{item?.user}} comentou: {{item?.content}}</mat-list-item>
-</mat-list>
-<form (keydown)="keyDownFunction($event)" class="example-form">
-  <table class="example-full-width" cellspacing="0">
-    <tr>
-      <td>
-        <mat-form-field class="example-full-width">
-        <input matInput placeholder="Name" [(ngModel)]="username" name="name" disabled required>
-        </mat-form-field>
-      </td>
-    </tr>
-    <tr>
-    <td><mat-form-field class="example-full-width">
-        <textarea matInput [(ngModel)]="comment" name="comment" placeholder="Description"></textarea>
-    </mat-form-field></td>
-  </tr>
-  </table>
-  <button id="comment" mat-raised-button type="button" (click)="create_comment()" color="primary">Comment</button>
-</form>
+  </mat-list>
+  <form (keydown)="keyDownFunction($event)" class="example-form">
+    <table class="example-full-width" cellspacing="0">
+      <tr>
+        <td>
+          <mat-form-field class="example-full-width">
+            <input matInput placeholder="Name" [(ngModel)]="username" name="name" disabled required>
+          </mat-form-field>
+        </td>
+      </tr>
+      <tr>
+        <td>
+          <mat-form-field class="example-full-width">
+            <textarea matInput [(ngModel)]="comment" name="comment" placeholder="Description"></textarea>
+          </mat-form-field>
+        </td>
+      </tr>
+    </table>
+    <button id="comment" mat-raised-button type="button" (click)="create_comment()" color="primary">Comment</button>
+  </form>
 </div>

@@ -1,5 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import {UserDetails, AuthService} from '../../services/auth.service';
+import { MaterialModule } from '../../material.modules';
+
+import {Location} from '@angular/common';
 
 @Component({
   selector: 'app-profile',
@@ -10,7 +13,7 @@ export class ProfileComponent implements OnInit {
 
   details: UserDetails;
 
-  constructor(private auth: AuthService) {}
+  constructor(private auth: AuthService, private _location: Location) {}
   
   ngOnInit() {    
     this.details = this.auth.getUserDetails();

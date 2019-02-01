@@ -1,31 +1,34 @@
-<mat-toolbar color="primary">
-    <mat-toolbar-row>
-    <a [routerLink]="['/']"><span>{{title}}</span></a>
+<mat-toolbar *ngIf="auth.isLoggedIn()" color="primary">
+  <mat-toolbar-row class="mat-elevation-z6">
+    <a class="docs-button mat-button" [routerLink]="['/']"><span class="mat-button-wrapper"><img _ngcontent-c1="" alt="angular" class="docs-angular-logo" src="https://material.angular.io/assets/img/homepage/angular-white-transparent.svg"><span _ngcontent-c1="">NeadTV</span></span></a>
     <span class="example-spacer"></span>
-        <span class="example-fill-remaining-space"></span>
-        <span class="align-center"></span>
-        <span class="example-spacer"></span>
-        <a *ngIf="auth.isLoggedIn()" [routerLink]="['/profile']"><button mat-button>Welcome, {{auth.getUserDetails().name}}</button></a>
-        <a *ngIf="auth.isLoggedIn()" [routerLink]="['/courses']"><button mat-button>Classes</button></a>
-        <a *ngIf="!auth.isLoggedIn()" [routerLink]="['/login']"><button mat-button>Login</button></a>
-        <a *ngIf="!auth.isLoggedIn()" [routerLink]="['/register']"><button mat-button>Register</button></a>
-        <button mat-icon-button [matMenuTriggerFor]="menu">
+    <span class="example-fill-remaining-space"></span>
+    <span class="align-center"></span>
+    <span class="example-spacer"></span>
+    <a *ngIf="auth.isLoggedIn()" [routerLink]="['/profile']"><button mat-button>Welcome, {{auth.getUserDetails().name}}</button></a>
+    <a *ngIf="auth.isLoggedIn()" [routerLink]="['/courses']"><button mat-button>Classes</button></a>
+    <a *ngIf="!auth.isLoggedIn()" [routerLink]="['/login']"><button mat-button>Login</button></a>
+    <a *ngIf="!auth.isLoggedIn()" [routerLink]="['/register']"><button mat-button>Register</button></a>
+    <button mat-icon-button [matMenuTriggerFor]="menu">
       <mat-icon>more_vert</mat-icon>
     </button>
     <mat-menu #menu="matMenu">
       <a [routerLink]="['/video/upload']"><button mat-menu-item>
-        <mat-icon>dialpad</mat-icon>
-        <span>Upload Video</span>
-      </button></a>
+          <mat-icon>dialpad</mat-icon>
+          <span>Upload Video</span>
+        </button></a>
       <a [routerLink]="['/course/create']"><button mat-menu-item>
-        <mat-icon>voicemail</mat-icon>
-        <span>Create Course</span>
-      </button></a>
+          <mat-icon>voicemail</mat-icon>
+          <span>Create Course</span>
+        </button></a>
       <a *ngIf="auth.isLoggedIn()" (click)="auth.logout()"><button mat-menu-item>
-        <mat-icon>notifications_off</mat-icon>
-        <span>Logout</span>
-      </button></a>
+          <mat-icon>notifications_off</mat-icon>
+          <span>Logout</span>
+        </button></a>
     </mat-menu>
-     </mat-toolbar-row>
+  </mat-toolbar-row>
+  
 </mat-toolbar>
-<div  id="content"><router-outlet></router-outlet></div>
+<div id="content">
+  <router-outlet></router-outlet>
+</div>

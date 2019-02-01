@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewEncapsulation } from '@angular/core';
 
 import {Router} from '@angular/router';
 
@@ -11,7 +11,8 @@ import { AuthService, TokenPayload } from '../../services/auth.service';
 @Component({
   selector: 'app-user-login',
   templateUrl: './user-login.component.html',
-  styleUrls: ['./user-login.component.css']
+  styleUrls: ['./user-login.component.css'],
+  encapsulation: ViewEncapsulation.None
 })
 
 export class UserLoginComponent implements OnInit {

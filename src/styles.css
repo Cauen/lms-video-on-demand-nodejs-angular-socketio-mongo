@@ -12,7 +12,36 @@
 body {
     margin: 0;
 }
-#content {
+
+.example-icon {
+    padding: 0 14px;
+}
+
+.example-spacer {
+    flex: 1 1 auto;
+}
+
+a {
+    color: white;
+}
+
+#content > * > div, #content >* > .mat-card {
     margin: 10px;
 }
 
+.backhistory-icon {
+    padding: 10px;
+    cursor: pointer;
+}
+
+#video_preview .vjs-error-display.vjs-modal-dialog {
+    cursor: pointer;
+}
+
+#video_preview .vjs-error .vjs-error-display:before {
+    content: '↑' !important;
+}
+
+#video_preview .vjs-modal-dialog-content {
+    display: none;
+}

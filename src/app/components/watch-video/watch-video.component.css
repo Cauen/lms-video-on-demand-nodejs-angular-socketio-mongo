@@ -37,3 +37,7 @@ video {
   form {
       padding: 40px 0;
   }
+
+  .video-container {
+        margin: 20px 0;
+  }

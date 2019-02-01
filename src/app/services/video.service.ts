@@ -1,10 +1,13 @@
 import { Injectable } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
-import { Observable, Subscription } from 'rxjs';
+import { HttpClient, HttpEvent, HttpErrorResponse, HttpEventType} from '@angular/common/http';
+import { Observable, Subscription, throwError } from 'rxjs';
+import { catchError, map } from 'rxjs/operators';
+
 import { AngularWaitBarrier } from 'blocking-proxy/built/lib/angular_wait_barrier';
 
 import { AuthService, TokenPayload } from '../services/auth.service';
 import { UserService } from '../services/user.service'; 
+import { callbackify } from 'util';
 
 const ipconfig = require('./config');
 var appip = ipconfig.ip;
@@ -54,8 +57,18 @@ export class VideoService {
   
     //this.http.post(`${this.uri}/upload`, {name: name});
 
-    this.http.post(`${this.uri}/upload`, formData)
-        .subscribe(res => console.log(res));
+    //this.http.post(`${this.uri}/upload`, formData).subscribe(res => console.log(res));
+    /*this.http.post(`${this.uri}/upload`, formData, {
+      reportProgress: true,
+      observe: 'events'
+    }).pipe(
+      map(event => this.getEventMessage(event, formData)),
+      catchError(this.handleError)
+    );*/
+    return this.http.post(`${this.uri}/upload`, formData, {
+      reportProgress: true,
+      observe: 'events'
+    });
 }
 
 addComment(user, content, id) {

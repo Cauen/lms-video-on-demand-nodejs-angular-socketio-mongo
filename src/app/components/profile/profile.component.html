@@ -1,22 +1,30 @@
-<div class="container">
+<mat-toolbar color="primary">
+  <mat-toolbar-row class="docs-primary-header component-page-header">
+    <mat-icon (click)="this._location.back()" class="backhistory-icon">keyboard_backspace</mat-icon>
+    <span>Profile</span>
+    <span class="example-spacer"></span>
+    <mat-icon class="example-icon">verified_user</mat-icon>
+  </mat-toolbar-row>
+</mat-toolbar>
+<mat-card class="container">
   <div class="row">
     
      <div class="col-md-6">
 
-      <h1 class="form-signin-heading">Your profile</h1>
+      <h1 class="mat-h2">Your profile</h1>
 
       <div class="form-horizontal">
         <div class="form-group">
-          <label class="col-sm-3 control-label">Full name</label>
-          <p class="form-control-static">{{ details?.name }}</p>
+          <label class="mat-h3">Full name</label>
+          <p class="mat-h4">{{ details?.name }}</p>
         </div>
         <div class="form-group">
-          <label class="col-sm-3 control-label">Email</label>
-          <p class="form-control-static">{{ details?.email }}</p>
+          <label class="mat-h3">Email</label>
+          <p class="mat-h4">{{ details?.email }}</p>
         </div>
       </div>
 
     </div>
 
   </div>
-</div>
+</mat-card>

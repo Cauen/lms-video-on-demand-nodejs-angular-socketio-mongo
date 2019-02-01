@@ -11,6 +11,7 @@ export class AppComponent  implements OnInit {
   constructor(public auth: AuthService) {}
   public ngOnInit() {
     this.username = this.auth.getUserDetails();
+    console.log('ON INIT APPCOMPONENT');
   }
   username = {name: "User"} as UserDetails;
   title = 'NeadTV';

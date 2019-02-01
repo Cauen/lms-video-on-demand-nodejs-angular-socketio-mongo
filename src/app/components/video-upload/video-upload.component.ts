@@ -1,16 +1,21 @@
-import { Component, OnInit } from '@angular/core';//Tags
+import { Component, OnInit, ViewChild, ElementRef, AfterViewInit } from '@angular/core';//Tags
 import {COMMA, ENTER} from '@angular/cdk/keycodes';
 import {MatChipInputEvent} from '@angular/material';
+import { MatProgressBarModule } from '@angular/material/progress-bar';
 import { ActivatedRoute, Router } from '@angular/router';
 
 import { VideoService } from '../../services/video.service';
 import { CourseService } from '../../services/course.service';
 
 import { DomSanitizer } from '@angular/platform-browser';
+import {Location} from '@angular/common';
 
 export interface TagVideo {
   name: string;
 }
+
+// Declare lib video.js as external of angular
+declare let videojs: any;
 
 @Component({
   selector: 'app-video-upload',
@@ -36,10 +41,17 @@ export class VideoUploadComponent implements OnInit {
   removable = true;
   addOnBlur = true;
   readonly separatorKeysCodes: number[] = [ENTER, COMMA];
-  tagVideos: TagVideo[] = [
-  ];
+  tagVideos: TagVideo[] = [];
 
-  
+  //Upload
+  percentage : Number = 0;
+  videoPreviewURL : string;
+  videoLoaded : boolean = false;
+  imageUploadText: string;
+  vidObj: any;
+  @ViewChild('videopreview') vid: ElementRef;
+  @ViewChild('uploadvideo') uploadvideo: ElementRef;
+  @ViewChild('uploadphoto') uploadphoto: ElementRef;
 
   add(event: MatChipInputEvent): void {
     const input = event.input;
@@ -68,10 +80,12 @@ export class VideoUploadComponent implements OnInit {
     private route: ActivatedRoute,
     private router: Router,
     private cs: CourseService,
-    private sanitizer: DomSanitizer) { }
+    private sanitizer: DomSanitizer,
+    private _location: Location,
+    ) { }
 
   ngOnInit() {
-    this.getCourses()
+    this.getCourses();
   }
 
   getCourses() {
@@ -92,9 +106,19 @@ export class VideoUploadComponent implements OnInit {
     }
     //this.vs.addVideo(this.name, this.description, tags, this.file[0]);
 
-    this.vs.addVideo(this.name, this.description, tags, this.file, this.fileThumb, this.course, this.duration);
+    this.vs.addVideo(this.name, this.description, tags, this.file, this.fileThumb, this.course, this.duration).subscribe((res) => {
+      var progress: any = res;
+      var type = progress.type;
+      var loaded = progress.loaded;
+      var total = progress.total;
+      this.percentage = loaded/total*100;
+      console.log(progress);
 
-    
+    });
+  }
+
+  setPercentage(value) {
+    this.percentage = value;
   }
   
   keyDownFunction(event) {
@@ -102,14 +126,44 @@ export class VideoUploadComponent implements OnInit {
       this.upload_video();
     }
   }
+
+  ngAfterViewInit() {
+    const options = {
+      controls: true,
+      preload: 'auto',
+      techOrder: ['html5']
+    };
+
+    this.route.params.subscribe(params => {
+      this.vidObj = new videojs(this.vid.nativeElement, options, function onPlayerReady() {
+        videojs.log('Your player is ready!');
+      });
+    });
+
+  }
   
+ 
   onFileChange(event){
     this.file = event.target.files[0];
     const files = event.target.files;
     if (files && files[0]) {
+      var fileUrl = URL.createObjectURL(files[0]);
+      var fileType = event.target.files[0].type;
+      console.log(fileUrl);
       this.videoUrl = this.sanitizer.bypassSecurityTrustUrl(URL.createObjectURL(files[0]));
+      this.vidObj.src({ type: fileType, src: fileUrl });
+      this.videoLoaded = true;
     }
-    console.log(event);
+
+
+  } 
+  
+  onFileChangeThumb(event){
+    this.fileThumb = event.target.files[0];
+    var fileThumbUrl = URL.createObjectURL(this.fileThumb);
+    this.vidObj.poster(fileThumbUrl);
+    
+    this.imageUploadText = 'Reupload image'
   } 
 
   getDuration(e) {
@@ -117,10 +171,19 @@ export class VideoUploadComponent implements OnInit {
     this.duration = durationz;
   }
 
-  onFileChangeThumb(event){
-    this.fileThumb = event.target.files[0];
-    console.log(event);
-  } 
+  openUpload() {
+    if (!this.videoLoaded)
+      this.uploadvideo.nativeElement.click()
+  }
+
+  openReUploadVideo() {
+    this.uploadvideo.nativeElement.click()
+  }
+
+  openUploadPhoto() {
+    this.uploadphoto.nativeElement.click()
+  }
+
 
   /*onFileChange(files: FileList) {
     this.file = files.item(0);

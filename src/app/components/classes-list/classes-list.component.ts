@@ -1,5 +1,5 @@
 import { NguCarousel, NguCarouselConfig } from '@ngu/carousel';
-import { Component, OnInit, ChangeDetectionStrategy, AfterViewInit, ChangeDetectorRef } from '@angular/core';
+import { Component, OnInit, ChangeDetectionStrategy, AfterViewInit, ChangeDetectorRef, ViewEncapsulation } from '@angular/core';
 import 'hammerjs';
 
 import { ActivatedRoute, Router } from '@angular/router';
@@ -19,7 +19,8 @@ export interface Courses {
   selector: 'app-classes-list',
   templateUrl: './classes-list.component.html',
 
-  styleUrls: ['./classes-list.component.css']
+  styleUrls: ['./classes-list.component.css'],
+  encapsulation: ViewEncapsulation.None
 })
 export class ClassesListComponent implements OnInit {
   

@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewEncapsulation } from '@angular/core';
 
 import {Router} from '@angular/router';
 
@@ -9,7 +9,8 @@ import {MatSnackBar} from '@angular/material';
 @Component({
   selector: 'app-user-register',
   templateUrl: './user-register.component.html',
-  styleUrls: ['./user-register.component.css']
+  styleUrls: ['./user-register.component.css'],
+  encapsulation: ViewEncapsulation.None
 })
 export class UserRegisterComponent implements OnInit {
   constructor(private router: Router,public snackBar: MatSnackBar, private as: AuthService) { }

@@ -94,4 +94,4 @@ app.post('/video/upload/', auth, videoUploadOptions, videoRoute.upload);
 
 const port = process.env.PORT || 4000;
 
-const server = app.listen(port, '192.168.1.9');
+const server = app.listen(port, '192.168.1.6');

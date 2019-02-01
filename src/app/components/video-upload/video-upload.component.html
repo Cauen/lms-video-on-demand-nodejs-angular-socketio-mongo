@@ -1,74 +1,107 @@
+<mat-toolbar color="primary">
+  <mat-toolbar-row class="docs-primary-header component-page-header">
+    <mat-icon (click)="this._location.back()" class="backhistory-icon">keyboard_backspace</mat-icon>
+    <span>Video Upload</span>
+    <span class="example-spacer"></span>
+    <mat-icon class="example-icon">verified_user</mat-icon>
+  </mat-toolbar-row>
+</mat-toolbar>
 <mat-card class="example-card">
-    <mat-card-header>
-      <mat-card-title>Upload</mat-card-title>
-    </mat-card-header>
-    <mat-card-content>
-      <form (keydown)="keyDownFunction($event)" class="example-form">
-        <table class="example-full-width" cellspacing="0">
-          <tr>
-            <td>
-              <mat-form-field class="example-full-width">
-              <input matInput placeholder="Name" [(ngModel)]="name" name="name" required>
-              </mat-form-field>
-            </td>
-          </tr>
-          <tr>
-          <td><mat-form-field class="example-full-width">
-              <textarea matInput [(ngModel)]="description" name="description" placeholder="Description"></textarea>
-          </mat-form-field></td>
-        </tr>
-      <tr><td>
-              <mat-form-field class="example-chip-list">
-                <mat-chip-list #chipList>
-                  <mat-chip *ngFor="let tagVideo of tagVideos" [selectable]="selectable"
-                            [removable]="removable" (removed)="remove(tagVideo)">
-                    {{tagVideo.name}}
-                    <mat-icon matChipRemove *ngIf="removable">cancel</mat-icon>
-                  </mat-chip>
-                  <input placeholder="Tags..."
-                          [matChipInputFor]="chipList"
-                          [matChipInputSeparatorKeyCodes]="separatorKeysCodes"
-                          [matChipInputAddOnBlur]="addOnBlur"
-                          (matChipInputTokenEnd)="add($event)">
-                </mat-chip-list>
-          </mat-form-field>
-      </td></tr>
-      
-      <tr><td>
-        <mat-form-field>
-          <mat-select [(ngModel)]="course" name="course" placeholder="Course">
-            <mat-option *ngFor="let course of courses" [value]="course.id">
-              {{course.name}}
-            </mat-option>
-          </mat-select>
-        </mat-form-field>
-      </td></tr>
-      <tr><td>
-          <h3>Video</h3>
-          <div ng-app="MyApp" ng-controller="AppCtrl" layout-margin layout-padding>
-              <input (change)="onFileChange($event)"  type="file" name="file"><br>
-          <label for="input-file-id" class="md-button md-raised md-primary">Choose Files</label>
-            
-          </div>
-          <!-- To get video duration -->
-          <video #video style="display: none;" *ngIf="videoUrl" width="320" height="240" controls [attr.src]="videoUrl" (loadedmetadata)="getDuration($event)">
-          </video>
-        </td></tr>
+  <div id="left_upload">
 
-        <tr><td>
+    <div (click)="openUpload()" ng-style="{'visibility': videoLoaded ? 'visible' : 'hidden'}" id="video_preview">
+
+      <video data-setup='{ "aspectRatio":"16:9", "playbackRates": [0.5, 1, 1.5, 2]}' class="video-js vjs-big-play-centered mini-play"
+        #videopreview controls [attr.src]="videoPreviewURL" preload="metadata">
+        <source src="data:video/webm;base64," type="video/mp4">
+      </video>
+    </div>
+    <div *ngIf="videoLoaded" class="buttonsUpload">
+      <button (click)="openUploadPhoto()" style="width: 50%" mat-raised-button color="primary">
+        <mat-icon aria-label="Example icon-button with a heart icon">add_a_photo</mat-icon> {{ imageUploadText || "Upload thumbnail"}}
+      </button>
+      <button (click)="openReUploadVideo()" style="width: 50%" mat-raised-button color="accent">
+        <mat-icon aria-label="Example icon-button with a heart icon">switch_video</mat-icon> Change Video
+      </button>
+    </div>
+  </div>
+  <mat-card-content id="upload_data">
+    <form (keydown)="keyDownFunction($event)" class="example-form">
+      <table class="example-full-width" cellspacing="0">
+        <tr>
+          <td>
+            <mat-form-field class="example-full-width">
+              <input matInput placeholder="Name" [(ngModel)]="name" name="name" required>
+            </mat-form-field>
+          </td>
+        </tr>
+        <tr>
+          <td>
+            <mat-form-field class="example-full-width">
+              <textarea matInput [(ngModel)]="description" name="description" placeholder="Description"></textarea>
+            </mat-form-field>
+          </td>
+        </tr>
+        <tr>
+          <td>
+            <mat-form-field class="example-chip-list">
+              <mat-chip-list #chipList>
+                <mat-chip *ngFor="let tagVideo of tagVideos" [selectable]="selectable" [removable]="removable"
+                  (removed)="remove(tagVideo)">
+                  {{tagVideo.name}}
+                  <mat-icon matChipRemove *ngIf="removable">cancel</mat-icon>
+                </mat-chip>
+                <input placeholder="Tags..." [matChipInputFor]="chipList" [matChipInputSeparatorKeyCodes]="separatorKeysCodes"
+                  [matChipInputAddOnBlur]="addOnBlur" (matChipInputTokenEnd)="add($event)">
+              </mat-chip-list>
+            </mat-form-field>
+          </td>
+        </tr>
+
+        <tr>
+          <td>
+            <mat-form-field>
+              <mat-select [(ngModel)]="course" name="course" placeholder="Course">
+                <mat-option *ngFor="let course of courses" [value]="course.id">
+                  {{course.name}}
+                </mat-option>
+              </mat-select>
+            </mat-form-field>
+          </td>
+        </tr>
+        <tr style="display: none">
+          <td>
+
+            <h3>Video</h3>
+            <div ng-app="MyApp" ng-controller="AppCtrl" layout-margin layout-padding>
+              <input (change)="onFileChange($event)" #uploadvideo type="file" name="file"><br>
+              <label for="input-file-id" class="md-button md-raised md-primary">Choose Files</label>
+
+            </div>
+            <!-- To get video duration -->
+            <video #video style="display: none;" *ngIf="videoUrl" width="320" height="240" controls [attr.src]="videoUrl"
+              (loadedmetadata)="getDuration($event)">
+            </video>
+          </td>
+        </tr>
+
+        <tr style="display: none;">
+          <td>
             <h3>Thumbnail</h3>
             <div ng-app="MyApp" ng-controller="AppCtrl" layout-margin layout-padding>
-                <input (change)="onFileChangeThumb($event)"  type="file" name="thumb"><br>
-            <label for="input-file-id" class="md-button md-raised md-primary">Choose Files</label>
-              
+              <input (change)="onFileChangeThumb($event)" #uploadphoto type="file" name="thumb"><br>
+              <label for="input-file-id" class="md-button md-raised md-primary">Choose Files</label>
+
             </div>
-  
-          </td></tr>
+
+          </td>
+        </tr>
       </table>
-      </form>
-      <mat-spinner [style.display]="showSpinner ? 'block' : 'none'"></mat-spinner>
-    </mat-card-content>
-    <mat-card-actions>
-      <button  id="uploadVideo" mat-raised-button type="button" (click)="upload_video()" color="primary">Upload</button>
-    </mat-card-actions>
-  </mat-card>
+    </form>
+    <mat-spinner [style.display]="showSpinner ? 'block' : 'none'"></mat-spinner>
+  </mat-card-content>
+  <mat-card-actions>
+    <button id="uploadVideo" mat-raised-button type="button" (click)="upload_video()" color="primary">Upload</button>
+  </mat-card-actions>
+  <mat-progress-bar mode="determinate" value="{{percentage}}"></mat-progress-bar>
+</mat-card>
