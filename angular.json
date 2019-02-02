@@ -24,6 +24,7 @@
             ],
             "styles": [
               "src/styles.css",
+              "src/material_theme.scss",
               "./node_modules/video.js/dist/video-js.min.css",
               "src/app/components/watch-video/videojs.css"
             ],
