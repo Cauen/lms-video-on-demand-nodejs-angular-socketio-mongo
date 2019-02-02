@@ -113,7 +113,7 @@ userRoutes.route('/getvideotimings').post(function (req, res) {
 });
 
 //  Defined update route
-userRoutes.route('/getvideostimings').post(function (req, res) {
+userRoutes.route('/getvideostimings').post(function (req, res, next) {
   var userid = req.body.userid;
   User.findById(userid, function(err, user) {
     if (!user)

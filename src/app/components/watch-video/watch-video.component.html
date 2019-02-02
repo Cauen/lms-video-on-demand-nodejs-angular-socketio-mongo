@@ -11,7 +11,7 @@
   <div class="video-container">
     <video data-setup='{ "aspectRatio":"16:9", "playbackRates": [0.5, 1, 1.5, 2]}' #myvid class="video-js vjs-big-play-centered mini-play"
       [attr.src]="videoURL" (timeupdate)="onTimeUpdate($event)" (loadedmetadata)="videoLoaded($event)"
-      [style.background-image]="getThumbURL()" preload="metadata" id="videoPlayer">
+      style.background-image="url(data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7)" preload="metadata" id="videoPlayer">
       <source src="data:video/webm;base64," type="video/mp4">
     </video>
   </div>

@@ -66,7 +66,7 @@ export class WatchVideoComponent implements OnInit, AfterViewInit {
 
     this.route.params.subscribe(params => {
       this.id = (params['id']);
-
+      
       this.vidObj = new videojs(this.vid.nativeElement, options, function onPlayerReady() {
         videojs.log('Your player is ready!');
       });
@@ -79,7 +79,6 @@ export class WatchVideoComponent implements OnInit, AfterViewInit {
     //Called once, before the instance is destroyed.
     //Add 'implements OnDestroy' to the class.
     this.vidObj.dispose();
-    this.vid.nativeElement.remove();
     console.log('Destroying player');
   }
   ngOnInit() {

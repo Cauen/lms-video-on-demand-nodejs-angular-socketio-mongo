@@ -35,7 +35,7 @@ let User = new Schema({
   watching: [{
     video: { 
       type : Schema.Types.ObjectId, 
-      ref: 'Video', unique: true,
+      ref: 'Video',
     }, 
     secondswatched: {
       type: Number,

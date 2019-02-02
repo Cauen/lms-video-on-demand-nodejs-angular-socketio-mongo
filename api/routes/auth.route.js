@@ -40,12 +40,10 @@ authRoutes.route('/register').post(function (req, res) {
   user.email = req.body.email;
   user.username = req.body.username;
 
-  console.log(req);
   user.setPassword(req.body.password);
   
   user.save()
   .then(user => {
-    //res.status(200).json({'user': 'user in added successfully'});
     var token;
     token = user.generateJwt();
     res.status(200);
