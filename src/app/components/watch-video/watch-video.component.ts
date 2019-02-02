@@ -1,4 +1,4 @@
-import { Component, OnInit, AfterViewInit, ViewChild, ElementRef } from '@angular/core';
+import { Component, OnInit, AfterViewInit, ViewChild, ElementRef, OnDestroy } from '@angular/core';
 import { Location } from '@angular/common';
 import { ActivatedRoute, Router } from '@angular/router';
 
@@ -74,6 +74,13 @@ export class WatchVideoComponent implements OnInit, AfterViewInit {
 
 
 
+  }
+  ngOnDestroy(): void {
+    //Called once, before the instance is destroyed.
+    //Add 'implements OnDestroy' to the class.
+    this.vidObj.dispose();
+    this.vid.nativeElement.remove();
+    console.log('Destroying player');
   }
   ngOnInit() {
 

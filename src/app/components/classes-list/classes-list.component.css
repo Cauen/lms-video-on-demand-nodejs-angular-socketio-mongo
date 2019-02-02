@@ -32,13 +32,13 @@
     left: 0px;
 }
 
-video {
+.classes-list video {
     width: calc(100% + 32px);
     margin: 0 -16px 16px -16px;
     background-size: cover;
 }
 
-.video-image {
+.classes-list .video-image {
     height: 140px;
     background-size: cover;
     background-repeat: no-repeat;
