@@ -135,7 +135,6 @@ export class ClassesListComponent implements OnInit {
   private millisToMinutesAndSeconds(millis) {
     millis = parseInt(millis);
     var minutes = Math.floor(millis / 60);
-    console.log(minutes);
     var seconds = ((millis % 60) / 1).toFixed(0);
     var sseconds = parseInt(seconds);
     return minutes + ":" + (sseconds < 10 ? '0' : '') + seconds;

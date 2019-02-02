@@ -28,6 +28,8 @@ export class WatchVideoComponent implements OnInit, AfterViewInit {
   id: String;
   videoName: String;
   comment: String;
+  tags: String;
+  description: String;
 
   videoThumb: string;
 
@@ -145,17 +147,23 @@ export class WatchVideoComponent implements OnInit, AfterViewInit {
       this.vs.getData(params['id']).subscribe(res => {
         this.videoName = res.name;
         this.whereVideoStart = res.videoDuration / 2;
+        this.tags = res.tags;
+        this.description = res.description;
         //this.videoURL = 'http://'+appip+':'+appport+'/video/watch/'+this.id+'#t='+0;
       });
     });
   }
 
+  @ViewChild('commentList') commentList: any;
   create_comment() {
     console.log('Comment');
     console.log(this.comments);
-    this.vs.addComment(this.userDetails.name, this.comment, this.id);
+    this.vs.addComment(this.userDetails.name, this.comment, this.id).subscribe(res => { this.commentList._elementRef.nativeElement.scrollTop = this.commentList._elementRef.nativeElement.scrollHeight; });
     this.comments.push({ user: this.userDetails.name, content: this.comment });
     this.comment = "";
+
+    console.log(this.commentList);
+
   }
 
   keyDownFunction(event) {
@@ -165,7 +173,7 @@ export class WatchVideoComponent implements OnInit, AfterViewInit {
   }
 
   public getThumbURL(): string {
-    return 'url(data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7)';
-    //return 'url('+this.videoThumb+')';
+
+    return 'url(' + this.videoThumb + ')';
   }
 }

@@ -15,7 +15,10 @@ let Video = new Schema({
   course: { type : Schema.Types.ObjectId, ref: 'Course' },
   module: { type : Schema.Types.ObjectId, ref: 'Module' },
   fileThumbDirURL: String,
-  fileDirURL: String,
+  fileDirURL: {
+    type: String,
+    required: true
+  },
   thumbnailDirURL: String,
   originalFileName: String,
   fileType: String, 

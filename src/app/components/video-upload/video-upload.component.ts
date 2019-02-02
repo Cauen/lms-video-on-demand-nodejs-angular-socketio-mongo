@@ -10,6 +10,8 @@ import { CourseService } from '../../services/course.service';
 import { DomSanitizer } from '@angular/platform-browser';
 import {Location} from '@angular/common';
 
+import {SnackBarService } from '../../services/snackbar.service';
+
 export interface TagVideo {
   name: string;
 }
@@ -49,6 +51,7 @@ export class VideoUploadComponent implements OnInit {
   videoLoaded : boolean = false;
   imageUploadText: string;
   vidObj: any;
+  lastTimeUpdate: Date;
   @ViewChild('videopreview') vid: ElementRef;
   @ViewChild('uploadvideo') uploadvideo: ElementRef;
   @ViewChild('uploadphoto') uploadphoto: ElementRef;
@@ -82,6 +85,7 @@ export class VideoUploadComponent implements OnInit {
     private cs: CourseService,
     private sanitizer: DomSanitizer,
     private _location: Location,
+    private sbs: SnackBarService,
     ) { }
 
   ngOnInit() {
@@ -98,6 +102,12 @@ export class VideoUploadComponent implements OnInit {
     });
   }
 
+  validateUpload() : boolean {
+    if (this.name && this.description && this.file && this.fileThumb && this.course && this.duration)
+      return true;
+    else
+      return false;
+  }
   upload_video() {
     
     var tags = [];
@@ -106,19 +116,45 @@ export class VideoUploadComponent implements OnInit {
     }
     //this.vs.addVideo(this.name, this.description, tags, this.file[0]);
 
+    if (!this.validateUpload()) {
+      this.sbs.openSnackBar('Fill all data before upload', 'Close');
+      return;
+    }
     this.vs.addVideo(this.name, this.description, tags, this.file, this.fileThumb, this.course, this.duration).subscribe((res) => {
+      if (!res) {
+        this.sbs.openSnackBar('Cant upload this video, its a server error!', 'Close');
+        return;
+      }
+
       var progress: any = res;
       var type = progress.type;
       var loaded = progress.loaded;
       var total = progress.total;
-      this.percentage = loaded/total*100;
+      this.setPercentage(loaded/total*100);
+      if (type === 1 && loaded === total) {
+        this.setPercentage(0, true);
+        this.sbs.openSnackBar('Successfully Uploaded', 'Close');
+      }
+      
       console.log(progress);
 
+    }, (err) => {
+      console.log(err);
+    
     });
   }
 
-  setPercentage(value) {
-    this.percentage = value;
+  setPercentage(value, force = false) {
+    
+    var now: Date = new Date();
+    if (!this.lastTimeUpdate) this.lastTimeUpdate = new Date();
+    var secondsWithoutUpdate = (now.getTime() - this.lastTimeUpdate.getTime()) / 1000;
+    var saveEach = 0.4; //Save each 0.4 seconds
+
+    if (secondsWithoutUpdate > saveEach || force) {
+      this.lastTimeUpdate = new Date();
+      this.percentage = value;
+    }
   }
   
   keyDownFunction(event) {

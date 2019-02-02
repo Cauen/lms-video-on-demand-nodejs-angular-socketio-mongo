@@ -1,3 +1,4 @@
+
 <mat-toolbar color="primary">
   <mat-toolbar-row class="docs-primary-header component-page-header">
     <mat-icon (click)="this._location.back()" class="backhistory-icon">keyboard_backspace</mat-icon>
@@ -6,12 +7,13 @@
     <mat-icon class="example-icon">verified_user</mat-icon>
   </mat-toolbar-row>
 </mat-toolbar>
-<mat-card class="example-card">
+<mat-progress-bar mode="determinate" value="{{percentage}}"></mat-progress-bar>
+<mat-card style="overflow: hidden" class="example-card">
   <div id="left_upload">
 
     <div (click)="openUpload()" ng-style="{'visibility': videoLoaded ? 'visible' : 'hidden'}" id="video_preview">
 
-      <video data-setup='{ "aspectRatio":"16:9", "playbackRates": [0.5, 1, 1.5, 2]}' class="video-js vjs-big-play-centered mini-play"
+      <video (loadedmetadata)="getDuration($event)" data-setup='{ "aspectRatio":"16:9", "playbackRates": [0.5, 1, 1.5, 2]}' class="video-js vjs-big-play-centered mini-play"
         #videopreview controls [attr.src]="videoPreviewURL" preload="metadata">
         <source src="data:video/webm;base64," type="video/mp4">
       </video>
@@ -26,7 +28,7 @@
     </div>
   </div>
   <mat-card-content id="upload_data">
-    <form (keydown)="keyDownFunction($event)" class="example-form">
+    <form style="padding-top: 0" (keydown)="keyDownFunction($event)" class="example-form">
       <table class="example-full-width" cellspacing="0">
         <tr>
           <td>
@@ -74,14 +76,10 @@
 
             <h3>Video</h3>
             <div ng-app="MyApp" ng-controller="AppCtrl" layout-margin layout-padding>
-              <input (change)="onFileChange($event)" #uploadvideo type="file" name="file"><br>
+              <input accept="video/mp4,video/x-m4v,video/*" (change)="onFileChange($event)" #uploadvideo type="file" name="file"><br>
               <label for="input-file-id" class="md-button md-raised md-primary">Choose Files</label>
 
             </div>
-            <!-- To get video duration -->
-            <video #video style="display: none;" *ngIf="videoUrl" width="320" height="240" controls [attr.src]="videoUrl"
-              (loadedmetadata)="getDuration($event)">
-            </video>
           </td>
         </tr>
 
@@ -89,7 +87,7 @@
           <td>
             <h3>Thumbnail</h3>
             <div ng-app="MyApp" ng-controller="AppCtrl" layout-margin layout-padding>
-              <input (change)="onFileChangeThumb($event)" #uploadphoto type="file" name="thumb"><br>
+              <input (change)="onFileChangeThumb($event)" #uploadphoto type="file" accept="image/x-png,image/gif,image/jpeg" name="thumb"><br>
               <label for="input-file-id" class="md-button md-raised md-primary">Choose Files</label>
 
             </div>
@@ -103,5 +101,5 @@
   <mat-card-actions>
     <button id="uploadVideo" mat-raised-button type="button" (click)="upload_video()" color="primary">Upload</button>
   </mat-card-actions>
-  <mat-progress-bar mode="determinate" value="{{percentage}}"></mat-progress-bar>
+  
 </mat-card>

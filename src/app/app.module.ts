@@ -15,11 +15,13 @@ import { NguCarouselModule } from '@ngu/carousel';
 import { CreateCourseComponent } from './components/create-course/create-course.component';
 import { WatchVideoComponent } from './components/watch-video/watch-video.component';
 
-
 import { HttpClientModule, HTTP_INTERCEPTORS} from '@angular/common/http';
 import { UserRegisterComponent } from './components/user-register/user-register.component';
 import { ProfileComponent } from './components/profile/profile.component';
 import { JwtInterceptor } from './helpers';
+
+import { SlimLoadingBarModule } from 'ng2-slim-loading-bar';
+import {SnackBarService} from './services/snackbar.service';
 
 
 @NgModule({
@@ -42,9 +44,10 @@ import { JwtInterceptor } from './helpers';
     BrowserAnimationsModule,
     NguCarouselModule,
     HttpClientModule,
+    SlimLoadingBarModule,
   ],
   providers: [
-    { provide: HTTP_INTERCEPTORS, useClass: JwtInterceptor, multi: true },
+    { provide: HTTP_INTERCEPTORS, useClass: JwtInterceptor, multi: true }, SnackBarService
   ],
   bootstrap: [AppComponent]
 })

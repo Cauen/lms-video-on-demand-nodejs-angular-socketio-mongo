@@ -41,7 +41,7 @@ export class VideoService {
     return resultado;
   }
   */
-  addVideo(name, description, tags, fileToUpload: File, fileThumbToUpload: File, course, duration){
+  addVideo(name, description = "", tags, fileToUpload: File, fileThumbToUpload: File, course, duration){
     console.log({name, description, tags, fileToUpload});
     const formData: FormData = new FormData();
     formData.append('file', fileToUpload, fileToUpload.name);
@@ -55,16 +55,6 @@ export class VideoService {
     var config = {headers: {}, transformRequest: 'Angular'};
     config.headers['Content-Type'] = undefined;
   
-    //this.http.post(`${this.uri}/upload`, {name: name});
-
-    //this.http.post(`${this.uri}/upload`, formData).subscribe(res => console.log(res));
-    /*this.http.post(`${this.uri}/upload`, formData, {
-      reportProgress: true,
-      observe: 'events'
-    }).pipe(
-      map(event => this.getEventMessage(event, formData)),
-      catchError(this.handleError)
-    );*/
     return this.http.post(`${this.uri}/upload`, formData, {
       reportProgress: true,
       observe: 'events'
@@ -72,8 +62,7 @@ export class VideoService {
 }
 
 addComment(user, content, id) {
-  this.http.post(`${this.uri}/comment/`+id, {user: user, content:content})
-        .subscribe(res => console.log(res));
+  return this.http.post(`${this.uri}/comment/`+id, {user: user, content:content});
 }
 
 getComments(id) : any {

@@ -72,6 +72,7 @@ body{
     padding-left: 0;
     width: 250px; }
 
+  @media only screen and (min-width: 960px) {
     #left_upload {
         float: left;
         width: 40%;
@@ -85,5 +86,6 @@ body{
         padding: 0 15px;
         box-sizing:border-box;
     }
+  }
 
     

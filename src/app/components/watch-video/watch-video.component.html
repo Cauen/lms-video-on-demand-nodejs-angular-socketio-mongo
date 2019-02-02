@@ -15,8 +15,30 @@
       <source src="data:video/webm;base64," type="video/mp4">
     </video>
   </div>
+  <div class="mat-body description" style="
+    border-left: 2px #de2c2c solid;
+    padding: 20px;
+    font-size: 16px;
+    display: flex;
+    flex-direction: row;
+">
+    <div class="example-header-image mat-card-avatar" mat-card-avatar="" [style.background-image]="getThumbURL()" style="height: 40px;width: 40px;border-radius: 50%;flex-shrink: 0;object-fit: cover;background-size: cover;"></div>
+    <div style="
+    padding: 0 20px;
+">
+      <p style="
+    margin: 0;
+">Description: {{description}} </p>
+      <p _ngcontent-c5="" class="tags">Tags: {{tags}}</p>
+    </div>
+  </div>
 
-  <mat-list *ngIf="comments.length">
+  <mat-list #commentList>
+    <h2 class="mat-h2" style="
+      padding: 0 16px;
+      margin-bottom: 6px;
+    ">Comments ({{comments.length}})</h2>
+    <mat-divider></mat-divider>
     <mat-list-item *ngFor="let item of comments; let i = index">{{item?.user}} comentou: {{item?.content}}</mat-list-item>
   </mat-list>
   <form (keydown)="keyDownFunction($event)" class="example-form">
