@@ -1,10 +1,10 @@
 
-import {NgModule} from "@angular/core";
+import { NgModule } from "@angular/core";
 import { CommonModule } from '@angular/common';
 
 import {
   MatToolbarModule,
-  MatButtonModule, 
+  MatButtonModule,
   MatCardModule,
   MatInputModule,
   MatDialogModule,
@@ -47,5 +47,5 @@ import {
 })
 
 export class MaterialModule {
- 
+
 }

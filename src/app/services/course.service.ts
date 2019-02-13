@@ -12,8 +12,8 @@ var appport = ipconfig.port;
 })
 export class CourseService {
 
-  uri = 'http://'+appip+':'+appport+'/course';
-  token = { headers: { Authorization: `Bearer ${this.as.getToken()}` }};
+  uri = 'http://' + appip + ':' + appport + '/course';
+  token = { headers: { Authorization: `Bearer ${this.as.getToken()}` } };
 
   constructor(private http: HttpClient, private as: AuthService) { }
 
@@ -27,7 +27,7 @@ export class CourseService {
     };
     console.log(obj);
     this.http.post(`${this.uri}/add`, obj)
-        .subscribe(res => console.log(res));
+      .subscribe(res => console.log(res));
   }
 
 
@@ -40,6 +40,6 @@ export class CourseService {
   }
 
   getVideosFromCourses(id) {
-    return this.http.get(`${this.uri}/ofcourse/`+id);
+    return this.http.get(`${this.uri}/ofcourse/` + id);
   }
 }

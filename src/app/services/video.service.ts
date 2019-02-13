@@ -77,7 +77,7 @@ export class VideoService {
     return this.http.get(`${this.uri}/thumb/` + id);
   }
 
-  getVideosByQuery(query):any {
+  getVideosByQuery(query): any {
     return this.http.get(`${this.uri}/search/` + query);
   }
 

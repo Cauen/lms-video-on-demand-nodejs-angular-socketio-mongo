@@ -1,10 +1,10 @@
 import { Component, OnInit, ViewEncapsulation } from '@angular/core';
 
-import {Router} from '@angular/router';
+import { Router } from '@angular/router';
 
 import { AuthService, TokenPayload } from '../../services/auth.service';
 
-import {MatSnackBar} from '@angular/material';
+import { MatSnackBar } from '@angular/material';
 
 @Component({
   selector: 'app-user-register',
@@ -13,7 +13,7 @@ import {MatSnackBar} from '@angular/material';
   encapsulation: ViewEncapsulation.None
 })
 export class UserRegisterComponent implements OnInit {
-  constructor(private router: Router,public snackBar: MatSnackBar, private as: AuthService) { }
+  constructor(private router: Router, public snackBar: MatSnackBar, private as: AuthService) { }
   name: string;
   email: string;
   password: string;
@@ -27,7 +27,7 @@ export class UserRegisterComponent implements OnInit {
   ngOnInit() {
   }
   keyDownFunction(event) {
-    if(event.keyCode == 13) {
+    if (event.keyCode == 13) {
       this.register();
     }
   }

@@ -3,9 +3,7 @@
     background-size: cover;
 }
 
-
 .rightRs {
-    
     opacity: 1;
     position: absolute;
     margin: auto;
@@ -19,7 +17,6 @@
 }
 
 .leftRs {
-    
     opacity: 0.5;
     position: absolute;
     margin: auto;
@@ -49,4 +46,3 @@
 body {
     background: #fafafa !important;
 }
-

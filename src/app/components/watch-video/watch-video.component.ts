@@ -66,7 +66,7 @@ export class WatchVideoComponent implements OnInit, AfterViewInit {
 
     this.route.params.subscribe(params => {
       this.id = (params['id']);
-      
+
       this.vidObj = new videojs(this.vid.nativeElement, options, function onPlayerReady() {
         videojs.log('Your player is ready!');
       });

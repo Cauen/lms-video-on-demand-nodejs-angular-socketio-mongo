@@ -1,6 +1,6 @@
 /* You can add global styles to this file, and also import other style files */
-@import "../node_modules/ng2-slim-loading-bar/style.css";
 
+@import "../node_modules/ng2-slim-loading-bar/style.css";
 .mat-toolbar.mat-primary {
     background: #de2c2c;
 }
@@ -26,7 +26,7 @@ a {
     color: white;
 }
 
-#content > * > div, #content >* > .mat-card {
+#content>*>div, #content>*>.mat-card {
     margin: 10px;
 }
 

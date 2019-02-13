@@ -13,23 +13,23 @@ courseRoutes.route('/add').post(function (req, res) {
   let course = new Course(req.body);
   course.save()
     .then(course => {
-      res.status(200).json({'course': 'course in added successfully'});
+      res.status(200).json({ 'course': 'course in added successfully' });
     })
     .catch(err => {
-    res.status(400).send(err);
+      res.status(400).send(err);
     });
 });
 
 // Defined get data(index or listing) route
 courseRoutes.route('/').get(function (req, res) {
-  Course.find(function (err, courses){
-    if(err){
+  Course.find(function (err, courses) {
+    if (err) {
       console.log(err);
     }
     else {
       var returnCourses = [];
-      courses.forEach(function(value, key){
-        returnCourses.push({name: courses[key].name, id:courses[key]._id});
+      courses.forEach(function (value, key) {
+        returnCourses.push({ name: courses[key].name, id: courses[key]._id });
       });
       res.json(returnCourses);
     }
@@ -81,37 +81,37 @@ courseRoutes.route('/getall').get(async function (req, res) {
 // Defined edit route
 courseRoutes.route('/edit/:id').get(function (req, res) {
   let id = req.params.id;
-  Course.findById(id, function (err, course){
-      res.json(course);
+  Course.findById(id, function (err, course) {
+    res.json(course);
   });
 });
 
 //  Defined update route
 courseRoutes.route('/update/:id').post(function (req, res) {
-    Course.findById(req.params.id, function(err, course) {
+  Course.findById(req.params.id, function (err, course) {
     if (!course)
       return next(new Error('Could not load Document'));
     else {
-        course.person_name = req.body.person_name;
-        course.course_name = req.body.course_name;
-        course.course_gst_number = req.body.course_gst_number;
+      course.person_name = req.body.person_name;
+      course.course_name = req.body.course_name;
+      course.course_gst_number = req.body.course_gst_number;
 
-        course.save().then(course => {
-          res.json('Update complete');
+      course.save().then(course => {
+        res.json('Update complete');
       })
-      .catch(err => {
-            res.status(400).send("unable to update the database");
-      });
+        .catch(err => {
+          res.status(400).send("unable to update the database");
+        });
     }
   });
 });
 
 // Defined delete | remove | destroy route
 courseRoutes.route('/delete/:id').get(function (req, res) {
-    Course.findByIdAndRemove({_id: req.params.id}, function(err, course){
-        if(err) res.json(err);
-        else res.json('Successfully removed');
-    });
+  Course.findByIdAndRemove({ _id: req.params.id }, function (err, course) {
+    if (err) res.json(err);
+    else res.json('Successfully removed');
+  });
 });
 
 module.exports = courseRoutes;

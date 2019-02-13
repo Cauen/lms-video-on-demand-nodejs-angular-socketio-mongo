@@ -1,9 +1,11 @@
 <div id="global-image">
-<mat-card style="background: #fafafa;
+  <mat-card style="background: #fafafa;
 max-width: 400px;
 margin: calc(50vh - 160px) auto;
 border-radius: 10px;" class="example-card">
-      <img src="https://secure.gravatar.com/avatar/a6b6084980eb30b519d281af493c4584?default=https%3A%2F%2Fcloud.digitalocean.com%2Favatars%2Fdefault23.png&amp;secure=true" alt="avatar" class="avatar" style="
+    <img
+      src="https://secure.gravatar.com/avatar/a6b6084980eb30b519d281af493c4584?default=https%3A%2F%2Fcloud.digitalocean.com%2Favatars%2Fdefault23.png&amp;secure=true"
+      alt="avatar" class="avatar" style="
           height: 90px;
           border-radius: 100%;
           margin: -50px auto;
@@ -17,15 +19,19 @@ border-radius: 10px;" class="example-card">
           <tr>
             <td>
               <mat-form-field class="example-full-width">
-              <input matInput placeholder="Email" [(ngModel)]="credentials.email" name="email" required>
-            </mat-form-field>
+                <input matInput placeholder="Email" [(ngModel)]="credentials.email" name="email" required>
+              </mat-form-field>
             </td>
           </tr>
           <tr>
-          <td><mat-form-field class="example-full-width">
-            <input matInput placeholder="Password" [(ngModel)]="credentials.password"type="password" name="password" required>
-          </mat-form-field></td>
-        </tr></table>
+            <td>
+              <mat-form-field class="example-full-width">
+                <input matInput placeholder="Password" [(ngModel)]="credentials.password" type="password"
+                  name="password" required>
+              </mat-form-field>
+            </td>
+          </tr>
+        </table>
         <span style="text-align: center;
           display: block;
           color: #545454;

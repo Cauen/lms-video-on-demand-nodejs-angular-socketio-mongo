@@ -2,7 +2,9 @@
 max-width: 400px;
 margin: calc(50vh - 210px) auto;
 border-radius: 10px;" class="example-card">
-  <img src="https://secure.gravatar.com/avatar/a6b6084980eb30b519d281af493c4584?default=https%3A%2F%2Fcloud.digitalocean.com%2Favatars%2Fdefault23.png&amp;secure=true" alt="avatar" class="avatar" style="
+  <img
+    src="https://secure.gravatar.com/avatar/a6b6084980eb30b519d281af493c4584?default=https%3A%2F%2Fcloud.digitalocean.com%2Favatars%2Fdefault23.png&amp;secure=true"
+    alt="avatar" class="avatar" style="
     height: 90px;
     border-radius: 100%;
     margin: -50px auto;
@@ -15,35 +17,39 @@ border-radius: 10px;" class="example-card">
         <tr>
           <td>
             <mat-form-field class="example-full-width">
-            <input matInput placeholder="Name" [(ngModel)]="credentials.name" name="name" required>
+              <input matInput placeholder="Name" [(ngModel)]="credentials.name" name="name" required>
             </mat-form-field>
           </td>
         </tr>
         <tr>
           <td>
             <mat-form-field class="example-full-width">
-            <input matInput placeholder="Username" [(ngModel)]="credentials.username" name="username" required>
+              <input matInput placeholder="Username" [(ngModel)]="credentials.username" name="username" required>
             </mat-form-field>
           </td>
         </tr>
         <tr>
           <td>
             <mat-form-field class="example-full-width">
-            <input matInput placeholder="Email" [(ngModel)]="credentials.email" name="email" required>
+              <input matInput placeholder="Email" [(ngModel)]="credentials.email" name="email" required>
             </mat-form-field>
           </td>
         </tr>
         <tr>
-        <td><mat-form-field class="example-full-width">
-          <input matInput placeholder="Password" [(ngModel)]="credentials.password"type="password" name="password" required>
-        </mat-form-field></td>
-      </tr></table>
+          <td>
+            <mat-form-field class="example-full-width">
+              <input matInput placeholder="Password" [(ngModel)]="credentials.password" type="password" name="password"
+                required>
+            </mat-form-field>
+          </td>
+        </tr>
+      </table>
       <span style="text-align: center;
           display: block;
           color: #545454;
           padding-bottom: 5px;
           padding-top: 20px;">Already have an account?</span>
-        <a style="    margin: auto;
+      <a style="    margin: auto;
         display: block;
         text-align: center;
         text-decoration: none;
@@ -54,7 +60,8 @@ border-radius: 10px;" class="example-card">
     <mat-spinner [style.display]="showSpinner ? 'block' : 'none'"></mat-spinner>
   </mat-card-content>
   <mat-card-actions>
-    <mat-icon (click)="register()" class="mat-icon material-icons mat-icon-no-color" role="img" aria-hidden="true" style="
+    <mat-icon (click)="register()" class="mat-icon material-icons mat-icon-no-color" role="img" aria-hidden="true"
+      style="
         box-shadow: 0 2px 1px -1px rgba(0,0,0,.2), 0 1px 1px 0 rgba(0,0,0,.14), 0 1px 3px 0 rgba(0,0,0,.12);
         padding: 20px;
         border-radius: 100%;

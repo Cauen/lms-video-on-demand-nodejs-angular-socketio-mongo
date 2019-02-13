@@ -1,43 +1,41 @@
-
 video {
-    width: 100%;
-    background-size: cover;
+  width: 100%;
+  background-size: cover;
 }
+
 .mat-table {
-    box-shadow: 0 5px 5px -3px rgba(0,0,0,.2), 0 8px 10px 1px rgba(0,0,0,.14), 0 3px 14px 2px rgba(0,0,0,.12);
-  }
+  box-shadow: 0 5px 5px -3px rgba(0, 0, 0, .2), 0 8px 10px 1px rgba(0, 0, 0, .14), 0 3px 14px 2px rgba(0, 0, 0, .12);
+}
 
-  table {
-      width: 100%;
-  }
+table {
+  width: 100%;
+}
 
-  .mat-form-field {
-      width: 100%;
-  }
+.mat-form-field {
+  width: 100%;
+}
 
-  button#comment {
-    width: 100%;
-    max-width: 100%;
-    height: 50px;
-  }
+button#comment {
+  width: 100%;
+  max-width: 100%;
+  height: 50px;
+}
 
-  #wrapper {
-      
-    max-width: 900px;
-    margin: auto;
-  }
+#wrapper {
+  max-width: 900px;
+  margin: auto;
+}
 
-  .mat-list {
-    box-shadow: 0 5px 5px -3px rgba(0,0,0,.2), 0 8px 10px 1px rgba(0,0,0,.14), 0 3px 14px 2px rgba(0,0,0,.12) !important;
-    
-    max-height: 300px;
-    overflow-y: auto;
-  }
+.mat-list {
+  box-shadow: 0 5px 5px -3px rgba(0, 0, 0, .2), 0 8px 10px 1px rgba(0, 0, 0, .14), 0 3px 14px 2px rgba(0, 0, 0, .12) !important;
+  max-height: 300px;
+  overflow-y: auto;
+}
 
-  form {
-      padding: 40px 0;
-  }
+form {
+  padding: 40px 0;
+}
 
-  .video-container {
-        margin: 20px 0 0 0;
-  }
+.video-container {
+  margin: 20px 0 0 0;
+}

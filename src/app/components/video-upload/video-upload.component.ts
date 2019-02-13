@@ -1,6 +1,6 @@
 import { Component, OnInit, ViewChild, ElementRef, AfterViewInit } from '@angular/core';//Tags
-import {COMMA, ENTER} from '@angular/cdk/keycodes';
-import {MatChipInputEvent} from '@angular/material';
+import { COMMA, ENTER } from '@angular/cdk/keycodes';
+import { MatChipInputEvent } from '@angular/material';
 import { MatProgressBarModule } from '@angular/material/progress-bar';
 import { ActivatedRoute, Router } from '@angular/router';
 
@@ -8,9 +8,9 @@ import { VideoService } from '../../services/video.service';
 import { CourseService } from '../../services/course.service';
 
 import { DomSanitizer } from '@angular/platform-browser';
-import {Location} from '@angular/common';
+import { Location } from '@angular/common';
 
-import {SnackBarService } from '../../services/snackbar.service';
+import { SnackBarService } from '../../services/snackbar.service';
 
 export interface TagVideo {
   name: string;
@@ -25,11 +25,11 @@ declare let videojs: any;
   styleUrls: ['./video-upload.component.css']
 })
 export class VideoUploadComponent implements OnInit {
-  
+
   videoUrl;
-  name : string;
-  description : string;
-  tags : [string];
+  name: string;
+  description: string;
+  tags: [string];
   file: File = null;
   fileThumb: File = null;
   course: string;
@@ -46,9 +46,9 @@ export class VideoUploadComponent implements OnInit {
   tagVideos: TagVideo[] = [];
 
   //Upload
-  percentage : Number = 0;
-  videoPreviewURL : string;
-  videoLoaded : boolean = false;
+  percentage: Number = 0;
+  videoPreviewURL: string;
+  videoLoaded: boolean = false;
   imageUploadText: string;
   vidObj: any;
   lastTimeUpdate: Date;
@@ -62,7 +62,7 @@ export class VideoUploadComponent implements OnInit {
 
     // Add our tagVideo
     if ((value || '').trim()) {
-      this.tagVideos.push({name: value.trim()});
+      this.tagVideos.push({ name: value.trim() });
     }
 
     // Reset the input value
@@ -79,14 +79,14 @@ export class VideoUploadComponent implements OnInit {
     }
   }
 
-  constructor(private vs:VideoService, 
+  constructor(private vs: VideoService,
     private route: ActivatedRoute,
     private router: Router,
     private cs: CourseService,
     private sanitizer: DomSanitizer,
     private _location: Location,
     private sbs: SnackBarService,
-    ) { }
+  ) { }
 
   ngOnInit() {
     this.getCourses();
@@ -102,14 +102,14 @@ export class VideoUploadComponent implements OnInit {
     });
   }
 
-  validateUpload() : boolean {
+  validateUpload(): boolean {
     if (this.name && this.description && this.file && this.fileThumb && this.course && this.duration)
       return true;
     else
       return false;
   }
   upload_video() {
-    
+
     var tags = [];
     for (var key in this.tagVideos) {
       tags.push(this.tagVideos[key].name)
@@ -130,22 +130,22 @@ export class VideoUploadComponent implements OnInit {
       var type = progress.type;
       var loaded = progress.loaded;
       var total = progress.total;
-      this.setPercentage(loaded/total*100);
+      this.setPercentage(loaded / total * 100);
       if (type === 1 && loaded === total) {
         this.setPercentage(0, true);
         this.sbs.openSnackBar('Successfully Uploaded', 'Close');
       }
-      
+
       console.log(progress);
 
     }, (err) => {
       console.log(err);
-    
+
     });
   }
 
   setPercentage(value, force = false) {
-    
+
     var now: Date = new Date();
     if (!this.lastTimeUpdate) this.lastTimeUpdate = new Date();
     var secondsWithoutUpdate = (now.getTime() - this.lastTimeUpdate.getTime()) / 1000;
@@ -156,9 +156,9 @@ export class VideoUploadComponent implements OnInit {
       this.percentage = value;
     }
   }
-  
+
   keyDownFunction(event) {
-    if(event.keyCode == 13) {
+    if (event.keyCode == 13) {
       this.upload_video();
     }
   }
@@ -177,9 +177,9 @@ export class VideoUploadComponent implements OnInit {
     });
 
   }
-  
- 
-  onFileChange(event){
+
+
+  onFileChange(event) {
     this.file = event.target.files[0];
     const files = event.target.files;
     if (files && files[0]) {
@@ -192,15 +192,15 @@ export class VideoUploadComponent implements OnInit {
     }
 
 
-  } 
-  
-  onFileChangeThumb(event){
+  }
+
+  onFileChangeThumb(event) {
     this.fileThumb = event.target.files[0];
     var fileThumbUrl = URL.createObjectURL(this.fileThumb);
     this.vidObj.poster(fileThumbUrl);
-    
+
     this.imageUploadText = 'Reupload image'
-  } 
+  }
 
   getDuration(e) {
     const durationz = e.target.duration;

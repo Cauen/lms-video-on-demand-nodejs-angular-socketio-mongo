@@ -15,13 +15,13 @@ import { NguCarouselModule } from '@ngu/carousel';
 import { CreateCourseComponent } from './components/create-course/create-course.component';
 import { WatchVideoComponent } from './components/watch-video/watch-video.component';
 
-import { HttpClientModule, HTTP_INTERCEPTORS} from '@angular/common/http';
+import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { UserRegisterComponent } from './components/user-register/user-register.component';
 import { ProfileComponent } from './components/profile/profile.component';
 import { JwtInterceptor } from './helpers';
 
 import { SlimLoadingBarModule } from 'ng2-slim-loading-bar';
-import {SnackBarService} from './services/snackbar.service';
+import { SnackBarService } from './services/snackbar.service';
 import { ResultsComponent } from './components/results/results.component';
 
 
@@ -40,7 +40,7 @@ import { ResultsComponent } from './components/results/results.component';
   imports: [
     BrowserModule,
     AppRoutingModule,
-    
+
     FormsModule,
     MaterialModule,
     BrowserAnimationsModule,

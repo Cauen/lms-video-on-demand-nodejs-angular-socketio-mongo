@@ -4,13 +4,13 @@ var authRoutes = express.Router();
 
 let User = require('../models/User');
 
-var sendJSONresponse = function(res, status, content) {
-    res.status(status);
-    res.json(content);
+var sendJSONresponse = function (res, status, content) {
+  res.status(status);
+  res.json(content);
 };
 
 authRoutes.route('/login').post(function (req, res, next) {
-  passport.authenticate('local', function(err, user, info){
+  passport.authenticate('local', function (err, user, info) {
     var token;
 
     // If Passport throws/catches an error
@@ -20,11 +20,11 @@ authRoutes.route('/login').post(function (req, res, next) {
     }
 
     // If a user is found
-    if(user){
+    if (user) {
       token = user.generateJwt();
       res.status(200);
       res.json({
-        "token" : token
+        "token": token
       });
     } else {
       // If user is not found1
@@ -41,19 +41,19 @@ authRoutes.route('/register').post(function (req, res) {
   user.username = req.body.username;
 
   user.setPassword(req.body.password);
-  
+
   user.save()
-  .then(user => {
-    var token;
-    token = user.generateJwt();
-    res.status(200);
-    res.json({
-      "token" : token
+    .then(user => {
+      var token;
+      token = user.generateJwt();
+      res.status(200);
+      res.json({
+        "token": token
+      });
+    })
+    .catch(err => {
+      res.status(400).send(err);
     });
-  })
-  .catch(err => {
-    res.status(400).send(err);
-  });
 
 });
 
