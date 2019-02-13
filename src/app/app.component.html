@@ -6,6 +6,9 @@
     <span class="example-fill-remaining-space"></span>
     <span class="align-center"></span>
     <span class="example-spacer"></span>
+    <a *ngIf="auth.isLoggedIn()" [routerLink]="['/results']"><button mat-menu-item>
+      <mat-icon style="margin: 0; color:white;">search</mat-icon>
+    </button></a>
     <a *ngIf="auth.isLoggedIn()" [routerLink]="['/profile']"><button mat-button>Welcome, {{auth.getUserDetails().name}}</button></a>
     <a *ngIf="auth.isLoggedIn()" [routerLink]="['/courses']"><button mat-button>Classes</button></a>
     <a *ngIf="!auth.isLoggedIn()" [routerLink]="['/login']"><button mat-button>Login</button></a>

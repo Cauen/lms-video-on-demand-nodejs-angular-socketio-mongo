@@ -12,7 +12,20 @@ let Course = new Schema({
     required: true
   },
   tags: [String],
-  modules: [{ type : Schema.Types.ObjectId, ref: 'Module' }],
+  modules: [{
+    name: {
+      type: String,
+      required: true
+    },
+    description: {
+      type: String,
+      required: true
+    },
+    tags: [String],
+    videos: [{ type : Schema.Types.ObjectId, ref: 'Video' }],
+    
+    created: { type: Date, default: Date.now },
+  }],
   videos: [{ type : Schema.Types.ObjectId, ref: 'Video' }],
   
   created: { type: Date, default: Date.now },

@@ -1,0 +1,39 @@
+<mat-toolbar color="primary">
+  <mat-toolbar-row class="docs-primary-header component-page-header">
+    <mat-icon (click)="this._location.back()" class="backhistory-icon">keyboard_backspace</mat-icon>
+    <span>Results</span>
+    <span class="example-spacer"></span>
+    <mat-icon class="example-icon">verified_user</mat-icon>
+  </mat-toolbar-row>
+</mat-toolbar>
+<div class="container">
+  <div class="row">
+
+    <div class="col-md-6">
+
+      <h1 class="mat-h2">Results <span *ngIf="results.length">({{results.length}})</span></h1>
+      <mat-form-field class="example-full-width">
+        <input (input)="searching()" matInput placeholder="Search input here" [(ngModel)]="query">
+      </mat-form-field>
+      <div>
+
+        <div class="result" [routerLink]="['/video/'+video._id]" *ngFor="let video of results">
+
+          <h3 class="mat-h3">{{video.name}}</h3>
+          <div class="mat-body description">
+
+            <div class="example-header-image mat-card-avatar">
+
+            </div>
+            <div class="asdesc">
+              <p class="desc">Description: {{video.description}} </p>
+              <p class="tags">Tags: {{video.tags}}</p>
+            </div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+
+  </div>
+</div>

@@ -1,12 +1,12 @@
 import { Injectable } from '@angular/core';
-import { HttpClient, HttpEvent, HttpErrorResponse, HttpEventType} from '@angular/common/http';
+import { HttpClient, HttpEvent, HttpErrorResponse, HttpEventType } from '@angular/common/http';
 import { Observable, Subscription, throwError } from 'rxjs';
 import { catchError, map } from 'rxjs/operators';
 
 import { AngularWaitBarrier } from 'blocking-proxy/built/lib/angular_wait_barrier';
 
 import { AuthService, TokenPayload } from '../services/auth.service';
-import { UserService } from '../services/user.service'; 
+import { UserService } from '../services/user.service';
 import { callbackify } from 'util';
 
 const ipconfig = require('./config');
@@ -18,9 +18,9 @@ var appport = ipconfig.port;
 })
 export class VideoService {
 
-  uri = 'http://'+appip+':'+appport+'/video';
+  uri = 'http://' + appip + ':' + appport + '/video';
 
-  token = { headers: { Authorization: `Bearer ${this.as.getToken()}` }};
+  token = { headers: { Authorization: `Bearer ${this.as.getToken()}` } };
   constructor(private http: HttpClient, private as: AuthService) { }
   /*
   addVideo(name, description, tags, file) {
@@ -41,8 +41,8 @@ export class VideoService {
     return resultado;
   }
   */
-  addVideo(name, description = "", tags, fileToUpload: File, fileThumbToUpload: File, course, duration){
-    console.log({name, description, tags, fileToUpload});
+  addVideo(name, description = "", tags, fileToUpload: File, fileThumbToUpload: File, course, duration) {
+    console.log({ name, description, tags, fileToUpload });
     const formData: FormData = new FormData();
     formData.append('file', fileToUpload, fileToUpload.name);
     formData.append('filethumb', fileThumbToUpload, fileThumbToUpload.name);
@@ -52,31 +52,33 @@ export class VideoService {
     formData.append('course', course);
     formData.append('duration', duration);
 
-    var config = {headers: {}, transformRequest: 'Angular'};
+    var config = { headers: {}, transformRequest: 'Angular' };
     config.headers['Content-Type'] = undefined;
-  
+
     return this.http.post(`${this.uri}/upload`, formData, {
       reportProgress: true,
       observe: 'events'
     });
-}
+  }
 
-addComment(user, content, id) {
-  return this.http.post(`${this.uri}/comment/`+id, {user: user, content:content});
-}
+  addComment(user, content, id) {
+    return this.http.post(`${this.uri}/comment/` + id, { user: user, content: content });
+  }
 
-getComments(id) : any {
-  return this.http.get(`${this.uri}/comments/`+id);
-}
+  getComments(id): any {
+    return this.http.get(`${this.uri}/comments/` + id);
+  }
 
-getData(id) : any {
-  return this.http.get(`${this.uri}/data/`+id);
-}
+  getData(id): any {
+    return this.http.get(`${this.uri}/data/` + id);
+  }
 
-getThumb(id) : any {
-  return this.http.get(`${this.uri}/thumb/`+id);
-}
+  getThumb(id): any {
+    return this.http.get(`${this.uri}/thumb/` + id);
+  }
 
-
+  getVideosByQuery(query):any {
+    return this.http.get(`${this.uri}/search/` + query);
+  }
 
 }

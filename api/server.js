@@ -18,7 +18,6 @@ var auth = jwt({
 const videoRoute = require('./routes/video.route');
 const courseRoute = require('./routes/course.route');
 const userRoute = require('./routes/user.route');
-const moduleRoute = require('./routes/module.route');
 const authRoute = require('./routes/auth.route');
 const testRoute = require('./routes/test.route');
 mongoose.Promise = global.Promise;
@@ -48,12 +47,11 @@ const app = express();
 app.use(bodyParser.json());
 app.use(cors());
 app.use('/course', auth, courseRoute );
-app.use('/module', moduleRoute);
 var myLogger = function (req, res, next) {
   console.log('LOGGED');
   next();
 };
-app.use('/auth', myLogger, authRoute);
+app.use('/auth', authRoute);
 
 var testUser = function(req,res, next){
   if (req.headers && req.headers.authorization) {
@@ -91,6 +89,7 @@ app.get('/video/data/:id', videoRoute.dataId);
 app.get('/video/comments/:id', videoRoute.commentsId);
 app.post('/video/comment/:id', videoRoute.commentId);
 app.post('/video/upload/', auth, videoUploadOptions, videoRoute.upload);
+app.get('/video/search/:query', auth, videoRoute.getVideosByNameOrDesc);
 
 const port = process.env.PORT || 4000;
 

@@ -22,6 +22,7 @@ import { JwtInterceptor } from './helpers';
 
 import { SlimLoadingBarModule } from 'ng2-slim-loading-bar';
 import {SnackBarService} from './services/snackbar.service';
+import { ResultsComponent } from './components/results/results.component';
 
 
 @NgModule({
@@ -33,7 +34,8 @@ import {SnackBarService} from './services/snackbar.service';
     CreateCourseComponent,
     WatchVideoComponent,
     UserRegisterComponent,
-    ProfileComponent
+    ProfileComponent,
+    ResultsComponent
   ],
   imports: [
     BrowserModule,

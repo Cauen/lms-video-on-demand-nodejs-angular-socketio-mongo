@@ -7,6 +7,7 @@ import { VideoUploadComponent } from './components/video-upload/video-upload.com
 import { CreateCourseComponent } from './components/create-course/create-course.component';
 import { WatchVideoComponent } from './components/watch-video/watch-video.component';
 import { ProfileComponent } from './components/profile/profile.component';
+import { ResultsComponent } from './components/results/results.component';
 
 
 import { AuthGuardService } from './services/onlinecheck.service';
@@ -16,12 +17,12 @@ const routes: Routes = [
   {
     path: 'courses',
     component: ClassesListComponent,
-    canActivate: [AuthGuardService] 
+    canActivate: [AuthGuardService]
   },
   {
     path: 'login',
     component: UserLoginComponent,
-    canActivate: [GoInIfLoggedService] 
+    canActivate: [GoInIfLoggedService]
   },
   {
     path: 'register',
@@ -42,11 +43,15 @@ const routes: Routes = [
   {
     path: '',
     component: ClassesListComponent,
-    canActivate: [AuthGuardService] 
+    canActivate: [AuthGuardService]
   },
   {
     path: 'video/:id',
     component: WatchVideoComponent
+  },
+  {
+    path: 'results',
+    component: ResultsComponent
   },
 ];
 

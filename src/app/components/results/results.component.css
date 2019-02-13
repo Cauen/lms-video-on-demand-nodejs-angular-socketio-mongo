@@ -1,0 +1,40 @@
+.result {
+    border-left: 2px #de2c2c solid;
+    padding: 10px 20px 20px 20px;
+    margin: 15px 0;
+    cursor: pointer;
+    box-shadow: 0px 2px 1px -1px rgba(0, 0, 0, 0.2), 0px 1px 1px 0px rgba(0, 0, 0, 0.14), 0px 1px 3px 0px rgba(0, 0, 0, 0.12);
+    background: white;
+}
+
+h3 {
+    font-weight: 600;
+    font-size: 20px;
+}
+
+.description {
+    font-size: 16px;
+    display: flex;
+    flex-direction: row;
+}
+
+.mat-card-avatar {
+    height: 180px;
+    width: 320px;
+    border-radius: 0;
+    object-fit: cover;
+    background: url('http://192.168.1.6:4000/video/thumb/5c636ff2972a4a186ceb96ca');
+    background-size: contain;
+}
+
+.desc {
+    margin: 0;
+}
+
+.asdesc {
+    padding: 20px 20px;
+}
+
+.container {
+    padding: 16px;
+}
