@@ -26,6 +26,9 @@ import { ServiceWorkerModule } from '@angular/service-worker';
 import { environment } from '../environments/environment';
 import { ClassComponent } from './components/class/class.component';
 import { VideoCardComponent } from './components/video-card/video-card.component';
+import { EditCourseComponent } from './components/edit-course/edit-course.component';
+
+import {DragDropModule} from '@angular/cdk/drag-drop';
 
 @NgModule({
   declarations: [
@@ -39,7 +42,8 @@ import { VideoCardComponent } from './components/video-card/video-card.component
     ProfileComponent,
     ResultsComponent,
     ClassComponent,
-    VideoCardComponent
+    VideoCardComponent,
+    EditCourseComponent
   ],
   imports: [
     BrowserModule,
@@ -50,7 +54,11 @@ import { VideoCardComponent } from './components/video-card/video-card.component
     BrowserAnimationsModule,
     HttpClientModule,
     SlimLoadingBarModule,
+    DragDropModule,
     ServiceWorkerModule.register('ngsw-worker.js', { enabled: environment.production }),
+  ],
+  exports: [
+    DragDropModule,
   ],
   providers: [
     {

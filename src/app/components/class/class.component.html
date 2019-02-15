@@ -1,8 +1,9 @@
 <mat-toolbar color="primary">
   <mat-toolbar-row class="docs-primary-header component-page-header">
     <mat-icon (click)="this._location.back()" class="backhistory-icon">keyboard_backspace</mat-icon>
-    <span>Course: {{course?.name}}</span>
+    <span>Course: {{course?.name}} </span>
     <span class="example-spacer"></span>
+    <mat-icon style="cursor: pointer;" [routerLink]="['/course/edit/'+id]" class="example-icon">edit</mat-icon>
     <mat-icon class="example-icon">verified_user</mat-icon>
   </mat-toolbar-row>
 </mat-toolbar>
@@ -19,8 +20,8 @@
       </div>
 
       <div id="videos" class="videos dragscroll">
-        <app-video-card *ngFor="let video of course.videos" [subcard]="course.name"
-          [video]="video" [percent]="percents[video._id]"></app-video-card>
+        <app-video-card *ngFor="let video of course.videos" [subcard]="course.name" [video]="video"
+          [percent]="percents[video._id]"></app-video-card>
 
       </div>
 

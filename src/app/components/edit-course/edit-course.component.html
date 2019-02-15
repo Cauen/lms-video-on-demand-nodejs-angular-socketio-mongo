@@ -1,0 +1,58 @@
+<mat-toolbar color="primary">
+  <mat-toolbar-row class="docs-primary-header component-page-header">
+    <mat-icon (click)="this._location.back()" class="backhistory-icon">keyboard_backspace</mat-icon>
+    <span>Results</span>
+    <span class="example-spacer"></span>
+    <mat-icon class="example-icon">verified_user</mat-icon>
+  </mat-toolbar-row>
+</mat-toolbar>
+<div class="container">
+  <div class="row">
+
+    <div class="col-md-6">
+      <table class="example-full-width" cellspacing="0">
+        <tr>
+          <td>
+            <mat-form-field class="example-full-width">
+              <input matInput placeholder="Name" (input)="editingCourse()" [(ngModel)]="course.name" name="name" required>
+            </mat-form-field>
+          </td>
+        </tr>
+        <tr>
+          <td>
+            <mat-form-field class="example-full-width">
+              <textarea matInput (input)="editingCourse()" [(ngModel)]="course.description" name="description" placeholder="Description"></textarea>
+            </mat-form-field>
+          </td>
+        </tr>
+        <tr>
+          <td>
+            <mat-form-field class="example-chip-list">
+              <mat-chip-list #chipList>
+                <mat-chip *ngFor="let tagVideo of tagVideos" [selectable]="selectable" [removable]="removable"
+                  (removed)="remove(tagVideo)">
+                  {{tagVideo.name}}
+                  <mat-icon matChipRemove *ngIf="removable">cancel</mat-icon>
+                </mat-chip>
+                <input placeholder="Tags..." [matChipInputFor]="chipList"
+                  [matChipInputSeparatorKeyCodes]="separatorKeysCodes" [matChipInputAddOnBlur]="addOnBlur"
+                  (matChipInputTokenEnd)="add($event)">
+              </mat-chip-list>
+            </mat-form-field>
+          </td>
+        </tr>
+      </table>
+      <div cdkDropList class="example-list" (cdkDropListDropped)="drop($event)">
+        <div class="example-box" *ngFor="let video of course?.videos; let i = index" cdkDrag>
+          {{i+1}} - {{video.name}}
+          <div style="padding: 10px" *cdkDragPreview>
+            <h2 class="mat-h2">{{video.name}}</h2>
+            <img width="500px" [src]="this.vs.uri+'/thumb/'+video._id" [alt]="video.name">
+          </div>
+        </div>
+      </div>
+
+    </div>
+
+  </div>
+</div>

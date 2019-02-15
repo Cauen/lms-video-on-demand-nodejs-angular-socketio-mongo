@@ -56,21 +56,48 @@ module.exports.getCourseByID = (function (req, res) {
 module.exports.getCourseAndVideosByID = (function (req, res) {
   let id = req.params.id;
   Course.findById(id).populate('videos').exec(function (err, course) {
+    if (err)
+      return res.status(404).json(err);
     var videos = course.videos.map(video => {
       return { _id: video._id, name: video.name, fileThumbDirURL: video.fileThumbDirURL, videoDuration: video.videoDuration, description: video.description }
     })
-    res.json({ name: course.name, description: course.description, videos: videos });
+    res.json({ name: course.name, description: course.description, videos: videos, tags: course.tags });
   });
 });
 
-module.exports.putVideoByID = (function (req, res) {
-  Course.findById(req.params.id, function (err, course) {
+module.exports.putVideoDetailsByID = (function (req, res) {
+
+  let courseId = req.body.id;
+  let courseName = req.body.name;
+  let courseDescription = req.body.description;
+  var courseTags = req.body.tags;
+
+  Course.findById(courseId, function (err, course) {
     if (!course)
       return next(new Error('Could not load Document'));
     else {
-      course.person_name = req.body.person_name;
-      course.course_name = req.body.course_name;
-      course.course_gst_number = req.body.course_gst_number;
+      course.name = courseName;
+      course.description = courseDescription;
+      course.tags = courseTags;
+
+      course.save().then(course => {
+        res.json('Update complete');
+      }).catch(err => {
+        res.status(400).send("unable to update the database");
+      });
+    }
+  });
+});
+
+module.exports.putVideoReorderByID = (function (req, res) {
+
+  let courseId = req.body.id;
+  let courseVideos = req.body.videos;
+  Course.findById(courseId, function (err, course) {
+    if (!course)
+      return next(new Error('Could not load Document'));
+    else {
+      course.videos = courseVideos;
 
       course.save().then(course => {
         res.json('Update complete');

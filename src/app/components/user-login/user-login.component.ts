@@ -38,7 +38,7 @@ export class UserLoginComponent implements OnInit {
       this.openSnackBar('Success', 'close');
       this.router.navigateByUrl('/courses');
     }, (err) => {
-      this.openSnackBar(err, 'close');
+      this.openSnackBar('Wrong Credentials', 'close');
       console.error(err);
     });
   }

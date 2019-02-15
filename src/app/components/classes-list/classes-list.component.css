@@ -38,6 +38,7 @@
     color: #e53935;
     font-weight: 100;
     float: right;
+    cursor: pointer;
 }
 
 app-video-card {

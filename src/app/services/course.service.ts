@@ -43,6 +43,24 @@ export class CourseService {
     return this.http.get(`${this.uri}/courseandvideo/`+ id);
   }
 
+  putCourseReorder(id, videos) {
+    var data = {
+      id:id,
+      videos: videos
+    }
+    return this.http.put(`${this.uri}/reorder/`, data);
+  }
+
+  putCourseDetails(id, name, description, tags) {
+    var data = {
+      id:id,
+      name: name,
+      description: description,
+      tags: tags
+    }
+    return this.http.put(`${this.uri}/update/`, data);
+  }
+
   getCoursesAndData() {
     return this.http.get(`${this.uri}/getall`);
   }

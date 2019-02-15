@@ -33,9 +33,14 @@ button#comment {
 }
 
 form {
-  padding: 40px 0;
+  padding: 40px 16px;
 }
 
-.video-container {
-  margin: 20px 0 0 0;
+@media only screen and (max-width: 980px) {
+  .video-container {
+    margin: 0 !important;
+  }
+  video {
+    border-radius: 0 !important;
+  }
 }

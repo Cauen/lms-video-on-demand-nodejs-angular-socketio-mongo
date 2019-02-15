@@ -20,6 +20,7 @@ export class ClassComponent implements OnInit {
   userDetails: UserDetails;
   details: UserDetails;
   course: any = {};
+  id: string;
   percents: any = [];
 
   constructor(
@@ -40,7 +41,7 @@ export class ClassComponent implements OnInit {
 
     this.details = this.auth.getUserDetails();
     this.route.params.subscribe(params => {
-
+      this.id = params['id'];
       this.cs.getCourseAndVideosByID(params['id']).subscribe(res => {
         this.course = res;
         console.log(this.course);

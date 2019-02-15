@@ -54,7 +54,8 @@ app.get('/course', courseRoute.getAllCoursesIdAndName);
 app.get('/course/:id', courseRoute.getCourseByID);
 app.get('/course/courseandvideo/:id', courseRoute.getCourseAndVideosByID);
 app.delete('/course/:id', courseRoute.deleteVideoByID);
-app.put('/course/:id', courseRoute.putVideoByID);
+app.put('/course/reorder', courseRoute.putVideoReorderByID);
+app.put('/course/update', courseRoute.putVideoDetailsByID);
 app.post('/course/', courseRoute.postCourse);
 
 var myLogger = function (req, res, next) {

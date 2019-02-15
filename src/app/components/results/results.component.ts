@@ -4,6 +4,7 @@ import { VideoService } from '../../services/video.service';
 import { ActivatedRoute } from "@angular/router";
 import { Router } from '@angular/router';
 
+import { Location } from '@angular/common';
 import 'rxjs/add/operator/filter';
 
 @Component({
@@ -13,7 +14,8 @@ import 'rxjs/add/operator/filter';
 })
 export class ResultsComponent implements OnInit, AfterViewInit {
 
-  constructor(private vs: VideoService, private route: ActivatedRoute, private router: Router) { }
+  constructor(private vs: VideoService, private route: ActivatedRoute, private router: Router,
+    private _location: Location, ) { }
   query: String = '';
   results: any = [];
   ngOnInit() {
@@ -30,7 +32,7 @@ export class ResultsComponent implements OnInit, AfterViewInit {
   ngAfterViewInit() {
     setTimeout(() => {
       this.queryElement.first.nativeElement.focus();
-      }, 200);
+    }, 200);
   }
   searching() {
     console.log(this.query);

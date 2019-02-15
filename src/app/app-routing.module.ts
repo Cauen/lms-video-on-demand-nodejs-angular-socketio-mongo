@@ -9,6 +9,7 @@ import { WatchVideoComponent } from './components/watch-video/watch-video.compon
 import { ProfileComponent } from './components/profile/profile.component';
 import { ResultsComponent } from './components/results/results.component';
 import { ClassComponent } from './components/class/class.component';
+import { EditCourseComponent } from './components/edit-course/edit-course.component';
 
 
 import { AuthGuardService } from './services/onlinecheck.service';
@@ -57,6 +58,10 @@ const routes: Routes = [
   {
     path: 'class/:id',
     component: ClassComponent
+  },
+  {
+    path: 'course/edit/:id',
+    component: EditCourseComponent
   },
 ];
 

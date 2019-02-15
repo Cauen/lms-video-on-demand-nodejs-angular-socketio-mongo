@@ -150,10 +150,6 @@ video-js.vjs-ended .vjs-big-play-button, .video-js.vjs-paused .vjs-big-play-butt
     background: rgba(255, 255, 255, 0.5);
 }
 
-.video-js, .video-js video, .vjs-poster, .video-js .vjs-tech {
-    border-radius: 8px;
-}
-
 .vjs-playback-rate .vjs-playback-rate-value {
     font-size: 1.0em;
     line-height: 3;
