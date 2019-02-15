@@ -13,6 +13,8 @@ export class VideoCardComponent implements OnInit {
   constructor(private vs: VideoService) { }
 
   ngOnInit() {
+    if (!this.percent)
+      this.percent = 0;
   }
 
   private millisToMinutesAndSeconds(millis) {

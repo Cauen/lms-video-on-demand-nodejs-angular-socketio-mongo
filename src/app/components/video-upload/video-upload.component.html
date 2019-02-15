@@ -67,7 +67,7 @@
           <td>
             <mat-form-field>
               <mat-select [(ngModel)]="course" name="course" placeholder="Course">
-                <mat-option *ngFor="let course of courses" [value]="course.id">
+                <mat-option *ngFor="let course of courses" [value]="course._id">
                   {{course.name}}
                 </mat-option>
               </mat-select>

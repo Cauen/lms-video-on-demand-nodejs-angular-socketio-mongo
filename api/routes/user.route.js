@@ -78,6 +78,7 @@ userRoutes.route('/setvideotiming').post(function (req, res) {
         if (user.watching[i].video == videoid) {
           user.watching[i].secondswatched = timing;
           user.watching[i].percent = timing / videoduration * 100;
+          user.watching[i].updated = new Date();
           foundVideo = true;
         }
       }

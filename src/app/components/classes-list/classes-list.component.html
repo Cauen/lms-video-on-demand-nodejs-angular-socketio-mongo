@@ -6,60 +6,12 @@
   </mat-toolbar-row>
 </mat-toolbar>
 <div class="classes-list" *ngFor="let course of coursesAndDataWithVideos; let c = index">
-  <h2 style="cursor: pointer;" [routerLink]="'/class/'+course._id" class="mat-h2">{{course.name}}</h2>
+  <h2 style="cursor: pointer;" [routerLink]="'/class/'+course._id" class="mat-h2">{{course.name}} ({{course.watchedCount}}/{{course.totalVideos}}) <span class="view-all">View all</span></h2>
   <p class="mat-body">{{course.description}}</p>
-  <!-- <ngu-carousel  #myCarousel [inputs]="carouselTile" [dataSource]="carouselTileItems"> -->
-  <ngu-carousel #myCarousel [inputs]="carouselTile" [dataSource]="course.videos">
-    <ngu-tile *nguCarouselDef="let item; let i = index">
-      <mat-card class="example-card">
-        <mat-card-header>
-          <div [style.background-image]="getThumbURL(c, i)" mat-card-avatar class="example-header-image"></div>
-          <mat-card-title [routerLink]="'/video/'+getVideoID(c, i)">{{item.name}}</mat-card-title>
-          <mat-card-subtitle>{{course.name}}</mat-card-subtitle>
-        </mat-card-header>
+  <div class="videos dragscroll">
+    <app-video-card *ngFor="let video of course.videos" [course]="course" [video]="video"
+      [percent]="percents[video._id]"></app-video-card>
 
-        <!-- <video width="400" [style.background-image]="getThumbURL(c, desc)" preload="metadata" id="videoPlayer" poster="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7"  controls>
-      <source [src]="getVideoURL(c, i)"  type="video/mp4">
-    </video> 
-    <img mat-card-image src="https://material.angular.io/assets/img/examples/shiba2.jpg" alt="Photo of a Shiba Inu">-->
-        <div class="video-image" width="400" [style.margin-bottom]="0" [style.background-image]="getThumbURL(c, i)">
-          <div class="duration" style="
-        vertical-align: bottom;
-        display: table;
-        margin: auto 0 0 auto;
-        padding: 4px;
-        background: #00000061;
-        color: white;
-        font-weight: bold;
-        "><span>{{getVideoDuration(c, i)}}</span>
-          </div>
-        </div>
-        <div class="progress " style="
-        height: 2px;
-        margin: 0 -16px 16px -16px;
-    "><span class="progress-bar" style="
-        height: 2px;
-        display: block;
-    "><span role="presentation" class="progress-completed" [style.width]="getWatchingPercent(c, i)+'%'"
-              style="height: 2px;display: block;background: red;"></span></span>
-        </div>
-        <mat-card-content>
-          <p>{{item.description}}
-          </p>
-        </mat-card-content>
-        <mat-card-actions>
-          <button [routerLink]="'/video/'+getVideoID(c, i)" mat-button>Watch</button>
-          <button mat-button>Share</button>
-        </mat-card-actions>
-      </mat-card>
-    </ngu-tile>
-    <!-- That gives error 
-        
-        <button NguCarouselPrev class="leftRs" [style.opacity]="myCarousel.isFirst ? 0.5:1">&lt;</button>
-        <button NguCarouselNext class="rightRs" [style.opacity]="myCarousel.isLast ? 0.5:1">&gt;</button>
-        -->
-    <button NguCarouselPrev class="leftRs" [style.opacity]="0.5">&lt;</button>
-    <button NguCarouselNext class="rightRs" [style.opacity]="0.5">&gt;</button>
-  </ngu-carousel>
+  </div>
   <mat-divider></mat-divider>
 </div>

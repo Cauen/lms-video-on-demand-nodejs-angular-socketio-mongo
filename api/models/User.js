@@ -3,7 +3,7 @@ const Schema = mongoose.Schema;
 var crypto = require('crypto');
 var jwt = require('jsonwebtoken');
 
-var validateEmail = function(email) {
+var validateEmail = function (email) {
   var re = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/;
   return re.test(email)
 };
@@ -31,36 +31,37 @@ let User = new Schema({
   role: String,
   hash: String,
   salt: String,
-  preferences: [{ type : Schema.Types.ObjectId, ref: 'Course' }],
+  preferences: [{ type: Schema.Types.ObjectId, ref: 'Course' }],
   watching: [{
-    video: { 
-      type : Schema.Types.ObjectId, 
+    video: {
+      type: Schema.Types.ObjectId,
       ref: 'Video',
-    }, 
+    },
     secondswatched: {
       type: Number,
       required: true,
     },
     percent: {
       type: Number
-    }
+    },
+    updated: { type: Date, default: Date.now },
   }],
   updated: { type: Date, default: Date.now },
-},{
+}, {
     collection: 'user'
-});
+  });
 
-User.methods.setPassword = function(password){
+User.methods.setPassword = function (password) {
   this.salt = crypto.randomBytes(16).toString('hex');
   this.hash = crypto.pbkdf2Sync(password, this.salt, 1000, 64, 'sha512').toString('hex');
 };
 
-User.methods.validPassword = function(password) {
+User.methods.validPassword = function (password) {
   var hash = crypto.pbkdf2Sync(password, this.salt, 1000, 64, 'sha512').toString('hex');
   return this.hash === hash;
 };
 
-User.methods.generateJwt = function() {
+User.methods.generateJwt = function () {
   var expiry = new Date();
   expiry.setDate(expiry.getDate() + 7);
 

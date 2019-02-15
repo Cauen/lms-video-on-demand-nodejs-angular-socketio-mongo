@@ -30,7 +30,7 @@
 
 #videos {
     max-width: 100%;
-    overflow-x: scroll;
+    overflow-x: auto;
     position: relative;
     display: flex;
     height: 100%;

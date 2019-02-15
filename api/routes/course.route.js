@@ -20,7 +20,7 @@ module.exports.postCourse = (function (req, res) {
     });
 });
 
-module.exports.getAllCoursesIdAndNameByID = (function (req, res) {
+module.exports.getAllCoursesIdAndName = (function (req, res) {
   Course.find(function (err, courses) {
     if (err) {
       return res.send(err);

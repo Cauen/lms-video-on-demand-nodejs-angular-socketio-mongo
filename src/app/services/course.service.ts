@@ -26,7 +26,7 @@ export class CourseService {
       modules: modules
     };
     console.log(obj);
-    this.http.post(`${this.uri}/add`, obj)
+    this.http.post(`${this.uri}/`, obj)
       .subscribe(res => console.log(res));
   }
 

@@ -11,7 +11,6 @@ import { MaterialModule } from './material.modules';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { VideoUploadComponent } from './components/video-upload/video-upload.component';
 
-import { NguCarouselModule } from '@ngu/carousel';
 import { CreateCourseComponent } from './components/create-course/create-course.component';
 import { WatchVideoComponent } from './components/watch-video/watch-video.component';
 
@@ -49,7 +48,6 @@ import { VideoCardComponent } from './components/video-card/video-card.component
     FormsModule,
     MaterialModule,
     BrowserAnimationsModule,
-    NguCarouselModule,
     HttpClientModule,
     SlimLoadingBarModule,
     ServiceWorkerModule.register('ngsw-worker.js', { enabled: environment.production }),

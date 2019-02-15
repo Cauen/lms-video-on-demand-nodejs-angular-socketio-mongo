@@ -50,7 +50,7 @@ app.use(cors());
 //app.use('/course', auth, courseRoute );
 // Course Routes
 app.get('/course/getall', courseRoute.getAllCoursesAndVideos);
-app.get('/course/idname', courseRoute.getAllCoursesIdAndNameByID);
+app.get('/course', courseRoute.getAllCoursesIdAndName);
 app.get('/course/:id', courseRoute.getCourseByID);
 app.get('/course/courseandvideo/:id', courseRoute.getCourseAndVideosByID);
 app.delete('/course/:id', courseRoute.deleteVideoByID);
