@@ -23,7 +23,10 @@ import { JwtInterceptor } from './helpers';
 import { SlimLoadingBarModule } from 'ng2-slim-loading-bar';
 import { SnackBarService } from './services/snackbar.service';
 import { ResultsComponent } from './components/results/results.component';
-
+import { ServiceWorkerModule } from '@angular/service-worker';
+import { environment } from '../environments/environment';
+import { ClassComponent } from './components/class/class.component';
+import { VideoCardComponent } from './components/video-card/video-card.component';
 
 @NgModule({
   declarations: [
@@ -35,7 +38,9 @@ import { ResultsComponent } from './components/results/results.component';
     WatchVideoComponent,
     UserRegisterComponent,
     ProfileComponent,
-    ResultsComponent
+    ResultsComponent,
+    ClassComponent,
+    VideoCardComponent
   ],
   imports: [
     BrowserModule,
@@ -47,9 +52,13 @@ import { ResultsComponent } from './components/results/results.component';
     NguCarouselModule,
     HttpClientModule,
     SlimLoadingBarModule,
+    ServiceWorkerModule.register('ngsw-worker.js', { enabled: environment.production }),
   ],
   providers: [
-    { provide: HTTP_INTERCEPTORS, useClass: JwtInterceptor, multi: true }, SnackBarService
+    {
+      provide: HTTP_INTERCEPTORS, useClass: JwtInterceptor, multi: true
+    },
+    SnackBarService,
   ],
   bootstrap: [AppComponent]
 })

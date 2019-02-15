@@ -1,0 +1,30 @@
+<mat-toolbar color="primary">
+  <mat-toolbar-row class="docs-primary-header component-page-header">
+    <mat-icon (click)="this._location.back()" class="backhistory-icon">keyboard_backspace</mat-icon>
+    <span>Course: {{course?.name}}</span>
+    <span class="example-spacer"></span>
+    <mat-icon class="example-icon">verified_user</mat-icon>
+  </mat-toolbar-row>
+</mat-toolbar>
+<mat-card class="container">
+  <div class="row">
+
+    <div class="col-md-6">
+
+      <div class="form-horizontal">
+        <div class="form-group">
+          <label class="mat-h3">Description</label>
+          <p class="mat-h4">{{ course?.description }}</p>
+        </div>
+      </div>
+
+      <div id="videos" class="videos dragscroll">
+        <app-video-card *ngFor="let video of course.videos" [course]="course"
+          [video]="video" [percent]="percents[video._id]"></app-video-card>
+
+      </div>
+
+    </div>
+
+  </div>
+</mat-card>

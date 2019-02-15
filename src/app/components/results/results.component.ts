@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, AfterViewInit, ViewChild, ViewChildren } from '@angular/core';
 
 import { VideoService } from '../../services/video.service';
 import { ActivatedRoute } from "@angular/router";
@@ -11,7 +11,7 @@ import 'rxjs/add/operator/filter';
   templateUrl: './results.component.html',
   styleUrls: ['./results.component.css']
 })
-export class ResultsComponent implements OnInit {
+export class ResultsComponent implements OnInit, AfterViewInit {
 
   constructor(private vs: VideoService, private route: ActivatedRoute, private router: Router) { }
   query: String = '';
@@ -23,9 +23,14 @@ export class ResultsComponent implements OnInit {
         console.log(params); // {query: "popular"}
 
         this.query = params.query;
-        if (this.query)
-          this.searching();
+        this.searching();
       });
+  }
+  @ViewChildren('searchquery') queryElement;
+  ngAfterViewInit() {
+    setTimeout(() => {
+      this.queryElement.first.nativeElement.focus();
+      }, 200);
   }
   searching() {
     console.log(this.query);

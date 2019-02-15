@@ -46,7 +46,17 @@ const videoUploadOptions = upload.fields([{
 const app = express();
 app.use(bodyParser.json());
 app.use(cors());
-app.use('/course', auth, courseRoute );
+
+//app.use('/course', auth, courseRoute );
+// Course Routes
+app.get('/course/getall', courseRoute.getAllCoursesAndVideos);
+app.get('/course/idname', courseRoute.getAllCoursesIdAndNameByID);
+app.get('/course/:id', courseRoute.getCourseByID);
+app.get('/course/courseandvideo/:id', courseRoute.getCourseAndVideosByID);
+app.delete('/course/:id', courseRoute.deleteVideoByID);
+app.put('/course/:id', courseRoute.putVideoByID);
+app.post('/course/', courseRoute.postCourse);
+
 var myLogger = function (req, res, next) {
   console.log('LOGGED');
   next();
@@ -93,4 +103,4 @@ app.get('/video/search/:query', auth, videoRoute.getVideosByNameOrDesc);
 
 const port = process.env.PORT || 4000;
 
-const server = app.listen(port, '192.168.1.6');
+const server = app.listen(port, '192.168.1.2');

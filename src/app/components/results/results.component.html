@@ -13,16 +13,16 @@
 
       <h1 class="mat-h2">Results <span *ngIf="results.length">({{results.length}})</span></h1>
       <mat-form-field class="example-full-width">
-        <input (input)="searching()" matInput placeholder="Search input here" [(ngModel)]="query">
+        <input (input)="searching()" autofocus #searchquery matInput placeholder="Search input here" [(ngModel)]="query">
       </mat-form-field>
       <div>
 
-        <div class="result" [routerLink]="['/video/'+video._id]" *ngFor="let video of results">
+        <div class="result"  [routerLink]="['/video/'+video._id]" *ngFor="let video of results">
 
           <h3 class="mat-h3">{{video.name}}</h3>
           <div class="mat-body description">
 
-            <div class="example-header-image mat-card-avatar">
+            <div [style.background-image]="'url(' + vs.uri + '/thumb/' + video._id + ')'" class="example-header-image mat-card-avatar-x">
 
             </div>
             <div class="asdesc">

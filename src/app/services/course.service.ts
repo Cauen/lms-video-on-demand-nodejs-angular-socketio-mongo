@@ -35,6 +35,14 @@ export class CourseService {
     return this.http.get(`${this.uri}/`);
   }
 
+  getCourseByID(id) {
+    return this.http.get(`${this.uri}/`+ id);
+  }
+
+  getCourseAndVideosByID(id) {
+    return this.http.get(`${this.uri}/courseandvideo/`+ id);
+  }
+
   getCoursesAndData() {
     return this.http.get(`${this.uri}/getall`);
   }

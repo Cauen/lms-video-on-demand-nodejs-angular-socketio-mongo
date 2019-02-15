@@ -1,0 +1,30 @@
+<div class="video-card-component">
+  <mat-card *ngIf="video" class="video-card">
+    <mat-card-header>
+      <div [style.background-image]="'url('+this.vs.uri+'/thumb/'+video._id+')'" mat-card-avatar
+        class="example-header-image"></div>
+      <mat-card-title [routerLink]="'/video/'+video._id">{{video.name}}</mat-card-title>
+      <mat-card-subtitle>{{course.name}}</mat-card-subtitle>
+    </mat-card-header>
+    <div class="video-image" width="400" [style.margin-bottom]="0"
+      [style.background-image]="'url('+this.vs.uri+'/thumb/'+video._id+')'">
+      <div class="duration"><span>{{millisToMinutesAndSeconds(video.videoDuration)}}</span>
+      </div>
+    </div>
+    <div class="progress " style="height: 2px;margin: 0 -16px 16px -16px;">
+      <span class="progress-bar" style="height: 2px;display: block;">
+        <span [style.width]="percent+'%'" role="presentation" class="progress-completed"
+          style="height: 2px;display: block;background: red;">
+        </span>
+      </span>
+    </div>
+    <mat-card-content>
+      <p>{{video.description}}
+      </p>
+    </mat-card-content>
+    <mat-card-actions>
+      <button [routerLink]="'/video/'+video._id" mat-button>Watch</button>
+      <button mat-button>Share</button>
+    </mat-card-actions>
+  </mat-card>
+</div>

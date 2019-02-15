@@ -6,7 +6,7 @@
   </mat-toolbar-row>
 </mat-toolbar>
 <div class="classes-list" *ngFor="let course of coursesAndDataWithVideos; let c = index">
-  <h2 class="mat-h2">{{course.name}}</h2>
+  <h2 style="cursor: pointer;" [routerLink]="'/class/'+course._id" class="mat-h2">{{course.name}}</h2>
   <p class="mat-body">{{course.description}}</p>
   <!-- <ngu-carousel  #myCarousel [inputs]="carouselTile" [dataSource]="carouselTileItems"> -->
   <ngu-carousel #myCarousel [inputs]="carouselTile" [dataSource]="course.videos">
@@ -18,7 +18,7 @@
           <mat-card-subtitle>{{course.name}}</mat-card-subtitle>
         </mat-card-header>
 
-        <!-- <video width="400" [style.background-image]="getThumbURL(c, i)" preload="metadata" id="videoPlayer" poster="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7"  controls>
+        <!-- <video width="400" [style.background-image]="getThumbURL(c, desc)" preload="metadata" id="videoPlayer" poster="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7"  controls>
       <source [src]="getVideoURL(c, i)"  type="video/mp4">
     </video> 
     <img mat-card-image src="https://material.angular.io/assets/img/examples/shiba2.jpg" alt="Photo of a Shiba Inu">-->

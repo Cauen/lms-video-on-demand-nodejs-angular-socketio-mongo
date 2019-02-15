@@ -30,6 +30,7 @@ export class ClassesListComponent implements OnInit {
   coursesAndData: Courses[] = [];
   videosWatching;
   percents: any = [];
+  percentsIdIndex: any = [];
   coursesAndDataWithVideos: Courses[] = [];
   imgags = [
     'assets/bg.jpg',
@@ -105,6 +106,15 @@ export class ClassesListComponent implements OnInit {
         console.log(res);
 
         this.percents = res;
+
+        var percentages : any = res;
+        var percents = [];
+        percentages.map(video => { 
+          percents[video.videoid] = video.percent;
+        })
+        this.percentsIdIndex = percents;
+        console.log('PERCENTAGE INDEX');
+        console.log(this.percentsIdIndex);
       });
     });
   }

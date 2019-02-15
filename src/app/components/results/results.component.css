@@ -12,19 +12,23 @@ h3 {
     font-size: 20px;
 }
 
-.description {
-    font-size: 16px;
-    display: flex;
-    flex-direction: row;
+@media only screen and (min-width: 980px) {
+    .description {
+        font-size: 16px;
+        display: flex;
+        flex-direction: row;
+    }
 }
 
-.mat-card-avatar {
+.mat-card-avatar-x {
     height: 180px;
     width: 320px;
     border-radius: 0;
     object-fit: cover;
-    background: url('http://192.168.1.6:4000/video/thumb/5c636ff2972a4a186ceb96ca');
-    background-size: contain;
+    background-size: cover;
+    background-position: center;
+    flex-shrink: unset;
+    max-width: 100%;
 }
 
 .desc {
@@ -38,3 +42,4 @@ h3 {
 .container {
     padding: 16px;
 }
+

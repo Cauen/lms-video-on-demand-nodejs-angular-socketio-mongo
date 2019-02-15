@@ -9,7 +9,7 @@ let Video = require('../models/Video');
 var ObjectId = require('mongodb').ObjectID;
 
 // Defined store route
-courseRoutes.route('/add').post(function (req, res) {
+module.exports.postCourse = (function (req, res) {
   let course = new Course(req.body);
   course.save()
     .then(course => {
@@ -20,55 +20,20 @@ courseRoutes.route('/add').post(function (req, res) {
     });
 });
 
-// Defined get data(index or listing) route
-courseRoutes.route('/').get(function (req, res) {
+module.exports.getAllCoursesIdAndNameByID = (function (req, res) {
   Course.find(function (err, courses) {
     if (err) {
-      console.log(err);
+      return res.send(err);
     }
     else {
-      var returnCourses = [];
-      courses.forEach(function (value, key) {
-        returnCourses.push({ name: courses[key].name, id: courses[key]._id });
-      });
-      res.json(returnCourses);
+      res.json(courses.map(course => {
+        return { _id: course._id, name: course.name };
+      }));
     }
   });
 });
 
-/*
-// Defined get data(index or listing) route
-courseRoutes.route('/getall').get(async function (req, res) {
-  await Course.find(async function (err, courses){
-    if(!courses){
-      res.json({success: false, message: "No Courses Found."});
-      return;
-    }
-    
-    for (key in courses) {
-      var id = courses[key]._id;
-      var o_id = new ObjectId(id);
-      courses[key].videos = [];
-      const myVideos = await Video.find({course: o_id}, function(err, videos) {
-        if (videos) {
-            courses[key].videos = videos;
-            console.log("Video: " + JSON.stringify(videos._id))
-          
-        } else {
-          courses[key].videos = [];
-        }
-      });
-    }
-
-    console.log('Returning');
-    console.log(courses);
-    res.json(courses);
-    
-  });
-}); */
-
-// Defined get data(index or listing) route
-courseRoutes.route('/getall').get(async function (req, res) {
+module.exports.getAllCoursesAndVideos = (async function (req, res) {
   await Course.find().populate('videos').exec(function (err, courses) {
     if (err) {
       console.log('Error')
@@ -78,16 +43,27 @@ courseRoutes.route('/getall').get(async function (req, res) {
   });
 });
 
-// Defined edit route
-courseRoutes.route('/edit/:id').get(function (req, res) {
+module.exports.getCourseByID = (function (req, res) {
   let id = req.params.id;
   Course.findById(id, function (err, course) {
+    if (err) {
+      return res.send(err);
+    }
     res.json(course);
   });
 });
 
-//  Defined update route
-courseRoutes.route('/update/:id').post(function (req, res) {
+module.exports.getCourseAndVideosByID = (function (req, res) {
+  let id = req.params.id;
+  Course.findById(id).populate('videos').exec(function (err, course) {
+    var videos = course.videos.map(video => {
+      return { _id: video._id, name: video.name, fileThumbDirURL: video.fileThumbDirURL, videoDuration: video.videoDuration, description: video.description }
+    })
+    res.json({ name: course.name, description: course.description, videos: videos });
+  });
+});
+
+module.exports.putVideoByID = (function (req, res) {
   Course.findById(req.params.id, function (err, course) {
     if (!course)
       return next(new Error('Could not load Document'));
@@ -107,11 +83,9 @@ courseRoutes.route('/update/:id').post(function (req, res) {
 });
 
 // Defined delete | remove | destroy route
-courseRoutes.route('/delete/:id').get(function (req, res) {
+module.exports.deleteVideoByID = (function (req, res) {
   Course.findByIdAndRemove({ _id: req.params.id }, function (err, course) {
     if (err) res.json(err);
     else res.json('Successfully removed');
   });
 });
-
-module.exports = courseRoutes;

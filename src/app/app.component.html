@@ -12,9 +12,9 @@
     <a *ngIf="auth.isLoggedIn()" [routerLink]="['/results']"><button mat-menu-item>
         <mat-icon style="margin: 0; color:white;">search</mat-icon>
       </button></a>
-    <a *ngIf="auth.isLoggedIn()" [routerLink]="['/profile']"><button mat-button>Welcome,
+    <a class="hide-on-mobile" *ngIf="auth.isLoggedIn()" [routerLink]="['/profile']"><button mat-button>Welcome,
         {{auth.getUserDetails().name}}</button></a>
-    <a *ngIf="auth.isLoggedIn()" [routerLink]="['/courses']"><button mat-button>Classes</button></a>
+    <a class="hide-on-mobile" *ngIf="auth.isLoggedIn()" [routerLink]="['/courses']"><button mat-button>Classes</button></a>
     <a *ngIf="!auth.isLoggedIn()" [routerLink]="['/login']"><button mat-button>Login</button></a>
     <a *ngIf="!auth.isLoggedIn()" [routerLink]="['/register']"><button mat-button>Register</button></a>
     <button mat-icon-button [matMenuTriggerFor]="menu">

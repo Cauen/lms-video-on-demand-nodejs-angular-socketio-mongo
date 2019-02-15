@@ -8,6 +8,7 @@ import { CreateCourseComponent } from './components/create-course/create-course.
 import { WatchVideoComponent } from './components/watch-video/watch-video.component';
 import { ProfileComponent } from './components/profile/profile.component';
 import { ResultsComponent } from './components/results/results.component';
+import { ClassComponent } from './components/class/class.component';
 
 
 import { AuthGuardService } from './services/onlinecheck.service';
@@ -52,6 +53,10 @@ const routes: Routes = [
   {
     path: 'results',
     component: ResultsComponent
+  },
+  {
+    path: 'class/:id',
+    component: ClassComponent
   },
 ];
 
