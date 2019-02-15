@@ -19,7 +19,7 @@
       </div>
 
       <div id="videos" class="videos dragscroll">
-        <app-video-card *ngFor="let video of course.videos" [course]="course"
+        <app-video-card *ngFor="let video of course.videos" [subcard]="course.name"
           [video]="video" [percent]="percents[video._id]"></app-video-card>
 
       </div>

@@ -26,6 +26,8 @@ export class ClassesListComponent implements OnInit {
   percents: any = [];
   percentsIdIndex: any = [];
   coursesAndDataWithVideos: any = [];
+  lastWatchedVideo:any = {};
+
   constructor(private vs: VideoService,
     private route: ActivatedRoute,
     private router: Router,
@@ -42,8 +44,18 @@ export class ClassesListComponent implements OnInit {
     this.userDetails = this.as.getUserDetails();
 
     this.getVideoPercents();
+    this.getLastWatchedVideo();
     this.loadscrollScript();
     
+  }
+
+  getLastWatchedVideo() {
+    this.route.params.subscribe(params => {
+      this.us.getLastWatchedVideo().subscribe(res => {
+        this.lastWatchedVideo = res;
+        this.lastWatchedVideo.localeDateTime = new Date(this.lastWatchedVideo.updated).toLocaleString();
+      })
+    })
   }
 
   getCourses() {

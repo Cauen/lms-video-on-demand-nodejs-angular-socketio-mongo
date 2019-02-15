@@ -63,4 +63,10 @@ app-video-card {
         padding: 10px;
         box-sizing: border-box;
     }
+
+    #last_watched {
+        width: 50%;
+        margin: auto !important;
+    }
 }
+

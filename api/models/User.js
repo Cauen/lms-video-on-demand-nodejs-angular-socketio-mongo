@@ -44,7 +44,7 @@ let User = new Schema({
     percent: {
       type: Number
     },
-    updated: { type: Date, default: Date.now },
+    updated: { type: Date },
   }],
   updated: { type: Date, default: Date.now },
 }, {

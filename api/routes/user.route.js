@@ -39,6 +39,24 @@ userRoutes.route('/edit/:id').get(function (req, res) {
   });
 });
 
+// Defined edit route
+userRoutes.route('/getlastwatchedvideo/:id').get(function (req, res) {
+  let id = req.params.id;
+  User.findById(id).populate('watching.video').populate('watching').exec(function (err, user) {
+    var watch = (user.watching.map(watch => {
+      return watch;
+    }));
+    // Return only already watched
+    watch = watch.filter(wat => { if (wat.updated) return true; else return false; })
+    // Sort by last watched, and pick first
+    watch.sort(function (a, b) { return b.updated.getTime() - a.updated.getTime() });
+    if (watch[0] && watch[0].percent < 90)
+      res.json(watch[0]);
+    else
+      res.json({});
+  });
+});
+
 //  Defined update route
 userRoutes.route('/update/:id').post(function (req, res) {
   User.findById(req.params.id, function (err, user) {
@@ -83,7 +101,7 @@ userRoutes.route('/setvideotiming').post(function (req, res) {
         }
       }
       if (!foundVideo)
-        user.watching.push({ video: v_id, secondswatched: timing });
+        user.watching.push({ video: v_id, secondswatched: timing, updated: new Date() });
       //user.watching= [{video: v_id, secondswatched: timing}];
       user.save().then(user => {
         res.json('Update complete user video timing');

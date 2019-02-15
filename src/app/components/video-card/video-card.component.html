@@ -4,7 +4,7 @@
       <div [style.background-image]="'url('+this.vs.uri+'/thumb/'+video._id+')'" mat-card-avatar
         class="example-header-image"></div>
       <mat-card-title [routerLink]="'/video/'+video._id">{{video.name}}</mat-card-title>
-      <mat-card-subtitle>{{course.name}}</mat-card-subtitle>
+      <mat-card-subtitle>{{subcard}}</mat-card-subtitle>
     </mat-card-header>
     <div class="video-image" width="400" [style.margin-bottom]="0"
       [style.background-image]="'url('+this.vs.uri+'/thumb/'+video._id+')'">

@@ -9,7 +9,7 @@
 }
 
 .video-image {
-    height: 140px;
+    padding-bottom: 45%;
     background-size: cover;
     background-repeat: no-repeat;
     width: calc(100% + 32px);

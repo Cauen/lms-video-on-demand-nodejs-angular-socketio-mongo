@@ -13,7 +13,7 @@ var appport = ipconfig.port;
 export class UserService {
 
   uri = 'http://' + appip + ':' + appport + '/user';
-  token = { headers: { Authorization: `Bearer ${this.as.getToken()}` } };
+  user = this.as.getUserDetails();
 
   constructor(private http: HttpClient, private as: AuthService) { }
 
@@ -35,6 +35,10 @@ export class UserService {
       videoid: videoid,
     };
     return this.http.post(`${this.uri}/getvideotimings`, obj);
+  }
+
+  getLastWatchedVideo() {
+    return this.http.get(`${this.uri}/getlastwatchedvideo/` + this.user._id);
   }
 
   getUserTimings(userid) {

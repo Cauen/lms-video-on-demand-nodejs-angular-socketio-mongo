@@ -5,11 +5,15 @@
     <mat-icon class="example-icon">verified_user</mat-icon>
   </mat-toolbar-row>
 </mat-toolbar>
+<div *ngIf="lastWatchedVideo.video" id="last_watched">
+    <app-video-card [video]="lastWatchedVideo.video"
+    [subcard]="lastWatchedVideo.localeDateTime" [percent]="lastWatchedVideo.percent"></app-video-card>
+</div>
 <div class="classes-list" *ngFor="let course of coursesAndDataWithVideos; let c = index">
   <h2 style="cursor: pointer;" [routerLink]="'/class/'+course._id" class="mat-h2">{{course.name}} ({{course.watchedCount}}/{{course.totalVideos}}) <span class="view-all">View all</span></h2>
   <p class="mat-body">{{course.description}}</p>
   <div class="videos dragscroll">
-    <app-video-card *ngFor="let video of course.videos" [course]="course" [video]="video"
+    <app-video-card *ngFor="let video of course.videos" [subcard]="course.name" [video]="video"
       [percent]="percents[video._id]"></app-video-card>
 
   </div>

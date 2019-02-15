@@ -8,7 +8,7 @@ import { VideoService } from '../../services/video.service';
 })
 export class VideoCardComponent implements OnInit {
   @Input() video;
-  @Input() course;
+  @Input() subcard;
   @Input() percent : number = 0;
   constructor(private vs: VideoService) { }
 
