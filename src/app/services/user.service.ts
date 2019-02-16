@@ -30,22 +30,15 @@ export class UserService {
   }
 
   getUserTiming(userid, videoid) {
-    const obj = {
-      userid: userid,
-      videoid: videoid,
-    };
-    return this.http.post(`${this.uri}/getvideotimings`, obj);
+    return this.http.get(`${this.uri}/videotime/` + userid + '/' + videoid);
   }
 
   getLastWatchedVideo() {
-    return this.http.get(`${this.uri}/getlastwatchedvideo/` + this.user._id);
+    return this.http.get(`${this.uri}/lastwatched/` + this.user._id);
   }
 
   getUserTimings(userid) {
-    const obj = {
-      userid: userid,
-    };
-    return this.http.post(`${this.uri}/getvideostimings`, obj);
+    return this.http.get(`${this.uri}/getvideostimings/` + userid);
   }
 
 

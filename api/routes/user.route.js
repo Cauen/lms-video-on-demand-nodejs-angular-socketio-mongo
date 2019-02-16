@@ -3,13 +3,10 @@ const app = express();
 const userRoutes = express.Router();
 var ObjectId = require('mongodb').ObjectID;
 
-// Require User model in our routes module
 let User = require('../models/User');
 
-// Defined store route
-userRoutes.route('/add').post(function (req, res) {
-  //let user = new User(req.body);
-  let user = new User({ username: 'emanuel', email: 'emanuel-caue14@hotmail.com', name: 'Emanuel', hash: '1jiasda8sd', salt: 'ajsd8asdj' });
+module.exports.addUser = (function (req, res) {
+  let user = new User(req.body);
   user.save()
     .then(user => {
       res.status(200).json({ 'user': 'user in added successfully' });
@@ -19,20 +16,18 @@ userRoutes.route('/add').post(function (req, res) {
     });
 });
 
-// Defined get data(index or listing) routez
-userRoutes.route('/').get(function (req, res) {
+module.exports.getAllUsers = (function (req, res) {
   User.find(function (err, useres) {
-    if (err) {
+    if (err)
       console.log(err);
-    }
-    else {
+    else
       res.json(useres);
-    }
+
   });
 });
 
 // Defined edit route
-userRoutes.route('/edit/:id').get(function (req, res) {
+module.exports.getUserByID = (function (req, res) {
   let id = req.params.id;
   User.findById(id, function (err, user) {
     res.json(user);
@@ -40,9 +35,11 @@ userRoutes.route('/edit/:id').get(function (req, res) {
 });
 
 // Defined edit route
-userRoutes.route('/getlastwatchedvideo/:id').get(function (req, res) {
+module.exports.getLastWatchedVideoByUserID = (function (req, res) {
   let id = req.params.id;
   User.findById(id).populate('watching.video').populate('watching').exec(function (err, user) {
+    if (!user)
+      return res.status(404).json({ error: 'User not found' });
     var watch = (user.watching.map(watch => {
       return watch;
     }));
@@ -58,7 +55,7 @@ userRoutes.route('/getlastwatchedvideo/:id').get(function (req, res) {
 });
 
 //  Defined update route
-userRoutes.route('/update/:id').post(function (req, res) {
+module.exports.putUserByID = (function (req, res) {
   User.findById(req.params.id, function (err, user) {
     if (!user)
       return next(new Error('Could not load Document'));
@@ -78,7 +75,7 @@ userRoutes.route('/update/:id').post(function (req, res) {
 });
 
 //  Defined update route
-userRoutes.route('/setvideotiming').post(function (req, res) {
+module.exports.setUserTimingByID = (function (req, res) {
   var userid = req.body.userid;
   User.findById(userid, function (err, user) {
     if (!user)
@@ -114,9 +111,9 @@ userRoutes.route('/setvideotiming').post(function (req, res) {
 });
 
 //  Defined update route
-userRoutes.route('/getvideotimings').post(function (req, res) {
-  var userid = req.body.userid;
-  var videoid = req.body.videoid;
+module.exports.getVideoTimingsByID = (function (req, res) {
+  var userid = req.params.uid;
+  var videoid = req.params.vid;
   User.findById(userid, function (err, user) {
     if (!user)
       return next(new Error('User dont exist'));
@@ -132,11 +129,11 @@ userRoutes.route('/getvideotimings').post(function (req, res) {
 });
 
 //  Defined update route
-userRoutes.route('/getvideostimings').post(function (req, res, next) {
-  var userid = req.body.userid;
+module.exports.getVideosTimingsByID = (function (req, res, next) {
+  var userid = req.params.uid;
   User.findById(userid, function (err, user) {
     if (!user)
-      return next(new Error('User dont exist'));
+      return res.status(404).json(err);
     else {
       var videosPercents = [];
       //return res.json(user.watching)
@@ -151,11 +148,9 @@ userRoutes.route('/getvideostimings').post(function (req, res, next) {
 });
 
 // Defined delete | remove | destroy route
-userRoutes.route('/delete/:id').get(function (req, res) {
-  User.findByIdAndRemove({ _id: req.params.id }, function (err, user) {
+module.exports.deleteUserByID = (function (req, res) {
+  User.findByIdAndRemove({ _id: req.params.uid }, function (err, user) {
     if (err) res.json(err);
     else res.json('Successfully removed');
   });
 });
-
-module.exports = userRoutes;

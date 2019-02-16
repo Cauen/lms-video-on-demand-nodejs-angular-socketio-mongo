@@ -42,7 +42,7 @@ export class ClassesListComponent implements OnInit {
   ngOnInit() {
 
     this.userDetails = this.as.getUserDetails();
-
+    console.log(this.userDetails);
     this.getVideoPercents();
     this.getLastWatchedVideo();
     this.loadscrollScript();

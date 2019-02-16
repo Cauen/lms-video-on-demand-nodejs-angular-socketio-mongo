@@ -122,7 +122,7 @@ export class WatchVideoComponent implements OnInit, AfterViewInit {
     var now: Date = new Date();
     var secondsWithoutUpdate = (now.getTime() - this.lastTimeUpdate.getTime()) / 1000;
     var saveEach = 10; //Save each 10 seconds
-    if (secondsWithoutUpdate > saveEach) {
+    if (secondsWithoutUpdate > saveEach || this.currentTime >= this.duration) {
       this.lastTimeUpdate = new Date();
       console.log('Updating time saved on user: ' + this.currentTime);
       this.us.setUserTiming(this.userDetails._id, this.currentTime, this.id, this.duration);

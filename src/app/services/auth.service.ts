@@ -2,12 +2,13 @@ import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
-import { Router } from '@angular/router';
+import { Router, UrlSegmentGroup } from '@angular/router';
 
 export interface UserDetails {
   _id: string;
   email: string;
   name: string;
+  role: string;
   exp: number;
   iat: number;
 }
@@ -21,6 +22,7 @@ export interface TokenPayload {
   password: string;
   name?: string;
   username?: string;
+  role?: string;
 }
 
 const ipconfig = require('./config');
@@ -66,6 +68,15 @@ export class AuthService {
   public isLoggedIn(): boolean {
     const user = this.getUserDetails();
     if (user) {
+      return user.exp > Date.now() / 1000;
+    } else {
+      return false;
+    }
+  }
+
+  public isAdmin(): boolean {
+    const user = this.getUserDetails();
+    if (user && user.role == 'administrator') {
       return user.exp > Date.now() / 1000;
     } else {
       return false;

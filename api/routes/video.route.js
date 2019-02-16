@@ -117,6 +117,9 @@ module.exports.watchID = (function (req, res) {
     console.log(JSON.stringify(video));
 
     const path = 'videos/' + videoURL
+    if (!fs.existsSync(path))
+      return res.status(404).send('File of video not found');
+
     const stat = fs.statSync(path);
     console.log(JSON.stringify(stat))
     const fileSize = stat.size

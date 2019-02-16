@@ -2,6 +2,7 @@ const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
 var crypto = require('crypto');
 var jwt = require('jsonwebtoken');
+var jwt_auth_key = require('../config/jwt_auth');
 
 var validateEmail = function (email) {
   var re = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/;
@@ -69,8 +70,9 @@ User.methods.generateJwt = function () {
     _id: this._id,
     email: this.email,
     name: this.name,
+    role: this.role,
     exp: parseInt(expiry.getTime() / 1000),
-  }, "MY_SECRET"); // DO NOT KEEP YOUR SECRET IN THE CODE!
+  }, jwt_auth_key);
 };
 
 

@@ -13,6 +13,7 @@ module.exports.postCourse = (function (req, res) {
   let course = new Course(req.body);
   course.save()
     .then(course => {
+      console.log('course added');
       res.status(200).json({ 'course': 'course in added successfully' });
     })
     .catch(err => {

@@ -25,7 +25,7 @@
           <mat-icon>dialpad</mat-icon>
           <span>Upload Video</span>
         </button></a>
-      <a [routerLink]="['/course/create']"><button mat-menu-item>
+      <a *ngIf="auth.isAdmin()" [routerLink]="['/course/create']"><button mat-menu-item>
           <mat-icon>voicemail</mat-icon>
           <span>Create Course</span>
         </button></a>
