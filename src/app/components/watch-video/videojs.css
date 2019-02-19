@@ -155,3 +155,9 @@ video-js.vjs-ended .vjs-big-play-button, .video-js.vjs-paused .vjs-big-play-butt
     line-height: 3;
     text-align: right;
 }
+
+.vjs-watermark-content img {
+    max-width: 20vw;
+    float: right;
+    margin: 10px;
+}

@@ -1,7 +1,7 @@
 <mat-toolbar color="primary">
   <mat-toolbar-row class="docs-primary-header component-page-header">
     <mat-icon (click)="this._location.back()" class="backhistory-icon">keyboard_backspace</mat-icon>
-    <span>{{videoName}}</span>
+    <span>Watch Video</span>
     <span class="example-spacer"></span>
     <mat-icon class="example-icon">verified_user</mat-icon>
   </mat-toolbar-row>
@@ -17,6 +17,14 @@
       <source src="data:video/webm;base64," type="video/mp4">
     </video>
   </div>
+  <h1 _ngcontent-c5="" class="mat-h1" style="
+    border-bottom: 1px #c6c6c6 solid;
+    font-size: 19px;
+    line-height: 22px;
+    padding: 20px;
+    margin: 0;
+    border-left: 1px #de2c2c solid;
+"> {{videoName}} </h1>
   <div class="mat-body description" style="
     border-left: 2px #de2c2c solid;
     padding: 20px;

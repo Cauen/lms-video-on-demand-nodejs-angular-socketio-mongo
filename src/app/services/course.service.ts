@@ -68,4 +68,8 @@ export class CourseService {
   getVideosFromCourses(id) {
     return this.http.get(`${this.uri}/ofcourse/` + id);
   }
+
+  getCoursesByQuery(query): any {
+    return this.http.get(`${this.uri}/search/` + query);
+  }
 }

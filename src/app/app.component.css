@@ -15,3 +15,17 @@ a {
     display: none;
   }
 }
+
+.backshow {
+  width: 24px;
+  -webkit-transition: width 0.3s; /* Safari */
+  transition: width 0.3s;
+  opacity: 1;
+}
+
+.backhide {
+  opacity: 0;
+  width: 0px;
+  -webkit-transition: width 0.3s; /* Safari */
+  transition: width 0.3s;
+}

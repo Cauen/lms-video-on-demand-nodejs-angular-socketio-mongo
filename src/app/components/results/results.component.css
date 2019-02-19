@@ -43,3 +43,68 @@ h3 {
     padding: 16px;
 }
 
+
+
+.courses-results {
+    max-width: 100%;
+    overflow-x: auto;
+    position: relative;
+    display: flex;
+    height: 100%;
+}
+
+.course-result {
+    flex: 0 0 30%;
+    width: 30%;
+    padding: 10px;
+    box-sizing: border-box;
+    margin-right: 20px;
+}
+
+@media only screen and (max-width: 470px) {
+    .course-result  {
+        flex: 0 0 90%;
+        width: 90%;
+        padding: 10px;
+        box-sizing: border-box;
+        margin-right: 20px;
+    }
+}
+
+@media only screen and (min-width: 1000px) {
+    .course-result  {
+        flex: 0 0 18%;
+        width: 18%;
+        padding: 10px;
+        box-sizing: border-box;
+        margin-right: 20px;
+    }
+}
+
+@media only screen and (min-width: 1000px) {
+    .courses-results::-webkit-scrollbar {
+        width: 4px;
+        height: 4px;
+        background: white;
+    }
+    /* Track */
+    .courses-results::-webkit-scrollbar-track {
+        box-shadow: none;
+        border-radius: 10px;
+    }
+    /* Track */
+    .courses-results:hover::-webkit-scrollbar-track {
+        box-shadow: inset 0 0 5px #eeeeee;
+        border-radius: 10px;
+    }
+    /* Handle */
+    .courses-results::-webkit-scrollbar-thumb {
+        background: #ff000000;
+        border-radius: 10px;
+    }
+    /* Handle on hover */
+    .courses-results:hover::-webkit-scrollbar-thumb {
+        background: #c8c8c8;
+        transition: 0.2s ease-in;
+    }
+}

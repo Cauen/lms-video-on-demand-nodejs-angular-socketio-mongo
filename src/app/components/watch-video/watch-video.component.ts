@@ -56,6 +56,7 @@ export class WatchVideoComponent implements OnInit, AfterViewInit {
   ) { }
 
   @ViewChild('myvid') vid: ElementRef;
+
   ngAfterViewInit() {
     const options = {
       controls: true,
@@ -69,6 +70,12 @@ export class WatchVideoComponent implements OnInit, AfterViewInit {
 
       this.vidObj = new videojs(this.vid.nativeElement, options, function onPlayerReady() {
         videojs.log('Your player is ready!');
+      });
+
+      this.vidObj.watermark({
+        image: 'assets/images/logo.png',
+        url: 'https://nead.ufersa.edu.br/',
+        position: 'top-left',
       });
     });
 

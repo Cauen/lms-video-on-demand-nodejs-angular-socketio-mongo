@@ -25,3 +25,17 @@
 .video-card-component {
     box-shadow: 0 2px 5px 0 rgba(0, 0, 0, .16), 0 2px 10px 0 rgba(0, 0, 0, .12);
 }
+
+p.video-name {
+    display: -webkit-box !important;
+    -webkit-box-orient: vertical !important;
+    line-height: 20px;
+    min-height: 60px;
+    max-height: 60px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: normal;
+    -webkit-line-clamp: 3;
+    font-weight: 600;
+    
+}

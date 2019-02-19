@@ -58,6 +58,7 @@ app.get(    '/course/getall',             loggedMiddleware, courseRoute.getAllCo
 app.get(    '/course',                    loggedMiddleware, courseRoute.getAllCoursesIdAndName);
 app.get(    '/course/:id',                loggedMiddleware, courseRoute.getCourseByID);
 app.get(    '/course/courseandvideo/:id', loggedMiddleware, courseRoute.getCourseAndVideosByID);
+app.get(    '/course/search/:query',      loggedMiddleware, courseRoute.findCourseByNameDescTag);
 app.delete( '/course/:id',                adminMiddleware,  courseRoute.deleteVideoByID);
 app.put(    '/course/reorder',            adminMiddleware,  courseRoute.putVideoReorderByID);
 app.put(    '/course/update',             adminMiddleware,  courseRoute.putVideoDetailsByID);
@@ -67,7 +68,6 @@ app.post(   '/course/',                   adminMiddleware,  courseRoute.postCour
 app.use(    '/auth',                                        authRoute);
 
 // User Routes
-//app.use('/user', userRoute);
 app.post(   '/user/add',                  adminMiddleware,  userRoute.addUser);
 app.put(    '/user/:id',                  myselfMiddleware, userRoute.putUserByID);
 app.get(    '/user',                      adminMiddleware,  userRoute.getAllUsers);
@@ -80,4 +80,4 @@ app.delete( '/user/:uid',                 adminMiddleware,  userRoute.deleteUser
 
 // Server
 const port = process.env.PORT || 4000;
-const server = app.listen(port, '192.168.1.2');
+const server = app.listen(port, '192.168.1.4');

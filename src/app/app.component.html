@@ -1,7 +1,8 @@
 <ng2-slim-loading-bar [height]="'4px'" color="blue"></ng2-slim-loading-bar>
 <mat-toolbar *ngIf="auth.isLoggedIn()" color="primary">
   <mat-toolbar-row class="mat-elevation-z6">
-    <a class="docs-button mat-button" [routerLink]="['/']"><span class="mat-button-wrapper"><img _ngcontent-c1=""
+    <mat-icon [ngClass]="_router.url !== '/' && showBack ? 'backshow' : 'backhide'" *ngIf="_router.url !== '/'" style="padding-right: 0;" (click)="this._location.back()" class="backhistory-icon">keyboard_backspace</mat-icon>
+    <a style="padding-left: 4px;" class="docs-button mat-button" [routerLink]="['/']"><span class="mat-button-wrapper"><img _ngcontent-c1=""
           alt="angular" class="docs-angular-logo"
           src="https://material.angular.io/assets/img/homepage/angular-white-transparent.svg"><span
           _ngcontent-c1="">NeadTV</span></span></a>

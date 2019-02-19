@@ -36,6 +36,7 @@
     "tslib": "^1.9.0",
     "video.js": "^7.1.0",
     "videojs-flash": "^2.1.1",
+    "videojs-watermark": "^2.0.0",
     "zone.js": "~0.8.26"
   },
   "devDependencies": {

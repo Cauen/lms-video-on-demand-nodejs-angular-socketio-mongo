@@ -27,10 +27,12 @@
               "src/styles.css",
               "src/material_theme.scss",
               "./node_modules/video.js/dist/video-js.min.css",
+              "./node_modules/videojs-watermark/dist/videojs-watermark.css",
               "src/app/components/watch-video/videojs.css"
             ],
             "scripts": [
-              "./node_modules/video.js/dist/video.min.js"
+              "./node_modules/video.js/dist/video.min.js",
+              "./node_modules/videojs-watermark/dist/videojs-watermark.js"
             ]
           },
           "configurations": {

@@ -21,6 +21,23 @@ module.exports.postCourse = (function (req, res) {
     });
 });
 
+module.exports.findCourseByNameDescTag = (function (req, res) {
+  let query = req.params.query;
+  let regex = new RegExp(query, 'i');
+  Course.find({
+    $or: [
+      { name: regex },
+      { description: regex },
+      { tags: regex }
+    ]
+  }, (err, courses) => {
+    if (!courses)
+      return next(new Error('Could not load Document'));
+
+    res.send(courses);
+  });
+})
+
 module.exports.getAllCoursesIdAndName = (function (req, res) {
   Course.find(function (err, courses) {
     if (err) {

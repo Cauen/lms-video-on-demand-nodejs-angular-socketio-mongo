@@ -3,7 +3,8 @@
     <mat-card-header>
       <div [style.background-image]="'url('+this.vs.uri+'/thumb/'+video._id+')'" mat-card-avatar
         class="example-header-image"></div>
-      <mat-card-title [routerLink]="'/video/'+video._id">{{video.name}}</mat-card-title>
+      <mat-card-title *ngIf="vindex !== NaN" [routerLink]="'/video/'+video._id">Class {{vindex+1}}</mat-card-title>
+      <mat-card-title *ngIf="vindex === NaN" [routerLink]="'/video/'+video._id">Last Watched</mat-card-title>
       <mat-card-subtitle>{{subcard}}</mat-card-subtitle>
     </mat-card-header>
     <div class="video-image" width="400" [style.margin-bottom]="0"
@@ -19,7 +20,7 @@
       </span>
     </div>
     <mat-card-content>
-      <p>{{video.description}}
+      <p style="-webkit-box-orient: vertical !important;" class="video-name">{{video.name}}
       </p>
     </mat-card-content>
     <mat-card-actions>

@@ -93,12 +93,14 @@ module.exports.setUserTimingByID = (function (req, res) {
         if (user.watching[i].video == videoid) {
           user.watching[i].secondswatched = timing;
           user.watching[i].percent = timing / videoduration * 100;
+          console.log('PERCENT, TIMING' + timing);
+          console.log('PERCENT, VIDEO DURATION' + videoduration);
           user.watching[i].updated = new Date();
           foundVideo = true;
         }
       }
       if (!foundVideo)
-        user.watching.push({ video: v_id, secondswatched: timing, updated: new Date() });
+        user.watching.push({ video: v_id, secondswatched: timing, percent: timing / videoduration * 100, updated: new Date() });
       //user.watching= [{video: v_id, secondswatched: timing}];
       user.save().then(user => {
         res.json('Update complete user video timing');

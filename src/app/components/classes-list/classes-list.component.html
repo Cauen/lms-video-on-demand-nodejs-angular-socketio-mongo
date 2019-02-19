@@ -16,7 +16,7 @@
   </h2>
   <p class="mat-body">{{course.description}}</p>
   <div class="videos dragscroll">
-    <app-video-card *ngFor="let video of course.videos" [subcard]="course.name" [video]="video"
+    <app-video-card *ngFor="let video of course.videos; let v = index" [vindex]="v" [subcard]="course.name" [video]="video"
       [percent]="percents[video._id]"></app-video-card>
 
   </div>
