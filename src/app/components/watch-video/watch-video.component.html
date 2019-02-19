@@ -3,6 +3,7 @@
     <mat-icon (click)="this._location.back()" class="backhistory-icon">keyboard_backspace</mat-icon>
     <span>Watch Video</span>
     <span class="example-spacer"></span>
+    <mat-icon *ngIf="this.as.isAdmin()" style="cursor: pointer;" [routerLink]="['/video/edit/'+id]" class="example-icon">edit</mat-icon>
     <mat-icon class="example-icon">verified_user</mat-icon>
   </mat-toolbar-row>
 </mat-toolbar>

@@ -81,4 +81,14 @@ export class VideoService {
     return this.http.get(`${this.uri}/search/` + query);
   }
 
+  putVideoDetails(id, name, description, tags) {
+    var data = {
+      id:id,
+      name: name,
+      description: description,
+      tags: tags
+    }
+    return this.http.put(`${this.uri}/update/`, data);
+  }
+
 }

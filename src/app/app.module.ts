@@ -29,6 +29,7 @@ import { VideoCardComponent } from './components/video-card/video-card.component
 import { EditCourseComponent } from './components/edit-course/edit-course.component';
 
 import {DragDropModule} from '@angular/cdk/drag-drop';
+import { EditVideoComponent } from './components/edit-video/edit-video.component';
 
 @NgModule({
   declarations: [
@@ -43,7 +44,8 @@ import {DragDropModule} from '@angular/cdk/drag-drop';
     ResultsComponent,
     ClassComponent,
     VideoCardComponent,
-    EditCourseComponent
+    EditCourseComponent,
+    EditVideoComponent
   ],
   imports: [
     BrowserModule,

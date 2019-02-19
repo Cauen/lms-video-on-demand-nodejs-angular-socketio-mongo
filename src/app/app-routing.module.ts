@@ -10,7 +10,7 @@ import { ProfileComponent } from './components/profile/profile.component';
 import { ResultsComponent } from './components/results/results.component';
 import { ClassComponent } from './components/class/class.component';
 import { EditCourseComponent } from './components/edit-course/edit-course.component';
-
+import { EditVideoComponent } from './components/edit-video/edit-video.component';
 
 import { AuthGuardService } from './services/onlinecheck.service';
 import { GoInIfLoggedService } from './services/goiniflogged.service';
@@ -28,6 +28,7 @@ const routes: Routes = [
   { path: 'results',          component: ResultsComponent ,       canActivate: [AuthGuardService] },
   { path: 'class/:id',        component: ClassComponent,          canActivate: [AuthGuardService] },
   { path: 'course/edit/:id',  component: EditCourseComponent,     canActivate: [ProtectAdminService] },
+  { path: 'video/edit/:id',   component: EditVideoComponent,      canActivate: [ProtectAdminService] },
 ];
 
 @NgModule({

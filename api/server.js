@@ -52,6 +52,7 @@ app.get(    '/video/comments/:id',        loggedMiddleware, videoRoute.commentsI
 app.post(   '/video/comment/:id',         loggedMiddleware, videoRoute.commentId);
 app.get(    '/video/search/:query',       loggedMiddleware, videoRoute.getVideosByNameOrDesc);
 app.post(   '/video/upload/',             adminMiddleware,  videoUploadOptions, videoRoute.upload);
+app.put(    '/video/update/',             adminMiddleware,  videoRoute.putVideoDetailsByID);
 
 // Course Routes
 app.get(    '/course/getall',             loggedMiddleware, courseRoute.getAllCoursesAndVideos);

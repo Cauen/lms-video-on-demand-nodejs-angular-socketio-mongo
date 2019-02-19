@@ -317,3 +317,27 @@ module.exports.ofCourseId = (function (req, res) {
   });
 
 });
+
+module.exports.putVideoDetailsByID = (function (req, res) {
+
+  let videoId = req.body.id;
+  let videoName = req.body.name;
+  let videoDescription = req.body.description;
+  var videoTags = req.body.tags;
+
+  Video.findById(videoId, function (err, video) {
+    if (!video)
+      return next(new Error('Could not load Document'));
+    else {
+      video.name = videoName;
+      video.description = videoDescription;
+      video.tags = videoTags;
+
+      video.save().then(video => {
+        res.json('Update complete');
+      }).catch(err => {
+        res.status(400).send("unable to update the database");
+      });
+    }
+  });
+});

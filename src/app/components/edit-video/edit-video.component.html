@@ -14,7 +14,7 @@
         <tr>
           <td>
             <mat-form-field class="example-full-width">
-              <input matInput placeholder="Name" (input)="editingCourse()" [(ngModel)]="course.name" name="name"
+              <input matInput placeholder="Name" (input)="editingVideo()" [(ngModel)]="video.name" name="name"
                 required>
             </mat-form-field>
           </td>
@@ -22,7 +22,7 @@
         <tr>
           <td>
             <mat-form-field class="example-full-width">
-              <textarea matInput (input)="editingCourse()" [(ngModel)]="course.description" name="description"
+              <textarea matInput (input)="editingVideo()" [(ngModel)]="video.description" name="description"
                 placeholder="Description"></textarea>
             </mat-form-field>
           </td>
@@ -44,33 +44,6 @@
           </td>
         </tr>
       </table>
-      <div cdkDropList class="example-list" (cdkDropListDropped)="drop($event)">
-        <div class="example-box body-1" *ngFor="let video of course?.videos; let i = index" cdkDrag>
-          <span class="videodesc body-1">{{i+1}} - {{video.name}}</span><span class="body-2 videolink"
-            [routerLink]="'/video/'+video._id">View</span>
-          <button class="videomenu" mat-icon-button [matMenuTriggerFor]="menu">
-            <mat-icon>more_vert</mat-icon>
-          </button>
-          <mat-menu #menu="matMenu">
-            <button [routerLink]="'/video/edit/'+video._id" mat-menu-item>
-              <mat-icon>edit</mat-icon>
-              <span>Edit</span>
-            </button>
-            <button mat-menu-item disabled>
-              <mat-icon>voicemail</mat-icon>
-              <span>Check voicemail</span>
-            </button>
-            <button mat-menu-item>
-              <mat-icon>notifications_off</mat-icon>
-              <span>Disable alerts</span>
-            </button>
-          </mat-menu>
-          <div style="padding: 10px" *cdkDragPreview>
-            <h2 class="mat-h2">{{video.name}}</h2>
-            <img width="500px" [src]="this.vs.uri+'/thumb/'+video._id" [alt]="video.name">
-          </div>
-        </div>
-      </div>
 
     </div>
 
