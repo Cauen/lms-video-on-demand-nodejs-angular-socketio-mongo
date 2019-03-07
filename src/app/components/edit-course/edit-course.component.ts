@@ -118,4 +118,17 @@ export class EditCourseComponent implements OnInit {
       this.sbs.openSnackBar('Successfully Reordered', 'Close');
     });
   }
+
+  deleteVideo(videoID) {
+    this.vs.deleteVideoByID(videoID).subscribe(res => {
+      if (res.success) {
+        this.sbs.openSnackBar('Successfully Removed', 'Close');
+        var elem = document.getElementById(videoID);
+        elem.parentNode.removeChild(elem);
+      } else {
+        
+        this.sbs.openSnackBar('Error at Removing', 'Close');
+      }
+    })
+  }
 }

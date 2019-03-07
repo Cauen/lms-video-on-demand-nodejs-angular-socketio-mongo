@@ -341,3 +341,22 @@ module.exports.putVideoDetailsByID = (function (req, res) {
     }
   });
 });
+
+module.exports.deleteVideoByID = (function (req, res) {
+  Video.findByIdAndRemove({ _id: req.params.vid }, function (err, video) {
+    if (err) res.json(err);
+    else {
+
+      fs.unlink(UPLOAD_PATH + '/' + video.fileThumbDirURL, function (err) {
+        if (err) return console.log(err);
+        console.log('file thumb deleted successfully');
+      });
+      fs.unlink(UPLOAD_PATH + '/' + video.fileDirURL, function (err) {
+        if (err) return console.log(err);
+        console.log('file deleted successfully');
+      });
+      res.json({ success: true, message: 'Successfully removed' })
+
+    };
+  });
+});

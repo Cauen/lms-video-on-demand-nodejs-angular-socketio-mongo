@@ -45,7 +45,7 @@ import { EditVideoComponent } from './components/edit-video/edit-video.component
     ClassComponent,
     VideoCardComponent,
     EditCourseComponent,
-    EditVideoComponent
+    EditVideoComponent,
   ],
   imports: [
     BrowserModule,

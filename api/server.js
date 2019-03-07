@@ -53,6 +53,7 @@ app.post(   '/video/comment/:id',         loggedMiddleware, videoRoute.commentId
 app.get(    '/video/search/:query',       loggedMiddleware, videoRoute.getVideosByNameOrDesc);
 app.post(   '/video/upload/',             adminMiddleware,  videoUploadOptions, videoRoute.upload);
 app.put(    '/video/update/',             adminMiddleware,  videoRoute.putVideoDetailsByID);
+app.delete( '/video/delete/:vid',         adminMiddleware,  videoRoute.deleteVideoByID);
 
 // Course Routes
 app.get(    '/course/getall',             loggedMiddleware, courseRoute.getAllCoursesAndVideos);
@@ -81,4 +82,4 @@ app.delete( '/user/:uid',                 adminMiddleware,  userRoute.deleteUser
 
 // Server
 const port = process.env.PORT || 4000;
-const server = app.listen(port, '192.168.1.4');
+const server = app.listen(port, '192.168.1.7');

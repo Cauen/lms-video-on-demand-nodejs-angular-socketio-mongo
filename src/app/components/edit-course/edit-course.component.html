@@ -45,9 +45,10 @@
         </tr>
       </table>
       <div cdkDropList class="example-list" (cdkDropListDropped)="drop($event)">
-        <div class="example-box body-1" *ngFor="let video of course?.videos; let i = index" cdkDrag>
-          <span class="videodesc body-1">{{i+1}} - {{video.name}}</span><span class="body-2 videolink"
-            [routerLink]="'/video/'+video._id">View</span>
+        <div class="example-box body-1" *ngFor="let video of course?.videos; let i = index" [id]="video._id" cdkDrag>
+          <span class="videodesc body-1">{{i+1}} - {{video.name}}</span>
+          <span class="body-2 videolink" [routerLink]="'/video/'+video._id">View</span>
+            
           <button class="videomenu" mat-icon-button [matMenuTriggerFor]="menu">
             <mat-icon>more_vert</mat-icon>
           </button>
@@ -56,13 +57,9 @@
               <mat-icon>edit</mat-icon>
               <span>Edit</span>
             </button>
-            <button mat-menu-item disabled>
-              <mat-icon>voicemail</mat-icon>
-              <span>Check voicemail</span>
-            </button>
-            <button mat-menu-item>
-              <mat-icon>notifications_off</mat-icon>
-              <span>Disable alerts</span>
+            <button (click)="deleteVideo(video._id)" mat-menu-item>
+              <mat-icon>delete</mat-icon>
+              <span>Delete</span>
             </button>
           </mat-menu>
           <div style="padding: 10px" *cdkDragPreview>

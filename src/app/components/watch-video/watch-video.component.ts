@@ -5,6 +5,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { VideoService } from '../../services/video.service';
 import { UserService } from '../../services/user.service';
 import { UserDetails, AuthService } from '../../services/auth.service';
+import { SnackBarService } from '../../services/snackbar.service';
 
 const ipconfig = require('../../services/config');
 var appip = ipconfig.ip;
@@ -52,6 +53,7 @@ export class WatchVideoComponent implements OnInit, AfterViewInit {
     private vs: VideoService,
     private as: AuthService,
     private us: UserService,
+    private sbs: SnackBarService,
     private _location: Location,
   ) { }
 
@@ -188,5 +190,17 @@ export class WatchVideoComponent implements OnInit, AfterViewInit {
   public getThumbURL(): string {
 
     return 'url(' + this.videoThumb + ')';
+  }
+
+  deleteVideo(videoID) {
+    this.vs.deleteVideoByID(videoID).subscribe(res => {
+      if (res.success) {
+        this.sbs.openSnackBar('Successfully Removed', 'Close');
+        this.router.navigateByUrl('/');
+      } else {
+        
+        this.sbs.openSnackBar('Error at Removing', 'Close');
+      }
+    })
   }
 }

@@ -81,6 +81,10 @@ export class VideoService {
     return this.http.get(`${this.uri}/search/` + query);
   }
 
+  deleteVideoByID(id): any {
+    return this.http.delete(`${this.uri}/delete/` + id);
+  }
+
   putVideoDetails(id, name, description, tags) {
     var data = {
       id:id,
