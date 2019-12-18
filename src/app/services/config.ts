@@ -1,4 +1,5 @@
 module.exports = {
-    ip: "192.168.1.7",
-    port: '4000'
+  ip: '192.168.1.2',
+  port: '4000',
+  protocol: 'http'
 };

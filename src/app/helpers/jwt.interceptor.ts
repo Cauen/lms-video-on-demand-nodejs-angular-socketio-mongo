@@ -12,11 +12,19 @@ import { Observable, throwError } from 'rxjs';
 import { map, catchError } from 'rxjs/operators';
 import { Router } from '@angular/router';
 
+const ipconfig = require('../services/config');
+var protocol = ipconfig.protocol;
+
 @Injectable()
 export class JwtInterceptor implements HttpInterceptor {
     constructor(private router: Router) { }
     intercept(request: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
         const token: string = localStorage.getItem('mean-token');
+
+        if (protocol == "https")
+            request = request.clone({
+                url: request.url.replace('http://', 'https://')
+            });
 
         if (token) {
             request = request.clone({ headers: request.headers.set('Authorization', 'Bearer ' + token) });

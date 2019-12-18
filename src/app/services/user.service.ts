@@ -6,13 +6,13 @@ import { AuthService, TokenPayload } from '../services/auth.service';
 const ipconfig = require('./config');
 var appip = ipconfig.ip;
 var appport = ipconfig.port;
-
+var protocol = ipconfig.protocol;
 @Injectable({
   providedIn: 'root'
 })
 export class UserService {
 
-  uri = 'http://' + appip + ':' + appport + '/user';
+  uri = protocol + '://' + appip + ':' + appport + '/user';
   user = this.as.getUserDetails();
 
   constructor(private http: HttpClient, private as: AuthService) { }

@@ -13,7 +13,7 @@ export class ProfileComponent implements OnInit {
 
   details: UserDetails;
 
-  constructor(private auth: AuthService, private _location: Location) { }
+  constructor(private auth: AuthService, public _location: Location) { }
 
   ngOnInit() {
     this.details = this.auth.getUserDetails();

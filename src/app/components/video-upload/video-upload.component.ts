@@ -84,7 +84,7 @@ export class VideoUploadComponent implements OnInit {
     private router: Router,
     private cs: CourseService,
     private sanitizer: DomSanitizer,
-    private _location: Location,
+    public _location: Location,
     private sbs: SnackBarService,
   ) { }
 

@@ -29,7 +29,7 @@ export class EditVideoComponent implements OnInit {
     private route: ActivatedRoute,
     private router: Router,
     private vs: VideoService,
-    private _location: Location,
+    public _location: Location,
     private sbs: SnackBarService,
   ) { }
   id: Number;

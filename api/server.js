@@ -44,7 +44,7 @@ const app = express();
 app.use(bodyParser.json());
 app.use(cors());
 
-//Video Routes
+// Video Routes
 app.get(    '/video/watch/:id',                             videoRoute.watchID);
 app.get(    '/video/thumb/:id',                             videoRoute.thumbID);
 app.get(    '/video/data/:id',            loggedMiddleware, videoRoute.dataId);
@@ -70,6 +70,7 @@ app.post(   '/course/',                   adminMiddleware,  courseRoute.postCour
 app.use(    '/auth',                                        authRoute);
 
 // User Routes
+app.get(    '/user/addadmin',                               userRoute.addAdmin);
 app.post(   '/user/add',                  adminMiddleware,  userRoute.addUser);
 app.put(    '/user/:id',                  myselfMiddleware, userRoute.putUserByID);
 app.get(    '/user',                      adminMiddleware,  userRoute.getAllUsers);
@@ -82,4 +83,4 @@ app.delete( '/user/:uid',                 adminMiddleware,  userRoute.deleteUser
 
 // Server
 const port = process.env.PORT || 4000;
-const server = app.listen(port, '192.168.1.7');
+const server = app.listen(port, '192.168.1.2');

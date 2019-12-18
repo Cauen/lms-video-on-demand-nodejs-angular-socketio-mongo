@@ -35,6 +35,7 @@
             </mat-form-field>
           </td>
         </tr>
+        <!--
         <tr>
           <td>
             <mat-grid-list cols="2" rowHeight="45px">
@@ -46,29 +47,20 @@
             </mat-grid-list>
 
             <mat-table #table [dataSource]="dataSource">
-
-              <!--- Note that these columns can be defined in any order.
-                The actual rendered columns are set as a property on the row definition" -->
-
-              <!-- Position Column -->
               <ng-container matColumnDef="position">
                 <mat-header-cell *matHeaderCellDef> No. </mat-header-cell>
                 <mat-cell *matCellDef="let element"> {{element.position}} </mat-cell>
               </ng-container>
 
-              <!-- Name Column -->
               <ng-container matColumnDef="name">
                 <mat-header-cell *matHeaderCellDef> Name </mat-header-cell>
                 <mat-cell *matCellDef="let element"> {{element.name}} </mat-cell>
               </ng-container>
 
-              <!-- Weight Column -->
               <ng-container matColumnDef="weight">
                 <mat-header-cell *matHeaderCellDef> Weight </mat-header-cell>
                 <mat-cell *matCellDef="let element"> {{element.weight + 2}} </mat-cell>
               </ng-container>
-
-              <!-- Expanded Content Column - The detail row is made up of this one column -->
               <ng-container matColumnDef="expandedDetail">
                 <mat-cell *matCellDef="let detail">
         <tr *ngFor="let item of videos; let i = index">The symbol for asdas asdas asd asd{{item}} is
@@ -85,10 +77,11 @@
         </mat-row>
         </mat-table>
         </td>
+        
         </tr>
+        -->
       </table>
     </form>
-    <mat-spinner [style.display]="showSpinner ? 'block' : 'none'"></mat-spinner>
   </mat-card-content>
   <mat-card-actions>
     <button id="createCourse" mat-raised-button type="button" (click)="create_course()" color="primary">Create

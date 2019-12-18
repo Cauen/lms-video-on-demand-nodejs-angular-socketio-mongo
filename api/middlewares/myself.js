@@ -4,7 +4,9 @@ var secret = require('../config/jwt_auth');
 let User = require('../models/User');
 
 var isAdmin = function (req, res, next) {
-    if (req.headers && req.headers.authorization) {
+    if (!req.headers.authorization)
+        return res.status(401).send('No authorization token');
+    if (req.headers) {
         var authorization;
         var decoded;
         var idInRequest = req.params.id;

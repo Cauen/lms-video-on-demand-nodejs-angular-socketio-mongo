@@ -25,7 +25,7 @@ export class AppComponent implements OnInit {
     public auth: AuthService,
     private _loadingBar: SlimLoadingBarService,
     private _router: Router,
-    private _location: Location,
+    public _location: Location,
     private route: ActivatedRoute,
 
   ) {

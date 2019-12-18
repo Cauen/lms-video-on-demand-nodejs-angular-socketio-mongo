@@ -12,13 +12,14 @@ import { callbackify } from 'util';
 const ipconfig = require('./config');
 var appip = ipconfig.ip;
 var appport = ipconfig.port;
+var protocol = ipconfig.protocol;
 
 @Injectable({
   providedIn: 'root'
 })
 export class VideoService {
 
-  uri = 'http://' + appip + ':' + appport + '/video';
+  uri = protocol + '://' + appip + ':' + appport + '/video';
 
   token = { headers: { Authorization: `Bearer ${this.as.getToken()}` } };
   constructor(private http: HttpClient, private as: AuthService) { }

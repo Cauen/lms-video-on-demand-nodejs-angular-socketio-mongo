@@ -28,8 +28,8 @@ export class ClassComponent implements OnInit {
     private cs: CourseService,
     private vs: VideoService,
     private us: UserService,
-    private as: AuthService,
-    private _location: Location,
+    public as: AuthService,
+    public _location: Location,
     private route: ActivatedRoute,
     private router: Router,
   ) { }

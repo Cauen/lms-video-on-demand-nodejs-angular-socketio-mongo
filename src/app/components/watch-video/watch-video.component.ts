@@ -10,6 +10,7 @@ import { SnackBarService } from '../../services/snackbar.service';
 const ipconfig = require('../../services/config');
 var appip = ipconfig.ip;
 var appport = ipconfig.port;
+var protocol = ipconfig.protocol;
 
 // Declare lib video.js as external of angular
 declare let videojs: any;
@@ -51,10 +52,10 @@ export class WatchVideoComponent implements OnInit, AfterViewInit {
     private route: ActivatedRoute,
     private router: Router,
     private vs: VideoService,
-    private as: AuthService,
+    public as: AuthService,
     private us: UserService,
     private sbs: SnackBarService,
-    private _location: Location,
+    public _location: Location,
   ) { }
 
   @ViewChild('myvid') vid: ElementRef;
@@ -96,7 +97,7 @@ export class WatchVideoComponent implements OnInit, AfterViewInit {
       this.id = (params['id']);
 
       this.lastTimeUpdate = new Date();
-      this.videoThumb = 'http://' + appip + ':' + appport + '/video/thumb/' + this.id;
+      this.videoThumb = protocol + '://' + appip + ':' + appport + '/video/thumb/' + this.id;
 
       console.log(this.videoURL);
       this.setComments();
@@ -152,7 +153,7 @@ export class WatchVideoComponent implements OnInit, AfterViewInit {
           console.log("Começando video em" + res);
           this.startfrom = res;
         }
-        this.videoURL = 'http://' + appip + ':' + appport + '/video/watch/' + this.id + '#t=' + this.startfrom;
+        this.videoURL = protocol + '://' + appip + ':' + appport + '/video/watch/' + this.id + '#t=' + this.startfrom;
       });
     });
   }

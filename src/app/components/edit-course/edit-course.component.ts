@@ -30,7 +30,7 @@ export class EditCourseComponent implements OnInit {
     private router: Router,
     private cs: CourseService,
     private vs: VideoService,
-    private _location: Location,
+    public _location: Location,
     private sbs: SnackBarService,
   ) { }
   id: Number;

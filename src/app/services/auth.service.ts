@@ -28,13 +28,13 @@ export interface TokenPayload {
 const ipconfig = require('./config');
 var appip = ipconfig.ip;
 var appport = ipconfig.port;
-
+var protocol = ipconfig.protocol;
 @Injectable({
   providedIn: 'root'
 })
 export class AuthService {
 
-  uri = 'http://' + appip + ':' + appport + '/auth';
+  uri = protocol + '://' + appip + ':' + appport + '/auth';
   private token: string;
 
   constructor(private http: HttpClient, private router: Router) { }

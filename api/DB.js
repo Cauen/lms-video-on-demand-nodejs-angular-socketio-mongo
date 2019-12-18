@@ -1,3 +1,3 @@
 module.exports = {
-    DB: 'mongodb://localhost:27017/multimidia'
- };
+    DB: 'mongodb+srv://ata:ata@emanuelcluster-d7gth.mongodb.net/engenhariasoftware?retryWrites=true&w=majority'
+};

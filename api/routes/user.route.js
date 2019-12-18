@@ -16,6 +16,30 @@ module.exports.addUser = (function (req, res) {
     });
 });
 
+module.exports.addAdmin = (function (req, res) {
+  var user = new User();
+
+  user.name = 'Nead Admin';
+  user.email = 'nead-admin@admin.com';
+  user.username = 'nead-admin';
+  user.role = 'administrator';
+
+  user.setPassword('neadpass');
+
+  user.save()
+    .then(user => {
+      var token;
+      token = user.generateJwt();
+      res.status(200);
+      res.json({
+        "created": true
+      });
+    })
+    .catch(err => {
+      res.status(400).send('Error'); //Already created
+    });
+});
+
 module.exports.getAllUsers = (function (req, res) {
   User.find(function (err, useres) {
     if (err)

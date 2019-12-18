@@ -25,7 +25,7 @@ export class ResultsComponent implements OnInit, AfterViewInit {
     private as: AuthService,
     private route: ActivatedRoute,
     private router: Router,
-    private _location: Location,
+    public _location: Location,
   ) { }
   query: String = '';
   results: any = [];
